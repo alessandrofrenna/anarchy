@@ -4,11 +4,8 @@ set -e
 # Give people a chance to retry running the installation
 trap 'echo "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh"' ERR
 
-# Installation target
-INSTALLATION_TARGET = $1
-
 # Check if a path was provided as an argument.
-if [ -z "$INSTALLATION_TARGET" ]; then
+if [ -z "$1" ]; then
   echo "Usage: $0 <installation target, dell|thinkpad>"
   exit 1
 fi
@@ -20,8 +17,8 @@ for f in ~/.local/share/anarchy/install/*.sh; do
 done
 
 # Install target specific packages
-echo -e "\nSelected installation target: $INSTALLATION_TARGET"
-DIRECTORY = "~/.local/share/anarchy/install/${INSTALLATION_TARGET}"
+echo -e "\nSelected installation target: $1"
+DIRECTORY="~/.local/share/anarchy/install/$1"
 if [ -d "$DIRECTORY" ]; then
   # If it is a directory, check if it is not empty.
   # The `ls -A` command lists all entries except for '.' and '..'.
