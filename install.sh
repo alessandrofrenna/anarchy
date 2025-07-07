@@ -39,11 +39,15 @@ else
 fi
 
 # Ensure locate is up to date now that everything has been installed
+echo -e "\nUpdating database"
 sudo updatedb
 
 # Remove orphaned packages and clean cache
+echo -e "\nRemoving orphan"
 pacman -Qtdq | sudo pacman -Rns --noconfirm - 2>/dev/null
+echo -e "\nCleaning cache"
 yes | yay -Scc
 
 sleep 10
+echo -e "\nRebooting..."
 reboot
