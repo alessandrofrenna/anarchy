@@ -43,7 +43,7 @@ echo -e "\nUpdating database"
 sudo updatedb
 
 # Remove orphaned packages and clean cache
-ORPHANCOUNT=$(pacman -Qtdq) | wq -l
+ORPHANCOUNT=$(pacman -Qtdq) | wc -l
 if [ $ORPHANCOUNT -gt 0 ] then
   echo -e "\nRemoving orphan"
   sudo pacman -Rns $(pacman -Qdtq)
