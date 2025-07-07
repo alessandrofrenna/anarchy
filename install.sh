@@ -42,7 +42,7 @@ fi
 sudo updatedb
 
 # Remove orphaned packages and clean cache
-pacman -Qtdq | sudo pacman -Rns --noconfirm -
+pacman -Qtdq | sudo pacman -Rns -
 yay -Scc
 
 sleep 10
