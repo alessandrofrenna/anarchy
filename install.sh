@@ -43,8 +43,14 @@ echo -e "\nUpdating database"
 sudo updatedb
 
 # Remove orphaned packages and clean cache
-echo -e "\nRemoving orphan"
-sudo pacman -Rns $(pacman -Qdtq) 2>/dev/null
+ORPHANCOUNT=pacman -Qdtq | wc -l
+if [ $ORPHANCOUNT -gt 0 ] then
+  echo -e "\nRemoving orphan"
+  sudo pacman -Rns $(pacman -Qdtq)
+else
+  echo -e "\nNo orphan package to remove, skipping..."
+fi
+
 echo -e "\nCleaning cache"
 yes | yay -Scc
 
