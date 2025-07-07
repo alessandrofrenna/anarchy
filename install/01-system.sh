@@ -4,7 +4,7 @@ cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
 [ "$cpu_vendor" = "AuthenticAMD" ] && sudo pacman -S --noconfirm amd-ucode
 
 # Install base devel packages
-sudo pacman -S --noconfirm --needed base-devel
+sudo pacman -S --noconfirm --needed base-devel xdg-utils xdg-user-dirs pacman-contrib dbus dbus-broker-units nano
 
 # Install yay as AUR helper if missing
 if ! command -v yay &>/dev/null; then
@@ -26,7 +26,6 @@ yay -S --noconfirm --needed \
   iwd impala lazygit btop nvtop \
   bash bash-completion ntfs-3g \
   zathura zathura-pdf-mupdf zathura-cd zathura-djvu \
-  xdg-utils xdg-user-dirs pacman-contrib dbus-broker-units nano \
   dosfstools jq yt-dlp mkinitcpio-firmware nwg-look
 
 # Enable system-wide services

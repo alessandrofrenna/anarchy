@@ -7,6 +7,7 @@ yay -S --noconfirm --needed \
   faac libwebp libavif libheif dav1d \
   x265 xvidcore x264 libvpx libmpeg2 \
   libva-utils vdpauinfo vulkan-tools
-  
+
+echo -e "\nEnabling pipewire services..."
 # Enable services
 sudo systemctl --user --now enable pipewire pipewire-pulse.service wireplumber
