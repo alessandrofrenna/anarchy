@@ -3,8 +3,8 @@ cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
 [ "$cpu_vendor" = "GenuineIntel" ] && sudo pacman -S --noconfirm intel-ucode linux-firmware-intel
 [ "$cpu_vendor" = "AuthenticAMD" ] && sudo pacman -S --noconfirm amd-ucode
 
-# Install base devel packages
-sudo pacman -S --noconfirm --needed base-devel xdg-utils xdg-user-dirs pacman-contrib dbus dbus-broker-units nano
+# Install base devel, needed and useful packages
+sudo pacman -S --noconfirm --needed base-devel xdg-utils xdg-user-dirs pacman-contrib dbus dbus-broker-units nano plocate
 
 # Install yay as AUR helper if missing
 if ! command -v yay &>/dev/null; then
