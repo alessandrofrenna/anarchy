@@ -46,4 +46,4 @@ pacman -Qtdq | sudo pacman -Rns --noconfirm -
 yay -Scc
 
 sleep 10
-reboot
+systemctl reboot
