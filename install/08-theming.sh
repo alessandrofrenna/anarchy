@@ -12,7 +12,7 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 
 # Setup theme links
 mkdir -p ~/.config/anarchy/themes
-for f in ~/.local/share/anarchy/themes/*; do ln -s "$f" ~/.config/anarchy/themes/; done
+for f in ~/.local/share/anarchy/themes/*; do ln -sf "$f" ~/.config/anarchy/themes/; done
 
 # Set initial theme (default to Rose Pine)
 mkdir -p ~/.config/anarchy/current
