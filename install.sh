@@ -18,14 +18,14 @@ done
 
 # Install target specific packages
 echo -e "\nSelected installation target: $1"
-DIRECTORY="~/.local/share/anarchy/install/$1"
+DIRECTORY=~/.local/share/anarchy/install/$1
 if [ -d "$DIRECTORY" ]; then
   # If it is a directory, check if it is not empty.
   # The `ls -A` command lists all entries except for '.' and '..'.
   # The `test -n` command checks if the output of `ls -A` is not an empty string.
   if [ -n "$(ls -A "$DIRECTORY")" ]; then
     echo "✅ The path '$DIRECTORY' is a directory and it is not empty. Installing target specific packages"
-    for f in ~/.local/share/anarchy/install/*.sh; do
+    for f in ~/.local/share/anarchy/install/$1/*.sh; do
       echo -e "\nRunning installer: $f"
       source "$f"
     done
@@ -40,6 +40,10 @@ fi
 
 # Ensure locate is up to date now that everything has been installed
 sudo updatedb
+
+# Remove orphaned packages and clean cache
+pacman -Qtdq | sudo pacman -Rns --noconfirm -
+yay -Scc
 
 sleep 10
 reboot
