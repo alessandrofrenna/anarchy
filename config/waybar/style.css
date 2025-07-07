@@ -3,7 +3,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: Inter Nerd Font;
-  font-size: 10px;
+  font-size: 1rem;
 }
 
 #workspaces {
@@ -16,6 +16,7 @@
   margin-right: 3px;
 }
 
+#tray,
 #cpu,
 #battery,
 #network,
