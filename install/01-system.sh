@@ -8,11 +8,13 @@ sudo pacman -S --noconfirm --needed base-devel
 
 # Install yay as AUR helper if missing
 if ! command -v yay &>/dev/null; then
+  cd /tmp
   git clone https://aur.archlinux.org/yay-bin.git
   cd yay-bin
   makepkg -si --noconfirm
   cd -
   rm -rf yay-bin
+  cd ~
 fi
 
 # Install system-wide packages
@@ -41,3 +43,6 @@ mkdir -p ~/.local/share/applications
 # Use default bashrc from Anarchy
 echo "source ~/.local/share/anarchy/default/bash/rc" > ~/.bashrc
 echo "source ~/.local/share/anarchy/default/bash/inputrc" > ~/.inputrc
+
+# Create xdg folders inside user /home directory
+xdg-user-dirs-update
