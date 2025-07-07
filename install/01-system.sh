@@ -22,10 +22,10 @@ yay -S --noconfirm --needed \
   openssh wget curl git avahi \
   udisks2 udiskie unzip unrar p7zip \
   man tldr less whois alacritty \
-  fd fzf ripgrep bat imagemagik \
+  fd fzf ripgrep bat imagemagick \
   iwd impala lazygit btop nvtop \
   bash bash-completion ntfs-3g \
-  zathura zathura-pdf-mupdf zathura-cd zathura-djvu \
+  zathura zathura-pdf-mupdf zathura-cb zathura-djvu \
   dosfstools jq yt-dlp mkinitcpio-firmware nwg-look
 
 # Enable system-wide services
