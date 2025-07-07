@@ -5,7 +5,7 @@ set -e
 trap 'echo "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh"' ERR
 
 # Installation target
-local INSTALLATION_TARGET = $1
+INSTALLATION_TARGET = $1
 
 # Check if a path was provided as an argument.
 if [ -z "$INSTALLATION_TARGET" ]; then
@@ -21,7 +21,7 @@ done
 
 # Install target specific packages
 echo -e "\nSelected installation target: $INSTALLATION_TARGET"
-local DIRECTORY = "~/.local/share/anarchy/install/${INSTALLATION_TARGET}"
+DIRECTORY = "~/.local/share/anarchy/install/${INSTALLATION_TARGET}"
 if [ -d "$DIRECTORY" ]; then
   # If it is a directory, check if it is not empty.
   # The `ls -A` command lists all entries except for '.' and '..'.
