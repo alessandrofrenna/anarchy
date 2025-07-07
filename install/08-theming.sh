@@ -4,6 +4,7 @@ yay -S --noconfirm --needed adwaita-qt5-git adwaita-qt6-git
 
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+gsettings set org.gnome.desktop.interface cursor-theme 'default'
 
 # Inter Nerd Font for gtk application
 gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 10"
