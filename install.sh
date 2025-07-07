@@ -44,7 +44,7 @@ sudo updatedb
 
 # Remove orphaned packages and clean cache
 ORPHANCOUNT=$(pacman -Qtdq) | wc -l
-if [ $ORPHANCOUNT -gt 0 ] then
+if [ $ORPHANCOUNT -gt 0 ]; then
   echo -e "\nRemoving orphan"
   sudo pacman -Rns $(pacman -Qdtq)
 else
