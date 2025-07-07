@@ -44,7 +44,7 @@ sudo updatedb
 
 # Remove orphaned packages and clean cache
 echo -e "\nRemoving orphan"
-pacman -Qtdq | sudo pacman -Rns --noconfirm - 2>/dev/null
+sudo pacman -Rns $(pacman -Qdtq) 2>/dev/null
 echo -e "\nCleaning cache"
 yes | yay -Scc
 
