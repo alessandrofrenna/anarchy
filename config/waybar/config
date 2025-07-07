@@ -70,7 +70,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "alacritty -e impala"
+    "on-click": "alacritty --class=Impala -e impala"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -128,7 +128,7 @@
     "format-disabled": "󰂲",
     "format-connected": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "alacritty -e bluetui"
+    "on-click": "alacritty --class=Bluetui -e bluetui"
   },
   "pulseaudio": {
     "format": "",
