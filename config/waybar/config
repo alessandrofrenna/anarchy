@@ -12,7 +12,7 @@
   ],
   "modules-right": [
     "tray",
-    "pulseaudio",
+    "wireplumber",
     "cpu",
     "bluetooth",
     "network",
@@ -46,23 +46,25 @@
   },
   "clock": {
     "format": "{:%A %H:%M}",
-    "format-alt": "{:%d %B W%V %Y}",
     "tooltip": false
   },
   "tray": {
     "icon-size": 12,
     "spacing": 8
   },
-  "pulseaudio": {
-    "format": "",
-    "format-muted": "󰝟",
-    "scroll-step": 5,
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-muted": "Mute 󰝟",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
     "on-click": "pwvucontrol",
-    "tooltip-format": "Playing at {volume}%",
-    "on-click-right": "pamixer -t",
-    "ignored-sinks": [
-      "Easy Effects Sink"
-    ]
+    "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "scroll-step": 5,
+    "max-volume": 100,
+    "tooltip": false
   },
   "cpu": {
     "interval": 5,
@@ -97,8 +99,8 @@
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
-    "format-charging": "{icon}",
+    "format-discharging": "{capacity}% {icon}",
+    "format-charging": "{capacity}% {icon}",
     "format-plugged": "",
     "format-icons": {
       "charging": [
@@ -126,7 +128,7 @@
         "󰁹"
       ]
     },
-    "format-full": "Charged ",
+    "format-full": "󰁹 ",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
