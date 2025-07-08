@@ -55,7 +55,7 @@
   "wireplumber": {
     "format": "{icon}",
     "format-muted": "󰝟",
-    "tooltip-format": "{icon} {volume}%",
+    "tooltip-format": "{volume}% {icon}",
     "format-icons": [
       "",
       " ",
