@@ -29,8 +29,8 @@ ln -snf ~/.config/anarchy/current/theme/hyprlock.conf ~/.config/hypr/hyprlock.co
 mkdir -p ~/.config/btop/themes
 ln -snf ~/.config/anarchy/current/theme/btop.theme ~/.config/btop/themes/current.theme
 
-# Wofi
-ln -snf ~/.config/anarchy/current/theme/wofi.css ~/.config/wofi/style.css
+# Wofi (link only the select file without the search bar)
+ln -snf ~/.local/share/anarchy/default/wofi/select.css ~/.config/wofi/style.css
 
 # Mako
 mkdir -p ~/.config/mako

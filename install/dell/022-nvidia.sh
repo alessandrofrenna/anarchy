@@ -8,6 +8,16 @@
 #
 # ==============================================================================
 
+# -- Check if the nvidia driver are already installed and enabled --
+check_nvidia() {
+  local modset_enabled="$(sudo cat /sys/module/nvidia_drm/parameters/modeset)"
+  if [ "$modset_enabled" = "Y" ]; then
+    echo -e "Nvidia driver already enabled, skipping installation"
+    return 0
+  fi
+}
+
+check_nvidia
 
 # --- GPU Detection ---
 gpu_info=$(lspci | grep -i 'nvidia')
