@@ -3,7 +3,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: Inter Nerd Font;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 #workspaces {
@@ -16,13 +16,14 @@
   margin-right: 3px;
 }
 
-#tray,
-#cpu,
-#battery,
-#network,
-#bluetooth,
-#pulseaudio,
 #clock,
+#tray,
+#pulseaudio,
+#cpu,
+#bluetooth,
+#network,
+#battery,
+#power-profiles-daemon,
 #custom-power-menu {
   min-width: 12px;
   margin-right: 13px;

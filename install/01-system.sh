@@ -41,7 +41,6 @@ mkdir -p ~/.local/share/applications
 
 # Use default bashrc from Anarchy
 echo "source ~/.local/share/anarchy/default/bash/rc" > ~/.bashrc
-echo "source ~/.local/share/anarchy/default/bash/inputrc" > ~/.inputrc
 
 # Create xdg folders inside user /home directory
 xdg-user-dirs-update

@@ -1,8 +1,8 @@
-@import "~/.config/anarchy/current/theme/wofi.css";
+@import "~/.config/wofi/style.css";
 
 * {
   font-family: "Inter Nerd Font", monospace;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 window {
