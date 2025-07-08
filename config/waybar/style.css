@@ -3,7 +3,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: Inter Nerd Font;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 #workspaces {
@@ -16,9 +16,8 @@
   margin-right: 3px;
 }
 
-#clock,
 #tray,
-#pulseaudio,
+#wireplumber,
 #cpu,
 #bluetooth,
 #network,

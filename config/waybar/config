@@ -53,18 +53,18 @@
     "spacing": 8
   },
   "wireplumber": {
-    "format": "{volume}% {icon}",
-    "format-muted": "Mute 󰝟",
+    "format": "{icon}",
+    "format-muted": "󰝟",
+    "tooltip-format": "{icon} {volume}%",
     "format-icons": [
       "",
-      "",
-      ""
+      " ",
+      " "
     ],
     "on-click": "pwvucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle",
     "scroll-step": 5,
-    "max-volume": 100,
-    "tooltip": false
+    "max-volume": 100
   },
   "cpu": {
     "interval": 5,
@@ -98,9 +98,9 @@
     "on-click": "alacritty --class=Impala -e impala"
   },
   "battery": {
-    "format": "{capacity}% {icon}",
-    "format-discharging": "{capacity}% {icon}",
-    "format-charging": "{capacity}% {icon}",
+    "format": "{icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
       "charging": [
@@ -128,7 +128,7 @@
         "󰁹"
       ]
     },
-    "format-full": "󰁹 ",
+    "format-full": "",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
