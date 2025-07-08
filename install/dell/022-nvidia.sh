@@ -56,7 +56,7 @@ install_nvidia_driver() {
     MKINITCPIO_CONF="/etc/mkinitcpio.conf"
 
     # Define modules
-    NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+    NVIDIA_MODULES="i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm"
 
     # Create backup
     sudo cp "$MKINITCPIO_CONF" "${MKINITCPIO_CONF}.backup"

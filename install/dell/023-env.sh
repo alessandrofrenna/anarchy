@@ -6,7 +6,7 @@ if [ -f "$HYPRLAND_CONF" ]; then
 env = AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card2
 
 # Hw acceleration env variables
-env = LIBVA_DRIVER_NAME,iHD
+env = LIBVA_DRIVER_NAME,i965
 env = VAAPI_MPEG4_ENABLED,true
 env = VDPAU_DRIVER,nvidia
 
