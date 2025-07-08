@@ -44,15 +44,37 @@
       "5": []
     }
   },
+  "clock": {
+    "format": "{:%A %H:%M}",
+    "format-alt": "{:%d %B W%V %Y}",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 8
+  },
+  "pulseaudio": {
+    "format": "",
+    "format-muted": "󰝟",
+    "scroll-step": 5,
+    "on-click": "pwvucontrol",
+    "tooltip-format": "Playing at {volume}%",
+    "on-click-right": "pamixer -t",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
   "cpu": {
     "interval": 5,
     "format": "󰍛",
     "on-click": "alacritty -e btop"
   },
-  "clock": {
-    "format": "{:%A %H:%M}",
-    "format-alt": "{:%d %B W%V %Y}",
-    "tooltip": false
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "alacritty --class=Bluetui -e bluetui"
   },
   "network": {
     "format-icons": [
@@ -124,31 +146,9 @@
       "power-saver": ""
     }
   },
-  "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-connected": "",
-    "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "alacritty --class=Bluetui -e bluetui"
-  },
-  "pulseaudio": {
-    "format": "",
-    "format-muted": "󰝟",
-    "scroll-step": 5,
-    "on-click": "pwvucontrol",
-    "tooltip-format": "Playing at {volume}%",
-    "on-click-right": "pamixer -t",
-    "ignored-sinks": [
-      "Easy Effects Sink"
-    ]
-  },
   "custom/power-menu": {
     "format": "󰐥",
     "on-click": "~/.local/share/anarchy/bin/power-menu",
     "tooltip": false
-  },
-  "tray": {
-    "icon-size": 12,
-    "spacing": 8
   }
 }
