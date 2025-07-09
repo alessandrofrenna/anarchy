@@ -6,4 +6,4 @@ yay -S --noconfirm --needed \
   zen-browser-bin thunar thunar-archive-plugin thunar-vcs-plugin thunar-volman \
   qalculate-gtk tumbler thunar-media-tags-plugin tumbler-folder-thumbnailer
 
-sudo pacman -S webp-pixbuf-loader
+sudo pacman -S webp-pixbuf-loader --noconfirm --needed
