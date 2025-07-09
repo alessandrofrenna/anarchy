@@ -15,5 +15,3 @@ EOF'
 sudo bash -c 'cat >> /etc/pam.d/login << 'EOF'
 auth       optional     pam_gnome_keyring.so
 EOF'
-
-# session    optional     pam_gnome_keyring.so auto_start
