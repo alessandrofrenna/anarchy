@@ -1,7 +1,7 @@
 # Install microcode
 cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
-[ "$cpu_vendor" = "GenuineIntel" ] && sudo pacman -S --noconfirm intel-ucode linux-firmware-intel
-[ "$cpu_vendor" = "AuthenticAMD" ] && sudo pacman -S --noconfirm amd-ucode
+[ "$cpu_vendor" = "GenuineIntel" ] && pacman -Q intel-ucode &>/dev/null || sudo pacman -S --noconfirm  linux-firmware-intel
+[ "$cpu_vendor" = "AuthenticAMD" ] && pacman -Q amd-ucode &>/dev/null || sudo pacman -S --noconfirm amd-ucode
 
 # Install base devel, needed and useful packages
 sudo pacman -S --noconfirm --needed base-devel xdg-utils xdg-user-dirs pacman-contrib dbus dbus-broker-units nano plocate
@@ -26,7 +26,8 @@ yay -S --noconfirm --needed \
   iwd impala lazygit btop nvtop \
   bash bash-completion ntfs-3g \
   zathura zathura-pdf-mupdf zathura-cb zathura-djvu \
-  dosfstools jq yt-dlp mkinitcpio-firmware nwg-look
+  dosfstools jq yt-dlp mkinitcpio-firmware nwg-look \
+  gvfs xorg-xhost gparted
 
 # Enable system-wide services
 sudo systemctl enable --now avahi-daemon.service
@@ -44,3 +45,36 @@ echo "source ~/.local/share/anarchy/default/bash/rc" > ~/.bashrc
 
 # Create xdg folders inside user /home directory
 xdg-user-dirs-update
+
+# Configure udiskie polkit permission for wheel group
+sudo touch /etc/polkit-1/rules.d/50-udiskie.rules
+
+sudo bash -c 'cat >> /etc/polkit-1/rules.d/50-udiskie.rules << 'EOF'
+polkit.addRule(function(action, subject) {
+  var YES = polkit.Result.YES;
+  var permission = {
+    // required for udisks1:
+    "org.freedesktop.udisks.filesystem-mount": YES,
+    "org.freedesktop.udisks.luks-unlock": YES,
+    "org.freedesktop.udisks.drive-eject": YES,
+    "org.freedesktop.udisks.drive-detach": YES,
+    // required for udisks2:
+    "org.freedesktop.udisks2.filesystem-mount": YES,
+    "org.freedesktop.udisks2.encrypted-unlock": YES,
+    "org.freedesktop.udisks2.eject-media": YES,
+    "org.freedesktop.udisks2.power-off-drive": YES,
+    // required for udisks2 if using udiskie from another seat (e.g. systemd):
+    "org.freedesktop.udisks2.filesystem-mount-other-seat": YES,
+    "org.freedesktop.udisks2.filesystem-unmount-others": YES,
+    "org.freedesktop.udisks2.encrypted-unlock-other-seat": YES,
+    "org.freedesktop.udisks2.encrypted-unlock-system": YES,
+    "org.freedesktop.udisks2.eject-media-other-seat": YES,
+    "org.freedesktop.udisks2.power-off-drive-other-seat": YES
+  };
+  if (subject.isInGroup("wheel")) {
+    return permission[action.id];
+  }
+});
+EOF'
+
+sudo chmod 644 /etc/polkit-1/rules.d/50-udiskie.rules
