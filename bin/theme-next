@@ -45,5 +45,7 @@ ln -nsf $(find "$HOME/.config/anarchy/current/backgrounds/" -type f | head -n 1)
 pkill -x swaybg
 setsid swaybg -i "$HOME/.config/anarchy/current/background" -m fill &
 
+source $HOME/.local/share/anarchy/bin/reload-hyprpolkitagent-theme
+
 # Notify of the new theme
 notify-send "Theme changed to $NEW_THEME_NAME" -t 2000

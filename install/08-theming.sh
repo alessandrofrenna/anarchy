@@ -1,6 +1,6 @@
 # Use dark mode for QT apps too (like kdenlive)
 sudo pacman -S --noconfirm kvantum-qt5 gnome-themes-extra # Adds Adwaita-dark theme
-yay -S --noconfirm --needed adwaita-qt5-git adwaita-qt6-git
+yay -S --noconfirm --needed adwaita-qt5-git adwaita-qt6-git qqc2-desktop-style
 
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
@@ -36,9 +36,4 @@ ln -snf ~/.local/share/anarchy/default/wofi/select.css ~/.config/wofi/style.css
 mkdir -p ~/.config/mako
 ln -snf ~/.config/anarchy/current/theme/mako.ini ~/.config/mako/config
 
-# Enable dark theme for hyprpolkitagent.service
-mkdir -p ~/.config/systemd/user/hyprpolkitagent.service.d
-cat >~/.config/systemd/user/hyprpolkitagent.service.d/override.conf <<EOF
-[Service]
-Environment=GTK_THEME=Adwaita-dark
-EOF
+source $HOME/.local/share/anarchy/bin/reload-hyprpolkitagent-theme

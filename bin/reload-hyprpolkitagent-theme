@@ -1,0 +1,20 @@
+#!/bin/bash
+
+CURRENT_GTK_THEME="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+echo -e "\nCurrent GTK theme is ${CURRENT_GTK_THEME}\nSetting hyperpolkit GTK theme to ${CURRENT_GTK_THEME}"
+
+# Change hyperpolkit gtk theme configuration
+cat >~/.config/systemd/user/hyprpolkitagent.service.d/override.conf <<EOF
+[Service]
+Environment=GTK_THEME=Adwaita-dark
+EOF
+
+# Check if the hyprpolkitagent is running
+POLKIT_STATUS="$(systemctl --user is-active hyprpolkitagent)"
+if [ "${POLKIT_STATUS}" = "active" ]; then
+  # Reload user systemd and restart service
+  echo -e "\nReloading hyprpolkitagent..."
+  systemctl --user daemon-reexec
+  systemctl --user daemon-reload
+  systemctl --user restart hyprpolkitagent
+fi
