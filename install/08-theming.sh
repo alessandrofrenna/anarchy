@@ -35,3 +35,10 @@ ln -snf ~/.local/share/anarchy/default/wofi/select.css ~/.config/wofi/style.css
 # Mako
 mkdir -p ~/.config/mako
 ln -snf ~/.config/anarchy/current/theme/mako.ini ~/.config/mako/config
+
+# Enable dark theme for hyprpolkitagent.service
+mkdir -p ~/.config/systemd/user/hyprpolkitagent.service.d
+cat >~/.config/systemd/user/hyprpolkitagent.service.d/override.conf <<EOF
+[Service]
+Environment=GTK_THEME=Adwaita-dark
+EOF
