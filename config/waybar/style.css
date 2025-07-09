@@ -21,8 +21,8 @@
 #cpu,
 #bluetooth,
 #network,
-#battery,
 #power-profiles-daemon,
+#battery,
 #custom-power-menu {
   min-width: 12px;
   margin-right: 13px;
