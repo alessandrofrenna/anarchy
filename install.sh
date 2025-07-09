@@ -46,7 +46,7 @@ sudo updatedb
 ORPHANCOUNT=$(pacman -Qtdq | wc -l)
 if [ $ORPHANCOUNT -gt 0 ]; then
   echo -e "\nRemoving orphans..."
-  sudo pacman -Rns $(pacman -Qdtq)
+  sudo pacman -Rns $(pacman -Qdtq) --noconfirm
 else
   echo -e "\nNo orphan package to remove, skipping..."
 fi
