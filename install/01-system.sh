@@ -1,6 +1,6 @@
 # Install microcode
 is_installed() {
-  if $(pacman -Qi ${1} &>/dev/null); then
+  if $(yay -Qi ${1} &>/dev/null); then
     echo 0
     return
   fi
