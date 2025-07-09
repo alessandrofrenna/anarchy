@@ -1,7 +1,35 @@
 # Install microcode
+is_installed() {
+  if $(pacman -Qi ${1} &>/dev/null); then
+    echo 0
+    return
+  fi
+  echo 1
+  return
+}
+
+packages_to_install=()
 cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
-[ "$cpu_vendor" = "GenuineIntel" ] && pacman -Q intel-ucode &>/dev/null || sudo pacman -S --noconfirm  linux-firmware-intel
-[ "$cpu_vendor" = "AuthenticAMD" ] && pacman -Q amd-ucode &>/dev/null || sudo pacman -S --noconfirm amd-ucode
+if [ "$cpu_vendor" = "GenuineIntel" ]; then
+  packages_to_install=(
+    "intel-ucode"
+    "linux-firmware-intel"
+  )
+elif [ "$cpu_vendor" = "AuthenticAMD" ]; then
+  packages_to_install=(
+    "amd-ucode"
+  )
+fi
+
+for i in "${!packages_to_install[@]}"; do
+  pkg_name="${packages_to_install[$i]}"
+  check=$(is_installed ${pkg_name})
+  if [ $check -eq 1 ]; then
+    echo -e "\nPackage ${pkg_name} is missing, it will be installed"
+  else
+    echo -e "\nPackage ${pkg_name} is installed"
+  fi
+done
 
 # Install base devel, needed and useful packages
 sudo pacman -S --noconfirm --needed base-devel xdg-utils xdg-user-dirs pacman-contrib dbus dbus-broker-units nano plocate
