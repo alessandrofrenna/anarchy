@@ -47,8 +47,12 @@ echo "source ~/.local/share/anarchy/default/bash/rc" > ~/.bashrc
 xdg-user-dirs-update
 
 # Configure udiskie polkit permission for wheel group
-sudo touch /etc/polkit-1/rules.d/50-udiskie.rules
+echo -e "\nConfiguring udiskie polkit permissions for user in wheel group"
 
+# Remove the old file
+sudo rm /etc/polkit-1/rules.d/50-udiskie.rules
+# Create the new permissions file
+sudo touch /etc/polkit-1/rules.d/50-udiskie.rules
 sudo bash -c 'cat >> /etc/polkit-1/rules.d/50-udiskie.rules << 'EOF'
 polkit.addRule(function(action, subject) {
   var YES = polkit.Result.YES;
@@ -76,5 +80,5 @@ polkit.addRule(function(action, subject) {
   }
 });
 EOF'
-
+# Set the correct permission to the file
 sudo chmod 644 /etc/polkit-1/rules.d/50-udiskie.rules
