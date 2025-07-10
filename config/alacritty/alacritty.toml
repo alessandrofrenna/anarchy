@@ -1,4 +1,4 @@
-general.import = [ "~/.config/anarchy/current/theme/alacritty.toml" ]
+general.import = [ "~/.local/share/anarchy/config/current_theme/alacritty.toml" ]
 
 [env]
 TERM = "xterm-256color"

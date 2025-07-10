@@ -1,0 +1,5 @@
+config/current_theme/*
+config/mako/config/*
+config/btop/themes/*
+
+old/*

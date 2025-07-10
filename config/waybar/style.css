@@ -16,12 +16,12 @@
   margin-right: 3px;
 }
 
+#custom-expand,
 #tray,
 #wireplumber,
 #cpu,
 #bluetooth,
 #network,
-#power-profiles-daemon,
 #battery,
 #custom-power-menu {
   min-width: 12px;

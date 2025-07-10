@@ -4,3 +4,5 @@ source ~/.local/share/anarchy/default/bash/functions
 source ~/.local/share/anarchy/default/bash/prompt
 source ~/.local/share/anarchy/default/bash/init
 source ~/.local/share/anarchy/default/bash/envs
+
+bind -f ~/.local/share/anarchy/default/bash/inputrc
