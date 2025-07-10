@@ -15,11 +15,11 @@ add_env_variables() {
   if [ -f "$HYPRLAND_CONF" ]; then
     cat >>"$HYPRLAND_CONF" <<'EOF'
 
+
 # Use the internal Intel card to run Hyprland
 env = AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card2
 
 # Hw acceleration env variables
-env = LIBVA_DRIVER_NAME,i965
 env = VAAPI_MPEG4_ENABLED,true
 env = VDPAU_DRIVER,nvidia
 
