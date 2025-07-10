@@ -2,7 +2,7 @@ source "$HOME/.local/share/anarchy/setup/utils/is_installed.sh"
 
 required_packages=(
   "pipewire-audio" "pipewire-pulse" "pipewire-alsa" "pipewire-zeroconf" "wireplumber" "sof-firmware"
-  "gst-plugins-base" "gst-plugins-good" "gst-plugins-bad" "gst-plugin-ugly" "gst-plugin-pipewire" "gst-plugin-va"
+  "gst-plugins-base" "gst-plugins-good" "gst-plugins-bad" "gst-plugins-ugly" "gst-plugin-pipewire" "gst-plugin-va"
   "flac" "faac" "alac-git" "wavpack" "faac" "libavif" "dav1d" "x265" "xvidcore" "x264" "libvpx" "libmpeg2"
   "ffmpeg" "playerctl" "pavucontrol" "mpv"  "spotify"
 )
