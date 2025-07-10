@@ -35,7 +35,7 @@ ln -nsf "$NEW_THEME" "$CURRENT_THEME_LINK"
 touch "$HOME/.local/share/anarchy/config/alacritty/alacritty.toml"
 
 # Restart for new theme
-pkill waybar && hyprctl dispatch exec waybar
+killall -SIGUSR2 waybar && hyprctl dispatch exec waybar
 makoctl reload
 hyprctl reload
 
