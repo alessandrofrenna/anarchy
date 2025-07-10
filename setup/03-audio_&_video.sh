@@ -21,5 +21,5 @@ if [[ ${#to_install[@]} -gt 0 ]]; then
   yay -S --noconfirm "${to_install[@]}"
 fi
 echo -e "\nEnabling pipewire related services..."
-systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service 2>&1 | tee -a "$LOG"
-systemctl --user enable --now pipewire.service 2>&1 | tee -a "$LOG"
+systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+systemctl --user enable --now pipewire.service
