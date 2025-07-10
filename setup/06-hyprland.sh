@@ -1,4 +1,4 @@
-source "$PWD/utils/is_installed.sh"
+source "$HOME/.local/share/anarchy/setup/utils/is_installed.sh"
 
 required_packages=(
   "hyprland" "hyprcursor" "hyprshot" "hyprlock" "hypridle" "hyprland-qtutils" "hyprland-qt-support"

@@ -1,4 +1,4 @@
-source "$PWD/utils/is_installed.sh"
+source "$HOME/.local/share/anarchy/setup/utils/is_installed.sh"
 
 required_packages=(
   "mkinitcpio-firmware" "gnome-keyring"
