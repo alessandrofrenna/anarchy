@@ -21,5 +21,5 @@ done
 
 echo -e "\nInstalling some packages..."
 if [[ ${#to_install[@]} -gt 0 ]]; then
-   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+  yay -S --noconfirm "${to_install[@]}"
 fi

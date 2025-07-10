@@ -15,7 +15,7 @@ for i in "${!required_packages[@]}"; do
 done
 
 if [[ ${#to_install[@]} -gt 0 ]]; then
-   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+  yay -S --noconfirm "${to_install[@]}"
 fi
 
 echo -e "\nSetting Adwaita-dark as theme..."

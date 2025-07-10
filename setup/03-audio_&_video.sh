@@ -18,7 +18,7 @@ done
 
 echo -e "\nInstalling multimedia sofwares and codecs..."
 if [[ ${#to_install[@]} -gt 0 ]]; then
-   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+  yay -S --noconfirm "${to_install[@]}"
 fi
 echo -e "\nEnabling pipewire related services..."
 systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service 2>&1 | tee -a "$LOG"
