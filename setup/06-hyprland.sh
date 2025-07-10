@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "hyprland" "hyprcursor" "hyprshot" "hyprlock" "hypridle" "hyprland-qtutils" "hyprland-qt-support"
   "libdecor" "xdg-desktop-portal-hyprland" "xdg-desktop-portal-gtk" "xorg-xwayland"
@@ -14,7 +16,7 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling Hyprland and Ly..."
-yay -S --noconfirm --needed ${to_install}
+[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
 
 echo -e "\nEnabling Ly service..."
 sudo systemctl enable ly.service

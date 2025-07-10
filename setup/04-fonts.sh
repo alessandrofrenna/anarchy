@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "noto-fonts" "noto-fonts-emoji" "noto-fonts-cjk" "noto-fonts-extra"
   "ttf-nerd-fonts-symbols" "ttf-nerd-fonts-symbols-mono" "ttf-terminus-nerd"
@@ -15,7 +17,7 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling fonts..."
-yay -S --noconfirm --needed ${to_install}
+[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
 
 echo -e "\nReloading font cache..."
 fc-cache

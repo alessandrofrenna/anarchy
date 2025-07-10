@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "mkinitcpio-firmware" "gnome-keyring"
   "brightnessctl" "imv"
@@ -18,4 +20,4 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling some packages..."
-yay -S --noconfirm --needed ${to_install}
+[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}

@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "pipewire-audio" "pipewire-pulse" "pipewire-alsa" "pipewire-zeroconf" "wireplumber" "sof-firmware"
   "gst-plugins-base" "gst-plugins-good" "gst-plugins-bad" "gst-plugin-ugly" "gst-plugin-pipewire" "gst-plugin-va"
@@ -15,7 +17,7 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling multimedia sofwares and codecs..."
-yay -S --noconfirm --needed
+[[ -z $to_install ]] && yay -S --noconfirm --needed
 
 echo -e "\nEnabling pipewire related services..."
 systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service 2>&1 | tee -a "$LOG"

@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "linux-firmware" "mesa" "mesa-utils" "libva-utils" "vulkan-icd-loader" "vulkan-mesa-layers" "vulkan-tools" "vdpauinfo"
   "dbus" "base-devel" "pacman-contrib" "openssh" "curl" "stow" "just" "git" "nano"
@@ -43,7 +45,7 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling packages..."
-sudo pacman -S --noconfirm --needed ${to_install}
+[[ -z $to_install ]] && sudo pacman -S --noconfirm --needed ${to_install}
 
 echo -e "\nEnabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service

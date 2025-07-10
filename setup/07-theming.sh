@@ -1,3 +1,5 @@
+source "$PWD/utils/is_installed.sh"
+
 required_packages=(
   "gnome-themes-extra" "qqc2-desktop-style" "kvantum"
   "kvantum-theme-libadwaita-git" "morewaita-icon-theme" 
@@ -12,7 +14,7 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-yay -S --noconfirm --needed ${to_install}
+[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
 
 echo -e "\nSetting Adwaita-dark as theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
