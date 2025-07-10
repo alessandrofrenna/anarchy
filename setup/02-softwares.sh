@@ -19,7 +19,9 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-echo -e "\nInstalling some packages..."
 if [[ ${#to_install[@]} -gt 0 ]]; then
+  echo -e "Installing chosen software..."
   yay -S --noconfirm "${to_install[@]}"
+else
+  echo -e "Packages already installed, skipping to the next step..."
 fi

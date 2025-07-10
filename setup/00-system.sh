@@ -15,8 +15,10 @@ required_packages=(
 # Find the architecture microcode to install
 cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
 if [ "$cpu_vendor" = "GenuineIntel" ]; then
+  echo -e "Found GenuineIntel CPU"
   required_packages+=("intel-ucode")
 elif [ "$cpu_vendor" = "AuthenticAMD" ]; then
+  echo -e "Found AuthenticAMD CPU"
   required_packages+=("amd-ucode")
 fi
 
@@ -24,12 +26,12 @@ fi
 libva_env_var=""
 igpu_mkinitcpio_module_name=""
 if lspci | grep "VGA" | grep "Intel" > /dev/null; then
-    echo -e "Found Intel integrated video card\n"
+    echo -e "Found Intel integrated video card"
     required_packages+=("vulkan-intel" "intel-media-driver" "intel-gpu-tools" "intel-media-sdk" "libvpl")
     libva_env_var="LIBVA_DRIVER_NAME=iHD"
     igpu_mkinitcpio_module_name="i915"
 elif lspci | grep "VGA" | grep "AMD" > /dev/null; then
-    echo -e "Found AMD integrated video card\n"
+    echo -e "Found AMD integrated video card"
     required_packages+=("vulkan-radeon" "libva-mesa-driver" "radeontop mesa-vdpau")
     libva_env_var="LIBVA_DRIVER_NAME=radeonsi"
     igpu_mkinitcpio_module_name="amdgpu"
@@ -44,19 +46,18 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-echo -e "\nInstalling packages..."
 if [[ ${#to_install[@]} -gt 0 ]]; then
+  echo -e "Installing required packages..."
   sudo pacman -S --noconfirm --needed "${to_install[@]}"
+else
+  echo -e "Packages already installed, skipping to the next step..."
 fi
 
-echo -e "\nEnabling system-wide services..."
+echo -e "Enabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service
 
 echo -e "\nUpdating xdg user directories"
 xdg-user-dirs-update
-
-# Ensure application directory exists for update-desktop-database
-mkdir -p $HOME/.local/share/applications
 
 # Configure graphics driver environment variables
 if ! grep -q ${libva_env_var} /etc/environment; then
@@ -78,10 +79,15 @@ fi
 
 # Use stow to sync configurations
 if [ ! -d "${HOME}/.config" ]; then
-echo "\nDirectory $HOME/.config not found. Creating it..."
+echo "Directory $HOME/.config not found. Creating it..."
   mkdir "$HOME/.config"
 fi
+echo "Synching configuration files with STOW"
 stow -v -d ~/.local/share/anarchy -t ~/.config -R config
 
 # Use default bashrc from Anarchy
+echo "Sourcing .bashrc into ${HOME}"
 echo "source ~/.local/share/anarchy/default/bash/rc" >~/.bashrc
+
+# Ensure application directory exists for update-desktop-database
+mkdir -p $HOME/.local/share/applications

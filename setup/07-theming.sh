@@ -15,19 +15,23 @@ for i in "${!required_packages[@]}"; do
 done
 
 if [[ ${#to_install[@]} -gt 0 ]]; then
+  echo -e "Installing cosmetic packages..."
   yay -S --noconfirm "${to_install[@]}"
+else
+  echo -e "Packages already installed, skipping to the next step..."
 fi
 
-echo -e "\nSetting Adwaita-dark as theme..."
+echo -e "Setting Adwaita-dark as theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface cursor-theme 'default'
 
-echo -e "\nSetting Inter Nerd Font for gtk application..."
+echo -e "Setting Inter Nerd Font for gtk application..."
 gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 10"
 gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10'
 
+echo -e "Setting current theme to rosepine"
 # Setup theme links
 stow -v -d ~/.local/share/anarchy/themes -t ~/.local/share/anarchy/config/current_theme -R rosepine
 

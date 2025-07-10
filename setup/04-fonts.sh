@@ -16,10 +16,13 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-echo -e "\nInstalling fonts..."
+
 if [[ ${#to_install[@]} -gt 0 ]]; then
+  echo -e "Installing fonts..."
   yay -S --noconfirm "${to_install[@]}"
+else
+  echo -e "Packages already installed, skipping to the next step..."
 fi
 
-echo -e "\nReloading font cache..."
+echo -e "Reloading font cache..."
 fc-cache

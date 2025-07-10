@@ -16,10 +16,13 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-echo -e "\nInstalling multimedia sofwares and codecs..."
 if [[ ${#to_install[@]} -gt 0 ]]; then
+  echo -e "Installing audio and video sofwares and codecs..."
   yay -S --noconfirm "${to_install[@]}"
+else
+  echo -e "Packages already installed, skipping to the next step..."
 fi
-echo -e "\nEnabling pipewire related services..."
+
+echo -e "Enabling pipewire related services..."
 systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
 systemctl --user enable --now pipewire.service
