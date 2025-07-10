@@ -37,7 +37,7 @@ fi
 
 to_install=()
 for i in "${!required_packages[@]}"; do
-  pkg_name="${packages_to_install[$i]}"
+  pkg_name="${required_packages[$i]}"
   check=$(is_installed ${pkg_name})
   if [ $check -eq 1 ]; then
     to_install+=(${pkg_name})
