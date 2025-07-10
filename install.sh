@@ -4,12 +4,12 @@ set -e
 # Give people a chance to retry running the installation
 trap 'echo "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh"' ERR
 
-for f in ~/.local/share/anarchy/install/utils/*.sh; do
+for f in ~/.local/share/anarchy/setup/utils/*.sh; do
   source "$f"
 done
 
 # Install everything
-for f in ~/.local/share/anarchy/install/*.sh; do
+for f in ~/.local/share/anarchy/setup/*.sh; do
   echo -e "\nRunning installer: $f"
   source "$f"
 done
