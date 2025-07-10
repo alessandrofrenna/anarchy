@@ -4,7 +4,7 @@ required_packages=(
   "mkinitcpio-firmware" "gnome-keyring"
   "brightnessctl" "imv"
   "fcitx5" "fcitx5-gtk" "fcitx5-qt" "fcitx5-configtool"
-  "nautilus" "nautilus-bluetooth" "ffmpegthumbnailer" "sushi"
+  "nautilus" "ffmpegthumbnailer" "sushi"
   "firefox" "chromium" "bitwarden-bin"
   "zathura" "zathura-pdf-mupdf" "zathura-cb zathura-djvu" "qalculate-gtk" "nwg-look"
   "yt-dlp" "jq" "lazygit" "impala" "bluetui"
