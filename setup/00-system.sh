@@ -45,7 +45,10 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling packages..."
-[[ -z $to_install ]] && sudo pacman -S --noconfirm --needed ${to_install}
+if [[ ${#to_install[@]} -gt 0 ]]; then
+   eval "$(sudo pacman -S --noconfirm --needed ${to_install[@]})"
+fi
+
 
 echo -e "\nEnabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service

@@ -17,7 +17,9 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling fonts..."
-[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
+if [[ ${#to_install[@]} -gt 0 ]]; then
+   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+fi
 
 echo -e "\nReloading font cache..."
 fc-cache

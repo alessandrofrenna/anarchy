@@ -14,7 +14,9 @@ for i in "${!required_packages[@]}"; do
   fi
 done
 
-[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
+if [[ ${#to_install[@]} -gt 0 ]]; then
+   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+fi
 
 echo -e "\nSetting Adwaita-dark as theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"

@@ -16,7 +16,9 @@ for i in "${!required_packages[@]}"; do
 done
 
 echo -e "\nInstalling Hyprland and Ly..."
-[[ -z $to_install ]] && yay -S --noconfirm --needed ${to_install}
+if [[ ${#to_install[@]} -gt 0 ]]; then
+   eval "$(yay -S --noconfirm --needed ${to_install[@]})"
+fi
 
 echo -e "\nEnabling Ly service..."
 sudo systemctl enable ly.service
