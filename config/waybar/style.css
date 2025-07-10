@@ -36,4 +36,4 @@ tooltip label {
   padding: 2px;
 }
 
-@import "../anarchy/current/theme/waybar.css";
+@import ".local/share/anarchy/config/current/theme/waybar.css";
