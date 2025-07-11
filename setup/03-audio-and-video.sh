@@ -8,11 +8,9 @@ required_packages=(
 )
 
 to_install=()
-for i in "${!required_packages[@]}"; do
-  pkg_name="${required_packages[$i]}"
-  check=$(is_installed ${pkg_name})
-  if [ $check -eq 1 ]; then
-    to_install+=(${pkg_name})
+for pkg_name in "${required_packages[@]}"; do
+  if ! is_installed "${pkg_name}"; then
+    to_install+=("${pkg_name}")
   fi
 done
 
