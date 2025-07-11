@@ -4,6 +4,7 @@ required_packages=(
   "hyprland" "hyprcursor" "hyprshot" "hyprlock" "hypridle" "hyprland-qtutils" "hyprland-qt-support"
   "libdecor" "xdg-desktop-portal-hyprland" "xdg-desktop-portal-gtk" "xorg-xwayland"
   "swaybg" "wofi" "waybar" "mako" "ly" "qt5-wayland" "qt6-wayland"
+  "wl-clipboard" "wl-clip-persist" "clipse-bin"
 )
 
 to_install=()
