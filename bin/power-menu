@@ -1,22 +1,24 @@
 #!/bin/bash
 
-# Power menu (script taken from Omarchy)
-# Provides power off, restart, and sleep options
+# Power menu (script based on from omarchy-power-menu)
+# Provides logout, lock, suspend, hibernate, restart and shutdown
 
 # Function to show power menu
 show_power_menu() {
-  local menu_options="\u200B Relaunch
+  local menu_options="\u200B󰍃 Logout
 \u200C Lock
 \u200D󰤄 Suspend
+\u200E Hibernate
 \u2060󰜉 Restart
 \u2063󰐥 Shutdown" # These first characters are invisible sort keys
 
-  local selection=$(echo -e "$menu_options" | wofi --show dmenu --prompt "Power Options" --width 160 --height 200 -O alphabetical --style $HOME/.local/share/anarchy/config/wofi/select.css)
+  local selection=$(echo -e "$menu_options" | wofi --show dmenu --prompt "Power Options" --width 150 --height 200 -O alphabetical --style $HOME/.local/share/anarchy/config/wofi/select.css)
 
   case "$selection" in
-  *Relaunch*) hyprctl dispatch exit ;;
+  *Logout*) hyprctl dispatch exit ;;
   *Lock*) hyprlock ;;
-  *Suspend*) systemctl suspend ;;
+  *Suspend*) systemctl suspend-then-hibernate &>/dev/null || systemctl suspend ;;
+  *Hibernate*) systemctl hibernate &>/dev/null || systemctl suspend ;;
   *Restart*) systemctl reboot ;;
   *Shutdown*) systemctl poweroff ;;
   esac
