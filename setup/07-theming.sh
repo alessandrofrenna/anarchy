@@ -32,7 +32,7 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
 
 DEFAULT_THEME_NAME="catppuccin"
-DEFAULT_THEME_WALLPAPER="4-Dreamy_sky.jpeg"
+DEFAULT_THEME_WALLPAPER="4-Dreamy_Sky.jpeg"
 THEMES_DIR="${HOME}/.local/share/anarchy/themes"
 CURRENT_THEME_DIR="${HOME}/.config/current_theme"
 echo ${DEFAULT_THEME_NAME} > "${THEMES_DIR}/.current_theme"
