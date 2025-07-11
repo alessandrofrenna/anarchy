@@ -33,6 +33,8 @@ ln -nsf "$(find "${CURRENT_THEME_BACKGROUNDS_DIR}" -type f | sort | head -n 1)" 
 ln -nsf "${NEW_THEME}" "${CURRENT_THEME_DIR}"
 echo "${NEW_THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
 
+source "${NEW_THEME}/change-icon-theme.sh"
+
 # Restart for new theme
 pkill -SIGUSR2 waybar
 makoctl reload

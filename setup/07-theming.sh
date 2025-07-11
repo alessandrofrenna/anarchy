@@ -29,7 +29,7 @@ echo -e "Setting Inter Nerd Font for gtk application..."
 gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 10"
 gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10'
-gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
+gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-pink'
 
 DEFAULT_THEME_NAME="catppuccin"
 DEFAULT_THEME_WALLPAPER="4-Dreamy_Sky.jpeg"
