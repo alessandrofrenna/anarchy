@@ -1,7 +1,7 @@
 source "$HOME/.local/share/anarchy/setup/utils/is_installed.sh"
 
 required_packages=(
-  "mkinitcpio-firmware" "gnome-keyring"
+  "mkinitcpio-firmware" "gnome-keyring" "polkit-gnome"
   "brightnessctl" "imv"
   "fcitx5" "fcitx5-gtk" "fcitx5-qt" "fcitx5-configtool"
   "nautilus" "ffmpegthumbnailer" "sushi"
