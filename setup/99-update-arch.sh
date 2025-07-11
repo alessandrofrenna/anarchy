@@ -1,0 +1,1 @@
+source ~/.local/share/anarchy/bin/update-arch
