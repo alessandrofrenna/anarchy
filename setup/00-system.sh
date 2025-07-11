@@ -10,6 +10,7 @@ required_packages=(
   "tldr" "less" "alacritty" "tldr" "less" "alacritty" "nss-mdns" 
   "bluez" "bluez-utils" "bluez-obex" "ripgrep" "webp-pixbuf-loader"
   "imagemagick" "libwebp" "libheif" "libsecret" "libgnome-keyring"
+  "fd" "fzf"
 )
 
 # Find the architecture microcode to install
