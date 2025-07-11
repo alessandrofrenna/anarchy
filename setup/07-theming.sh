@@ -2,7 +2,8 @@ source "$HOME/.local/share/anarchy/setup/utils/is_installed.sh"
 
 required_packages=(
   "gnome-themes-extra" "qqc2-desktop-style" "kvantum"
-  "kvantum-theme-libadwaita-git" "morewaita-icon-theme" 
+  "morewaita-icon-theme" "adwaita-colors-icon-theme"
+  "kvantum-theme-libadwaita-git"
 )
 
 to_install=()
@@ -18,9 +19,6 @@ if [[ ${#to_install[@]} -gt 0 ]]; then
 else
   echo -e "Packages already installed, skipping to the next step..."
 fi
-
-# Install MoreWaita
-eval "$(wget -O MoreWaita.sh https://raw.githubusercontent.com/dpejoh/Adwaita-colors/main/MoreWaita.sh && chmod +x MoreWaita.sh && sudo ./MoreWaita.sh)"
 
 echo -e "Setting Adwaita-dark as theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
