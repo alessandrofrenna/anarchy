@@ -47,3 +47,6 @@ ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/mako.ini" ~/.local/share/anarchy/co
 # Btop
 mkdir -p ~/.local/share/anarchy/config/btop/themes
 ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/btop.theme" ~/.local/share/anarchy/config/btop/themes/current.theme
+
+# Launch again stow on config to sync current_theme
+stow -v -d ~/.local/share/anarchy -t ~/.config -R config
