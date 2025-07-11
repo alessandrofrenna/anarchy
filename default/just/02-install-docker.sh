@@ -39,7 +39,7 @@ install_docker() {
     echo "Adding user '${USER}' to the 'docker' group..."
     sudo usermod -aG docker "${USER}"
     # IMPORTANT: Inform the user they need to re-login
-    echo -e "\n\033[1;33mIMPORTANT: Log out and log back in for group changes to take full effect.\033[0m"
+    echo -e "IMPORTANT: Log out and log back in for group changes to take full effect."
   else
     echo "User '${USER}' is already in the 'docker' group."
   fi

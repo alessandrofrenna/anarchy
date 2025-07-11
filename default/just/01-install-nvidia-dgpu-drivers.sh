@@ -119,7 +119,7 @@ install_nvidia_dgpu_drivers() {
 
   echo -e "\n--- NVIDIA Driver Installation Complete! ---\n"
   echo "An environment file has been created at ~/.config/environment.d/"
-  echo "\n\033[1;33mIMPORTANT: You must REBOOT or RE-LOGIN for all changes to take effect.\033[0m"
+  echo "IMPORTANT: You must REBOOT or RE-LOGIN for all changes to take effect."
 }
 
 set -e
