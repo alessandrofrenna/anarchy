@@ -12,7 +12,7 @@ show_power_menu() {
 \u2060󰜉 Restart
 \u2063󰐥 Shutdown" # These first characters are invisible sort keys
 
-  local selection=$(echo -e "$menu_options" | wofi --show dmenu --prompt "Power Options" --width 150 --height 200 -O alphabetical --style $HOME/.local/share/anarchy/config/wofi/select.css)
+  local selection=$(echo -e "$menu_options" | wofi --show dmenu --prompt "Power Options" --width 150 --height 210 -O alphabetical --style $HOME/.local/share/anarchy/config/wofi/select.css)
 
   case "$selection" in
   *Logout*) hyprctl dispatch exit ;;
