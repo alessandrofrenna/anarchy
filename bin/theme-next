@@ -1,23 +1,22 @@
 #!/bin/bash
-
 THEMES_DIR="$HOME/.local/share/anarchy/themes/"
-CURRENT_THEME_LINK="$HOME/.local/share/anarchy/config/current_theme"
+CURRENT_THEME_DIR="$HOME/.local/share/anarchy/config/current_theme"
+CURRENT_THEME_NAME_FILE="$HOME/.local/share/anarchy/themes/.current_theme"
 
-THEMES=($(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d | sort))
-TOTAL=${#THEMES[@]}
-
-# Get current theme from symlink
-if [[ -L "$CURRENT_THEME_LINK" ]]; then
-  CURRENT_THEME=$(readlink "$CURRENT_THEME_LINK")
-else
-  # Default to first theme if no symlink exists
-  CURRENT_THEME=${THEMES[0]}
+# Unstow the previous theme, if one is set
+if [ -f "${CURRENT_THEME_NAME_FILE}" ]; then
+    PREVIOUS_THEME=$(cat "${CURRENT_THEME_NAME_FILE}")
+    echo "--- Unstowing previous theme: ${PREVIOUS_THEME} ---"
+    stow -v -D -d "${THEMES_DIR}" -t "${CURRENT_THEME_DIR}" "${PREVIOUS_THEME}"
 fi
 
+THEMES=($(find "${THEMES_DIR}" -mindepth 1 -maxdepth 1 -type d | sort))
+TOTAL=${#THEMES[@]}
 # Find current theme index
 INDEX=0
 for i in "${!THEMES[@]}"; do
-  if [[ "${THEMES[$i]}" == "$CURRENT_THEME" ]]; then
+  THIS_THEME=$(basename "${THEMES[$i]}")
+  if [[ "${THIS_THEME}" == "${PREVIOUS_THEME}" ]]; then
     INDEX=$i
     break
   fi
@@ -28,8 +27,10 @@ NEXT_INDEX=$(((INDEX + 1) % TOTAL))
 NEW_THEME=${THEMES[$NEXT_INDEX]}
 NEW_THEME_NAME=$(basename "$NEW_THEME")
 
-# Set current theme
-ln -nsf "$NEW_THEME" "$CURRENT_THEME_LINK"
+# Stow the new theme
+echo "--- Stowing new theme: ${NEW_THEME_NAME} ---"
+stow -v -S -d "${THEMES_DIR}" -t "${CURRENT_THEME_DIR}" "${NEW_THEME_NAME}"
+echo "${NEW_THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
 
 # Touch alacritty config to pickup the changed theme
 touch "$HOME/.local/share/anarchy/config/alacritty/alacritty.toml"
@@ -40,13 +41,10 @@ makoctl reload
 hyprctl reload
 
 # Set new background
-CURRENT_THEME_BACKGROUNDS_DIR="${CURRENT_THEME_LINK}/backgrounds/"
-
-ln -nsf $(find "$CURRENT_THEME_BACKGROUNDS_DIR" -type f | sort | head -n 1) "${CURRENT_THEME_LINK}/current_background"
+CURRENT_THEME_BACKGROUNDS_DIR="${CURRENT_THEME_DIR}/backgrounds/"
+ln -nsf $(find "${CURRENT_THEME_BACKGROUNDS_DIR}" -type f | sort | head -n 1) "${CURRENT_THEME_DIR}/current_background"
 pkill -x swaybg
 setsid swaybg -i "$HOME/.local/share/anarchy/config/current_theme/current_background" -m fill &
 
-source $HOME/.local/share/anarchy/bin/reload-hyprpolkitagent-theme
-
 # Notify of the new theme
-notify-send "Theme changed to $NEW_THEME_NAME" -t 2000
+notify-send "✅ Theme changed to $NEW_THEME_NAME" -t 2000

@@ -31,20 +31,28 @@ gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 10"
 gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10'
 
-echo -e "Setting current theme to rosepine"
+
+DEFAULT_THEME_NAME="rosepine"
+DEFAULT_THEME_WALLPAPER="1-Rosepine_Mountains_Default.png"
+THEMES_DIR="${HOME}/.local/share/anarchy/themes"
+CURRENT_THEME_DIR="${HOME}/.local/share/anarchy/config/current_theme"
+echo ${DEFAULT_THEME_NAME} > "${THEMES_DIR}/.current_theme"
+
+echo -e "Setting current theme to ${DEFAULT_THEME_NAME}"
+
 # Setup theme links
-stow -v -d ~/.local/share/anarchy/themes -t ~/.local/share/anarchy/config/current_theme -R rosepine
+stow -v -d ${THEMES_DIR} -t ${CURRENT_THEME_DIR} -R ${DEFAULT_THEME_NAME}
 
 # Default background
-ln -snf ~/.local/share/anarchy/themes/rosepine/backgrounds/1-Rosepine_Mountains_Default.png ~/.local/share/anarchy/config/current_theme/current_background
+ln -snf "${HOME}/.local/share/anarchy/themes/rosepine/backgrounds/${DEFAULT_THEME_WALLPAPER}" "${CURRENT_THEME_DIR}/current_background"
 
 # Mako
 mkdir -p ~/.local/share/anarchy/config/mako/config
-ln -snf ~/.local/share/anarchy/config/current_theme/mako.ini ~/.local/share/anarchy/config/mako/config
+ln -snf "${CURRENT_THEME_DIR}/mako.ini" ~/.local/share/anarchy/config/mako/config
 
 # Btop
 mkdir -p ~/.local/share/anarchy/config/btop/themes
-ln -snf ~/.local/share/anarchy/config/current_theme/btop.theme ~/.local/share/anarchy/config/btop/themes/current.theme
+ln -snf "${CURRENT_THEME_DIR}/btop.theme" ~/.local/share/anarchy/config/btop/themes/current.theme
 
 # Launch again stow on config to sync current_theme
 stow -v -d ~/.local/share/anarchy -t ~/.config -R config
