@@ -57,7 +57,7 @@
     "tooltip-format": "{volume}% {icon}",
     "format-icons": [
       "",
-      " ",
+      "",
       " "
     ],
     "on-click": "pavucontrol",
