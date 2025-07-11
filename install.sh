@@ -30,7 +30,7 @@ fi
 echo -e "\nCleaning cache"
 yes | yay -Scc
 
-echo -e "\nSetup completed, rebooting soon..."s
+echo -e "\nSetup completed, rebooting soon..."
 sleep 5
 echo -e "\nRebooting..."
 sudo systemctl reboot
