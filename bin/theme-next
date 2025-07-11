@@ -25,24 +25,23 @@ NEXT_INDEX=$(((INDEX + 1) % TOTAL))
 NEW_THEME=${THEMES[$NEXT_INDEX]}
 NEW_THEME_NAME=$(basename "$NEW_THEME")
 
-# Stow the new theme
 echo "--- Setting the new theme: ${NEW_THEME_NAME} ---"
-ln -nsf ${NEW_THEME} ${CURRENT_THEME_DIR}
+# Set new background
+CURRENT_THEME_BACKGROUNDS_DIR="${NEW_THEME}/backgrounds/"
+ln -nsf "$(find "${CURRENT_THEME_BACKGROUNDS_DIR}" -type f | sort | head -n 1)" "${NEW_THEME}/current_background"
+# Set the new theme
+ln -nsf "${NEW_THEME}" "${CURRENT_THEME_DIR}"
 echo "${NEW_THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
-
-# Touch alacritty config to pickup the changed theme
-touch "$HOME/.local/share/anarchy/config/alacritty/alacritty.toml"
 
 # Restart for new theme
 pkill -SIGUSR2 waybar
 makoctl reload
 hyprctl reload
-
-# Set new background
-CURRENT_THEME_BACKGROUNDS_DIR="${NEW_THEME}/backgrounds/"
-ln -nsf $(find "${CURRENT_THEME_BACKGROUNDS_DIR}" -type f | sort | head -n 1) "${CURRENT_THEME_DIR}/current_background"
 pkill -x swaybg
-setsid swaybg -i "$HOME/.local/share/anarchy/config/current_theme/current_background" -m fill &
+setsid swaybg -i "${CURRENT_THEME_DIR}/current_background" -m fill &
+
+# Touch alacritty config to pickup the changed theme
+touch "$HOME/.local/share/anarchy/config/alacritty/alacritty.toml"
 
 # Notify of the new theme
 notify-send "✅ Theme changed to $NEW_THEME_NAME" -t 2000

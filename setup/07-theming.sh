@@ -36,13 +36,9 @@ CURRENT_THEME_DIR="${HOME}/.local/share/anarchy/config/current_theme"
 echo ${DEFAULT_THEME_NAME} > "${THEMES_DIR}/.current_theme"
 echo -e "Setting current theme to ${DEFAULT_THEME_NAME}"
 
-if [ ! -d "${CURRENT_THEME_DIR}"]; then
-  mkdir -p ${CURRENT_THEME_DIR}
-fi
-
 # Setup theme links
+ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/backgrounds/${DEFAULT_THEME_WALLPAPER}" "${THEMES_DIR}/${DEFAULT_THEME_NAME}/current_background" # default background
 ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}" "${CURRENT_THEME_DIR}"
-ln -snf "${HOME}/.local/share/anarchy/themes/rosepine/backgrounds/${DEFAULT_THEME_WALLPAPER}" "${CURRENT_THEME_DIR}/current_background" # default background
 
 # Mako
 mkdir -p ~/.local/share/anarchy/config/mako/config
