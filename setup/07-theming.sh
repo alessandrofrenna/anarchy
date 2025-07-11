@@ -19,6 +19,9 @@ else
   echo -e "Packages already installed, skipping to the next step..."
 fi
 
+# Install MoreWaita
+eval "$(wget -O MoreWaita.sh https://raw.githubusercontent.com/dpejoh/Adwaita-colors/main/MoreWaita.sh && chmod +x MoreWaita.sh && sudo ./MoreWaita.sh)"
+
 echo -e "Setting Adwaita-dark as theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
@@ -28,9 +31,10 @@ echo -e "Setting Inter Nerd Font for gtk application..."
 gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 10"
 gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10'
+gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
 
-DEFAULT_THEME_NAME="rosepine"
-DEFAULT_THEME_WALLPAPER="1-Rosepine_Mountains_Default.png"
+DEFAULT_THEME_NAME="catppuccin"
+DEFAULT_THEME_WALLPAPER="4-Dreamy_sky.jpeg"
 THEMES_DIR="${HOME}/.local/share/anarchy/themes"
 CURRENT_THEME_DIR="${HOME}/.config/current_theme"
 echo ${DEFAULT_THEME_NAME} > "${THEMES_DIR}/.current_theme"
@@ -41,7 +45,6 @@ ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/backgrounds/${DEFAULT_THEME_WALLPAP
 ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}" "${CURRENT_THEME_DIR}"
 
 # Mako
-mkdir -p ~/.local/share/anarchy/config/mako/config
 ln -snf "${CURRENT_THEME_DIR}/mako.ini" ~/.local/share/anarchy/config/mako/config
 
 # Btop
