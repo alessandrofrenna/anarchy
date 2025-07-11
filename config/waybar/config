@@ -11,7 +11,7 @@
     "clock"
   ],
   "modules-right": [
-    "group/tray",
+    "tray",
     "wireplumber",
     "cpu",
     "bluetooth",
@@ -45,20 +45,6 @@
   },
   "clock": {
     "format": "{:%A %H:%M}",
-    "tooltip": false
-  },
-  "group/tray": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition": 600
-    },
-    "modules": [
-      "custom/expand",
-      "tray"
-    ]
-  },
-  "custom/expand": {
-    "format": " ",
     "tooltip": false
   },
   "tray": {
