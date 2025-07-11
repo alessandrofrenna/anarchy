@@ -1,4 +1,5 @@
 config/mako/config/*
 config/btop/themes/*
+config/environment.d/60-integrated-nvidia-gpu-hyprland.conf
 
 just/05-*
