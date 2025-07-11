@@ -87,7 +87,7 @@ stow -v -d ~/.local/share/anarchy -t ~/.config -R config
 # Use default bashrc from Anarchy
 echo "Sourcing .bashrc into ${HOME}"
 echo "source ~/.local/share/anarchy/default/bash/rc" >~/.bashrc
-echo ~/.local/share/anarchy/default/bash/inputrc > "${HOME}/.inputrc"
+cat ~/.local/share/anarchy/default/bash/inputrc > "${HOME}/.inputrc"
 
 # Ensure application directory exists for update-desktop-database
 mkdir -p $HOME/.local/share/applications
