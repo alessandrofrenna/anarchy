@@ -3,3 +3,4 @@ config/btop/themes/*
 config/environment.d/60-integrated-nvidia-gpu-hyprland.conf
 
 themes/.current_theme
+themes/*/current_background
