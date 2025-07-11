@@ -1,7 +1,7 @@
 #!/bin/bash
 THEMES_DIR="$HOME/.local/share/anarchy/themes/"
-CURRENT_THEME_DIR="$HOME/.local/share/anarchy/config/current_theme"
 CURRENT_THEME_NAME_FILE="$HOME/.local/share/anarchy/themes/.current_theme"
+CURRENT_THEME_DIR="$HOME/.config/current_theme"
 
 # Unstow the previous theme, if one is set
 if [ -f "${CURRENT_THEME_NAME_FILE}" ]; then

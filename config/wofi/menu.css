@@ -1,4 +1,4 @@
-@import ".local/share/anarchy/config/current_theme/wofi.css";
+@import ".config/current_theme/wofi.css";
 
 * {
   font-family: "Inter Nerd Font", monospace;

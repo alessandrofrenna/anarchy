@@ -32,7 +32,7 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 DEFAULT_THEME_NAME="rosepine"
 DEFAULT_THEME_WALLPAPER="1-Rosepine_Mountains_Default.png"
 THEMES_DIR="${HOME}/.local/share/anarchy/themes"
-CURRENT_THEME_DIR="${HOME}/.local/share/anarchy/config/current_theme"
+CURRENT_THEME_DIR="${HOME}/.config/current_theme"
 echo ${DEFAULT_THEME_NAME} > "${THEMES_DIR}/.current_theme"
 echo -e "Setting current theme to ${DEFAULT_THEME_NAME}"
 
@@ -42,11 +42,8 @@ ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}" "${CURRENT_THEME_DIR}"
 
 # Mako
 mkdir -p ~/.local/share/anarchy/config/mako/config
-ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/mako.ini" ~/.local/share/anarchy/config/mako/config
+ln -snf "${CURRENT_THEME_DIR}/mako.ini" ~/.local/share/anarchy/config/mako/config
 
 # Btop
 mkdir -p ~/.local/share/anarchy/config/btop/themes
-ln -snf "${THEMES_DIR}/${DEFAULT_THEME_NAME}/btop.theme" ~/.local/share/anarchy/config/btop/themes/current.theme
-
-# Launch again stow on config to sync current_theme
-stow -v -d ~/.local/share/anarchy -t ~/.config -R config
+ln -snf "${CURRENT_THEME_DIR}/btop.theme" ~/.local/share/anarchy/config/btop/themes/current.theme

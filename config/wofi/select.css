@@ -1,5 +1,5 @@
-@import ".local/share/anarchy/config/current_theme/wofi.css";
-@import ".local/share/anarchy/config/wofi/menu.css";
+@import ".config/current_theme/wofi.css";
+@import ".config/wofi/menu.css";
 
 #input {
   display: none;
