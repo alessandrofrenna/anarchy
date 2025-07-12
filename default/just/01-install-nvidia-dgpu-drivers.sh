@@ -94,26 +94,6 @@ install_nvidia_dgpu_drivers() {
   echo "Configuring modprobe for early KMS..."
   echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf
 
-  # Configure mkinitcpio for early loading
-  local MKINITCPIO_CONF="/etc/mkinitcpio.conf"
-
-  # Define modules to be added. i915 for Intel, nvidia modules for NVIDIA.
-  local NVIDIA_MODULES="i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-
-  echo "Backing up ${MKINITCPIO_CONF} to ${MKINITCPIO_CONF}.backup..."
-
-  sudo cp -v "${MKINITCPIO_CONF}" "${MKINITCPIO_CONF}.backup"
-
-  echo "Adding NVIDIA modules to ${MKINITCPIO_CONF}..."
-  # A safer way to add modules if they aren't already present
-  if ! grep -q "^\s*MODULES=.*\b\(nvidia\|i915\)\b" "$MKINITCPIO_CONF"; then
-      sudo sed -i -E "s/^(MODULES=\()/\\1${NVIDIA_MODULES} /" "${MKINITCPIO_CONF}"
-      echo "Rebuilding initramfs images..."
-      sudo mkinitcpio -P
-  else
-      echo "NVIDIA modules appear to already be in mkinitcpio.conf, skipping..."
-  fi
-
   # --- Create Environment File ---
   create_environment_conf
 
