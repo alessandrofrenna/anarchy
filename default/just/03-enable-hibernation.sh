@@ -16,21 +16,9 @@ add_resume_hook() {
 }
 
 configure_power_settings() {
-  local LOGIND_CONF="/etc/systemd/logind.conf"
   local SLEEP_CONF="/etc/systemd/sleep.conf"
 
-  # --- Task 1: Configure HandleLidSwitch ---
-  echo "Checking settings in ${LOGIND_CONF}..."
-  # Use grep -q to quietly check if the setting is already correct.
-  if grep -q -E "^\s*HandleLidSwitch=suspend-then-hibernate\s*$" "$LOGIND_CONF"; then
-    echo "HandleLidSwitch is already set to suspend-then-hibernate."
-  else
-    echo "Setting HandleLidSwitch=suspend-then-hibernate..."
-    # Use sed to find the line (commented or not) and replace it.
-    sudo sed -i -E 's/^\s*#?\s*HandleLidSwitch=.*/HandleLidSwitch=suspend-then-hibernate/' "$LOGIND_CONF"
-  fi
-
-  # --- Task 2: Configure HibernateDelaySec ---
+  # --- Task 1: Configure HibernateDelaySec ---
   echo "Checking settings in ${SLEEP_CONF}..."
   if grep -q -E "^\s*HibernateDelaySec=120\s*$" "$SLEEP_CONF"; then
     echo "HibernateDelaySec is already set to 120 seconds."

@@ -17,7 +17,7 @@ show_power_menu() {
   case "$selection" in
   *Logout*) hyprctl dispatch exit ;;
   *Lock*) hyprlock ;;
-  *Suspend*) systemctl suspend-then-hibernate &>/dev/null || systemctl suspend ;;
+  *Suspend*) systemctl suspend ;;
   *Hibernate*) systemctl hibernate &>/dev/null || systemctl suspend ;;
   *Restart*) systemctl reboot ;;
   *Shutdown*) systemctl poweroff ;;
