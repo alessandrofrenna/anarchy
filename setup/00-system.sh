@@ -100,6 +100,6 @@ if grep -q -E "^\s*P2pPolicy=nothing\s*$" "${FWUPD_CONG_FILE}"; then
   echo "Fwupd passim is already disabled"
 else
   echo "Disabling passim for fwupd..."
-  sudo echo "P2pPolicy=nothing" >> ${FWUPD_CONG_FILE}
+  echo "P2pPolicy=nothing" | sudo tee -a ${FWUPD_CONG_FILE}
   sudo systemctl mask passim.service
 fi
