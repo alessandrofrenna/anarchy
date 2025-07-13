@@ -1,8 +1,8 @@
 default:
     echo 'Hello, world!'
 install-nvidia-dgpu-driver:
-    source ~/.local/share/anarchy/default/just/01-install-nvidia-dgpu-drivers.sh
+    source ~/.local/share/anarchy/default/just/01-install-nvidia-dgpu-drivers.sh >/dev/null
 install-docker:
-    source ~/.local/share/anarchy/default/just/02-install-docker.sh
+    source ~/.local/share/anarchy/default/just/02-install-docker.sh >/dev/null
 enable-hibernation:
-    source ~/.local/share/anarchy/default/just/03-enable-hibernation.sh
+    source ~/.local/share/anarchy/default/just/03-enable-hibernation.sh >/dev/null
