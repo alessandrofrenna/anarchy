@@ -54,6 +54,16 @@ fi
 
 echo -e "Enabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service
+systemctl --user enable --now obex.service # enable bluetooth file sharing service
+
+BLUETOOTH_CONF="/etc/bluetooth/main.conf"
+echo "Checking settings in ${BLUETOOTH_CONF}..."
+if grep -q -E "^\s*AutoEnable=false\s*$" "$BLUETOOTH_CONF"; then
+  echo "Bluetooth AutoEnable option is already set false."
+else
+  echo "Setting bluetooth option AutoEnable=false"
+  sudo sed -i -E 's/^\s*#?\s*AutoEnable=.*/AutoEnable=false/' "$BLUETOOTH_CONF"
+fi
 
 echo -e "\nUpdating xdg user directories"
 xdg-user-dirs-update
