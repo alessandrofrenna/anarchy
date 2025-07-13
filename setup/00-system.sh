@@ -54,7 +54,6 @@ fi
 
 echo -e "Enabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service
-sudo systemctl enable --now fwupd.service fwupd-refresh.timer
 
 echo -e "\nUpdating xdg user directories"
 xdg-user-dirs-update
@@ -92,3 +91,15 @@ cat ~/.local/share/anarchy/default/bash/inputrc > "${HOME}/.inputrc"
 
 # Ensure application directory exists for update-desktop-database
 mkdir -p $HOME/.local/share/applications
+
+# Enable fwupd
+sudo systemctl enable --now fwupd.service fwupd-refresh.timer
+
+FWUPD_CONG_FILE="/etc/fwupd/fwupd.conf"
+if grep -q -E "^\s*P2pPolicy=nothing\s*$" "${FWUPD_CONG_FILE}"; then
+  echo "Fwupd passim is already disabled"
+else
+  echo "Disabling passim for fwupd..."
+  sudo echo "P2pPolicy=nothing" >> ${FWUPD_CONG_FILE}
+  sudo systemctl mask passim.service
+fi
