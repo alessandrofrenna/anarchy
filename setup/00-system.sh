@@ -106,7 +106,7 @@ mkdir -p $HOME/.local/share/applications
 sudo systemctl enable --now fwupd.service fwupd-refresh.timer
 
 FWUPD_CONG_FILE="/etc/fwupd/fwupd.conf"
-if grep -q -E "^\s*P2pPolicy=nothing\s*$" "${FWUPD_CONG_FILE}"; then
+if sudo grep -q -E "^\s*P2pPolicy=nothing\s*$" "${FWUPD_CONG_FILE}"; then
   echo "Fwupd passim is already disabled"
 else
   echo "Disabling passim for fwupd..."
