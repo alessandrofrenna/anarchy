@@ -7,7 +7,7 @@ required_packages=(
   "nautilus" "ffmpegthumbnailer" "sushi"
   "firefox" "chromium" "bitwarden-bin"
   "zathura" "zathura-pdf-mupdf" "zathura-cb zathura-djvu" "qalculate-gtk" "nwg-look"
-  "yt-dlp" "jq" "lazygit" "impala" "bluetui"
+  "yt-dlp" "jq" "lazygit" "impala" "bluetui" "gnome-firmware"
 )
 
 to_install=()

@@ -10,7 +10,7 @@ required_packages=(
   "tldr" "less" "alacritty" "tldr" "less" "alacritty" "nss-mdns" 
   "bluez" "bluez-utils" "bluez-obex" "ripgrep" "webp-pixbuf-loader"
   "imagemagick" "libwebp" "libheif" "libsecret" "libgnome-keyring"
-  "fd" "fzf"
+  "fd" "fzf" "fwupd"
 )
 
 # Find the architecture microcode to install
@@ -54,6 +54,7 @@ fi
 
 echo -e "Enabling system-wide services..."
 sudo systemctl enable --now avahi-daemon.service sshd.service bluetooth.service udisks2.service
+sudo systemctl enable --now fwupd.service fwupd-refresh.timer
 
 echo -e "\nUpdating xdg user directories"
 xdg-user-dirs-update
