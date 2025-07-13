@@ -92,7 +92,7 @@ install_nvidia_dgpu_drivers() {
 
   # Configure modprobe for early KMS
   echo "Configuring modprobe for early KMS..."
-  echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf
+  echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf >/dev/null
 
   # --- Create Environment File ---
   create_environment_conf

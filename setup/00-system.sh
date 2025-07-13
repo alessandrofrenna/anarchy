@@ -71,18 +71,18 @@ xdg-user-dirs-update
 # Configure graphics driver environment variables
 if ! grep -q ${libva_env_var} /etc/environment; then
   echo "Setting up environment variable: ${libva_env_var}"
-  echo "${libva_env_var}" | sudo tee -a /etc/environment
+  echo "${libva_env_var}" | sudo tee -a /etc/environment >/dev/null
 fi
 
 if lspci | grep "VGA" | grep "AMD" > /dev/null; then
     vulkan_env="AMD_VULKAN_ICD=RADV"
     if ! grep -q ${vulkan_env} /etc/environment; then
-      echo ${vulkan_env} | sudo tee -a /etc/environment
+      echo ${vulkan_env} | sudo tee -a /etc/environment >/dev/null
     fi
 
     vdpau_driver="VDPAU_DRIVER=radeonsi"
     if ! grep -q ${vdpau_driver} /etc/environment; then
-      echo ${vdpau_driver} | sudo tee -a /etc/environment
+      echo ${vdpau_driver} | sudo tee -a /etc/environment >/dev/null
     fi
 fi
 
@@ -110,6 +110,6 @@ if grep -q -E "^\s*P2pPolicy=nothing\s*$" "${FWUPD_CONG_FILE}"; then
   echo "Fwupd passim is already disabled"
 else
   echo "Disabling passim for fwupd..."
-  echo "P2pPolicy=nothing" | sudo tee -a ${FWUPD_CONG_FILE}
+  echo "P2pPolicy=nothing" | sudo tee -a ${FWUPD_CONG_FILE} >/dev/null
   sudo systemctl mask passim.service
 fi

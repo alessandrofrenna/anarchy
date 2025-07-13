@@ -22,7 +22,7 @@ install_docker() {
     echo "Configuring Docker daemon with log limits..."
     # Limit the log size to avoid running out of disk
     sudo mkdir -p /etc/docker
-    echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json
+    echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json >/dev/null
   fi
 
   # Enable the docker service

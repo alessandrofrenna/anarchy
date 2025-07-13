@@ -8,7 +8,7 @@ make_swap_file() {
   
   # Make the swap permanent after reboot ---
   echo "Adding swap file to /etc/fstab for persistence..."
-  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
 }
 
 start_swap() {

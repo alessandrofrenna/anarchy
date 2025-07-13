@@ -68,7 +68,7 @@ enable_hibernation() {
   fi
 
   echo "Writing configuration to ${HIBERNATION_CONF_FILE}..."
-  echo "resume=${ROOT_PARTITION} resume_offset=${RESUME_OFFSET}" | sudo tee "${HIBERNATION_CONF_FILE}" > /dev/null
+  echo "resume=${ROOT_PARTITION} resume_offset=${RESUME_OFFSET}" | sudo tee "${HIBERNATION_CONF_FILE}" >/dev/null
 
   add_resume_hook
   sudo mkinitcpio -P
