@@ -36,7 +36,7 @@ integrated_gpu_first() {
   fi
 
   if [ "${count}" -le 1 ]; then
-    echo -e "✅ This system has only one GPU, nothing to do here!"
+    echo -e "✅ This system has only one or zero GPU, nothing to do here!"
     exit 0
   else
     echo -e "📺 Found ${count} display controllers (GPUs)"
