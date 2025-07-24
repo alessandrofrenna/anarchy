@@ -17,7 +17,7 @@ show_power_menu() {
   local selection=$(echo -e "$menu_options" | walker --dmenu --theme dmenu_150)
 
   case "$selection" in
-  *Logout*) loginctl terminate-user "" ;;
+  *Logout*) uwsm stop ;;
   *Lock*) hyprlock ;;
   *Suspend*) systemctl suspend-then-hibernate &>/dev/null || systemctl suspend ;;
   *Hibernate*) systemctl hibernate &>/dev/null || systemctl suspend ;;
