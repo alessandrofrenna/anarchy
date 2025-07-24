@@ -20,8 +20,9 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-pink'
   gsettings set org.gnome.desktop.interface accent-color 'pink'
 
-  # Enable symbolic folder icons
-  gsettings set org.gnome.desktop.interface icon-theme-use-symbolic true 2>/dev/null || true
+  # Enable symbolic folder icons (commented for now)
+  # gsettings set org.gnome.desktop.interface icon-theme-use-symbolic true 2>/dev/null || true
+  
   # Set fonts
   gsettings set org.gnome.desktop.interface font-name "Inter Nerd Font, 12"
   gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font 12'
