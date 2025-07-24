@@ -33,7 +33,7 @@ integrated_gpu_first() {
     echo -e "✅ This system has only one GPU, nothing to do here!"
     exit 0
   else
-    echo -e "📺 Found multiple display controllers (GPUs)"
+    echo -e "📺 Found ${count} display controllers (GPUs)"
   fi
 
   while IFS= read -r pci_address; do
