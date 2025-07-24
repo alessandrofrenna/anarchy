@@ -1,6 +1,0 @@
-config/mako/config/*
-config/btop/themes/*
-config/environment.d/60-dedicated-nvidia-gpu-hyprland.conf
-
-themes/.current_theme
-themes/*/current_background

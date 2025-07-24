@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+
+# Original reference https://github.com/basecamp/omarchy/blob/master/bin/omarchy-refresh-applications
+# ======================================================================================
+# Based on Omarchy script: omarchy-refresh-application
+# ======================================================================================
+
+# Copy and sync icon files
+SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps/"
+if [ ! -d "${SHARED_ICON_DIR}" ]; then
+  mkdir -p "${SHARED_ICON_DIR}"
+  echo "🗃️ Created missing ${SHARED_ICON_DIR} "
+fi
+ANARCHY_APPLICATION_DIR="${HOME}/.local/share/anarchy/applications"
+cp "${ANARCHY_APPLICATION_DIR}/icons/*.png" "${SHARED_ICON_DIR}/"
+gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
+
+# Copy .desktop declarations
+SHARED_APPLICATION_DIR="${HOME}/.local/share/applications"
+if [ ! -d "${SHARED_APPLICATION_DIR}" ]; then
+  mkdir -p "${SHARED_APPLICATION_DIR}"
+  echo "🗃️ Created missing ${SHARED_APPLICATION_DIR} "
+fi
+
+echo -e "⏳ Copying desktop files into ${SHARED_APPLICATION_DIR}..."
+cp "${ANARCHY_APPLICATION_DIR}/"*.desktop "${SHARED_APPLICATION_DIR}"
+cp "${ANARCHY_APPLICATION_DIR}/hidden/"*.desktop "${SHARED_APPLICATION_DIR}"
+cp "${ANARCHY_APPLICATION_DIR}/xtras/"*.desktop "${SHARED_APPLICATION_DIR}"
+update-desktop-database ~/.local/share/applications
+echo -e "✅ Desktop files copied successfully"

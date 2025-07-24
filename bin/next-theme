@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-theme-next
+# ======================================================================================
+# Based on Omarchy script: omarchy-theme-next
+# ======================================================================================
+
+THEMES_DIR="$HOME/.local/share/anarchy/themes/"
+CURRENT_THEME_NAME_FILE="$HOME/.config/anarchy/theme/.name"
+CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
+
+THEMES=($(find "${THEMES_DIR}" -mindepth 1 -maxdepth 1 -type d | sort))
+TOTAL=${#THEMES[@]}
+
+# Get current theme from .name file
+if [[ -f "$CURRENT_THEME_NAME_FILE" ]]; then
+  CURRENT_THEME=$(cat "${CURRENT_THEME_NAME_FILE}")
+else
+  # Default to first theme if no .name file exists
+  CURRENT_THEME="${THEMES[1]##*/}"
+fi
+
+# Find current theme index
+INDEX=0
+for i in "${!THEMES[@]}"; do
+  # THIS_THEME=$(basename "${THEMES[$i]}")
+  THIS_THEME="${THEMES[$i]##*/}"
+  if [[ "${THIS_THEME}" == "${CURRENT_THEME}" ]]; then
+    INDEX=$i
+    break
+  fi
+done
+
+# Get next theme (wrap around)
+NEXT_INDEX=$(((INDEX + 1) % TOTAL))
+NEW_THEME=${THEMES[$NEXT_INDEX]}
+"$HOME/.local/share/anarchy/bin/set-theme" $NEW_THEME
+
+# Notify of the new theme
+notify-send "✅ Theme changed to $NEW_THEME_NAME" -t 2000

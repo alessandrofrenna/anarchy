@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-theme-menu
+# ======================================================================================
+# Based on Omarchy script: omarchy-theme-menu
+# ======================================================================================
+
+THEMES_DIR="$HOME/.local/share/anarchy/themes"
+CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
+CURRENT_THEME_NAME=$(cat "${CURRENT_THEME_DIR}/.name")
+
+# Build themes list with pretty display names
+mapfile -t themes < <(
+  find "$THEMES_DIR" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | while read -r path; do
+    filename="${path##*/}"
+    display_name=$(echo "$filename" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g')
+    if [[ "$filename" == "$CURRENT_THEME_NAME" ]]; then
+      echo "<i>$display_name</i>"
+    else
+      echo "$display_name"
+    fi
+  done | sort
+)
+
+# Show Walker menu
+selection=$(printf '%s\n' "${themes[@]}" | walker --dmenu --theme dmenu_250 2>/dev/null)
+
+# Remove any Pango markup before converting back to filename
+clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
+
+# Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
+selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+# Apply the selected theme
+"$HOME/.local/share/anarchy/bin/set_theme" "${THEMES_DIR}/${selected_theme}"

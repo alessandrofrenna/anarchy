@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-theme-set
+# ======================================================================================
+# Based on Omarchy script: omarchy-theme-set
+# ======================================================================================
+
+# Usage: set-theme <theme-path>
+
+if [[ -z "$1" ]]; then
+  echo "Usage: set-theme <theme-path>" >&2
+  exit 1
+fi
+
+THEME_PATH="$1"
+THEME_NAME="${THEME_PATH##*/}"
+CURRENT_THEME_DIR="${HOME}/.config/anarchy/theme"
+CURRENT_THEME_NAME_FILE="${CURRENT_THEME_DIR}/.name"
+
+# Check if the theme entered exists
+if [[ ! -d "${THEME_PATH}" ]]; then
+  echo "Theme '${THEME_NAME}' does not exist" >&2
+  exit 2
+fi
+
+echo "--- Setting the new theme: ${THEME_NAME} ---"
+# Update symling for the new theme
+ln -nsf "${THEME_PATH}" "${CURRENT_THEME_DIR}"
+echo "${THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
+# Change Icon theme
+"${CURRENT_THEME_DIR}/change-icon-theme.sh"
+
+# Trigger alacritty config reload
+touch "$HOME/.config/alacritty/alacritty.toml"
+
+# Restart components to apply new theme
+pkill -SIGUSR2 btop
+pkill -SIGUSR2 waybar
+pkill swayosd-server
+setsid uwsm app -- swayosd-server &>/dev/null &
+makoctl reload
+hyprctl reload
+
+# Set new background
+"$HOME/.local/share/anarchy/bin/next-background"

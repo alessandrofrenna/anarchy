@@ -1,10 +1,12 @@
 pacman -Q git &>/dev/null || sudo pacman -Sy --noconfirm --needed git
+clear
 
-echo -e "\nCloning Anarchy..."
+echo -e "⏳ Cloning Anarchy..."
 rm -rf ~/.local/share/anarchy/
 git clone https://github.com/alessandrofrenna/anarchy.git ~/.local/share/anarchy >/dev/null
+clear
 
-pacman -Q wget &>/dev/null || sudo pacman -Sy --noconfirm --needed wget
-
-echo -e "\nInstallation starting..."
-source ~/.local/share/anarchy/install.sh $1
+echo -e "⏳ Installation starting..."
+sleep 3
+clear
+source ~/.local/share/anarchy/install.sh

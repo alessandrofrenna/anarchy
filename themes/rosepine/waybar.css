@@ -1,4 +1,2 @@
-* {
-  color: #e0def4;
-  background-color: #232136;
-}
+@define-color foreground #e0def4;
+@define-color background #232136;

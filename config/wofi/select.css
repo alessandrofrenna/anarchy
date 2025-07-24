@@ -1,8 +1,0 @@
-@import ".config/current_theme/wofi.css";
-@import ".config/wofi/menu.css";
-
-#input {
-  display: none;
-  opacity: 0;
-  margin-top: -200px;
-}

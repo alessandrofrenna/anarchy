@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-update
+# ======================================================================================
+# Based on Omarchy script: omarchy-update
+# ======================================================================================
+
+ANARCHY_DIR="${HOME}/.local/share/anarchy"
+cd "${ANARCHY_DIR}"
+
+# Get the latest while trying to preserve any modifications
+git pull --autostash
+git diff --check || git reset --merge
+
+# Update system packages
+echo -e "📦 Updating system packages..."
+yay -Syu --noconfirm
+echo -e "\033c✅ System is up to date!"
+
+source "${ANARCHY_DIR}/install.sh"

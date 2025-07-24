@@ -1,0 +1,57 @@
+#!/bin/bash
+set -euo pipefail
+
+get_display_controllers() {
+  lspci -d ::03xx | grep -oE '^\S+'
+}
+
+append_to_env_if_missing() {
+  local drm_devices=$1
+  local hypr_env_file="${HOME}/.config/uwsm/env-hyprland"
+  
+  if [ ! -f "${hypr_env_file}" ]; then
+    echo -e "🚩 Hyprland env file not found!"
+    exit 1
+  fi
+
+  if ! grep -qiE "^\s*export\s*AQ_DRM_DEVICES\s*=.*" "${hypr_env_file}"; then
+    echo -e "⏳ Setting iGPU as primary renderer..."
+    echo -e "export AQ_DRM_DEVICES=\"${drm_devices}\"" | tee -a ${hypr_env_file}  >/dev/null
+    echo -e "✅ iGPU set as primary renderer successfully"
+  else
+    echo -e "✅ The iGPU is already set as primary renderer"
+  fi
+}
+
+integrated_gpu_first() {
+  local drm_devices=""
+  local device_path="/dev/dri/by-path"
+  local display_controllers="$(get_display_controllers)"
+  local count=$(echo "${display_controllers}" | wc -l)
+
+  if [ "${count}" -eq 1 ]; then
+    echo -e "✅ This system has only one GPU, nothing to do here!"
+    exit 0
+  else
+    echo -e "📺 Found multiple display controllers (GPUs)"
+  fi
+
+  while IFS= read -r pci_address; do
+    # Refined find command: searches for the specific "-card" device symlink.
+    while IFS= read -r -d $'\0' found_file; do
+      if [ -L "${found_file}" ]; then
+        real_path=$(readlink -f "${found_file}")
+        if [ -z "$drm_devices" ]; then
+          drm_devices="$real_path"
+        else
+          drm_devices="${drm_devices}:${real_path}"
+        fi
+      fi
+    done < <(find "${device_path}" -name "*${pci_address}-card*" -print0)
+  done <<< "${display_controllers}"
+
+  echo "📺 DRM devices found: ${drm_devices}"
+  append_to_env_if_missing "${drm_devices}"
+}
+
+integrated_gpu_first
