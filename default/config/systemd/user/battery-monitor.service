@@ -1,0 +1,13 @@
+# Original reference https://github.com/basecamp/omarchy/blob/dev/config/systemd/user/omarchy-battery-monitor.service
+# ======================================================================================
+# Based on Omarchy service: omarchy-battery-monitor.service
+# ======================================================================================
+
+[Unit]
+Description=Anarchy Battery Monitor Check
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/anarchy/bin/battery-monitor
+Environment=DISPLAY=:0
