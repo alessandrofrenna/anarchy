@@ -16,7 +16,7 @@ append_to_env_if_missing() {
 
   if ! grep -qiE "^\s*export\s*AQ_DRM_DEVICES\s*=.*" "${hypr_env_file}"; then
     echo -e "⏳ Setting iGPU as primary renderer..."
-    echo -e "export AQ_DRM_DEVICES=\"${drm_devices}\"" | tee -a ${hypr_env_file}  >/dev/null
+    echo -e "export AQ_DRM_DEVICES=\"${drm_devices}\"" | tee -a "${hypr_env_file}"  >/dev/null
     echo -e "✅ iGPU set as primary renderer successfully"
   else
     echo -e "✅ The iGPU is already set as primary renderer"
@@ -27,9 +27,15 @@ integrated_gpu_first() {
   local drm_devices=""
   local device_path="/dev/dri/by-path"
   local display_controllers="$(get_display_controllers)"
-  local count=$(echo "${display_controllers}" | wc -l)
+  local count
+  # Handle case where no controllers are found
+  if [ -z "${display_controllers}" ]; then
+    count=0
+  else
+    count=$(echo "${display_controllers}" | wc -l)
+  fi
 
-  if [ "${count}" -eq 1 ]; then
+  if [ "${count}" -le 1 ]; then
     echo -e "✅ This system has only one GPU, nothing to do here!"
     exit 0
   else
