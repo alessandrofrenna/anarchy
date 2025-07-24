@@ -1,6 +1,31 @@
 #!/bin/bash
 set -euo pipefail
 
+add_firewall_rules() {
+  echo "🧱 Checking firewall status for Docker rules..."
+  
+  # Check if UFW is installed AND active before proceeding
+  if command -v ufw &>/dev/null && sudo ufw status | grep -q "Status: active"; then
+    echo "✅ Firewall is active. Applying Docker-specific rules..."
+    
+    # 1. Install the ufw-docker tool if it's not present
+    if ! command -v ufw-docker &>/dev/null; then
+      echo -e "⏳ Installing ufw-docker..."
+      yay -S --noconfirm ufw-docker
+      echo -e "✅ ufw-docker installed"
+    fi
+    
+    # 2. Apply the firewall rules.
+    sudo ufw allow in on docker0 to any port 53
+    sudo ufw-docker install
+    sudo ufw reload
+    echo -e "✅ Docker firewall rules applied"
+  
+  else
+    echo "⚠️ UFW is not installed or not active. Skipping Docker firewall rules."
+  fi
+}
+
 install_docker() {
   echo -e "⏳ Installing Docker packages..."
   yay -S --noconfirm docker docker-compose docker-buildx lazydocker-bin
@@ -44,6 +69,8 @@ EOF
     # IMPORTANT: Inform the user they need to re-login
     echo -e "✅ User ${USER} is now part of 'docker' group"
     sleep 2
+
+    add_firewall_rules
 
     echo -e "\033c ⚠️ IMPORTANT: Logging out in a moment for group changes to take full effect..."
     sleep 2
