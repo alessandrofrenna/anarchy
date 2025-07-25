@@ -87,12 +87,12 @@ weight = 5
 icon = "file"
 name = "finder"
 placeholder = "Finder"
-switcher_only = true
 ignore_gitignore = true
 refresh = true
 concurrency = 8
 show_icon_when_single = true
 preview_images = false
+switcher_only = true
 hidden = true
 
 [builtins.calc]
@@ -101,14 +101,15 @@ weight = 5
 name = "Calculator"
 icon = "accessories-calculator"
 placeholder = "Calculator"
-min_chars = 3      
+min_chars = 3
+switcher_only = true
+hidden = true
 
 [builtins.emojis]
 exec = "wl-copy"
 weight = 5
 name = "Emojis"
 placeholder = "Emojis"
-switcher_only = true
 history = true
 typeahead = true
 show_unqualified = false
@@ -163,12 +164,12 @@ url = "https://duckduckgo.com/?q=%TERM%"
 switcher_only = true
 
 [builtins.dmenu]
-hidden = true
 weight = 5
 name = "dmenu"
 placeholder = "Dmenu"
-switcher_only = true
 show_icon_when_single = true
+hidden = true
+switcher_only = true
 
 [builtins.bookmarks]
 enabled = false
