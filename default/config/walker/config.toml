@@ -102,8 +102,7 @@ name = "Calculator"
 icon = "accessories-calculator"
 placeholder = "Calculator"
 min_chars = 3
-switcher_only = true
-hidden = true
+prefix = "="
 
 [builtins.emojis]
 exec = "wl-copy"
