@@ -2,7 +2,7 @@
 set -euo pipefail
 
 packages=(
-  "gnome-themes-extra" "qqc2-desktop-style" "kvantum"
+  "gnome-themes-extra" "qqc2-desktop-style" "kvantum-qt5"
   "morewaita-icon-theme" "adwaita-colors-icon-theme"
   "kvantum-theme-libadwaita-git"
 )
