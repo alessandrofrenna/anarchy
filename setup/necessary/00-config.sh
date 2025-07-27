@@ -27,8 +27,8 @@ done
 echo -e "✅ Configurations copied"
 
 # Use default bashrc from Anarchy
-echo -e "⏳ Sourcing .bashrc into ${HOME}..."
-echo "source ~/.local/share/anarchy/default/bash/rc" >~/.bashrc
+echo -e "⏳ Configuring .bashrc file..."
+cp ~/.local/share/anarchy/default/bashrc ~/.bashrc
 echo -e "✅ .bashrc configured\n"
 
 # Original reference https://github.com/basecamp/omarchy/blob/a4e7f41798148765055b2dcb5e70a680825688aa/install/4-config.sh#L12
