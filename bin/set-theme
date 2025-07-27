@@ -35,6 +35,10 @@ for file in "${THEME_PATH}"/*; do
 done
 
 echo "${THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
+
+# Set new background
+"$HOME/.local/share/anarchy/bin/next-background"
+
 # Change Icon theme
 "${CURRENT_THEME_DIR}/change-icon-theme.sh"
 
@@ -49,5 +53,5 @@ setsid uwsm app -- swayosd-server &>/dev/null &
 makoctl reload
 hyprctl reload
 
-# Set new background
-"$HOME/.local/share/anarchy/bin/next-background"
+# Notify of the new theme
+notify-send "✅ Theme changed to $THEME_NAME" -t 2000

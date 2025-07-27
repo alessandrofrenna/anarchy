@@ -35,6 +35,3 @@ done
 NEXT_INDEX=$(((INDEX + 1) % TOTAL))
 NEW_THEME=${THEMES[$NEXT_INDEX]}
 "$HOME/.local/share/anarchy/bin/set-theme" $NEW_THEME
-
-# Notify of the new theme
-notify-send "✅ Theme changed to $NEW_THEME_NAME" -t 2000
