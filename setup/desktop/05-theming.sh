@@ -49,7 +49,13 @@ if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
   # Set background
   ln -snf "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}/backgrounds/${ANARCHY_DEFAULT_BG_NAME}" "${ANARCHY_CONF_DIR}/current_background"
   # Link theme files
-  ln -snf "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}"/* "${ANARCHY_THEME_DIR}"
+  for file in "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}"/*; do
+    # This check prevents errors if the source directory is empty
+    [ -e "$file" ] || [ -L "$file" ] || continue
+    
+    # Create a symbolic link for each file in the destination directory
+    ln -snf "$file" "${ANARCHY_THEME_DIR}"
+  done
   # Set current theme name file
   echo -e "${ANARCHY_DEFAULT_THEME_NAME}" > "${ANARCHY_THEME_CURRENT}"
   # Mako
