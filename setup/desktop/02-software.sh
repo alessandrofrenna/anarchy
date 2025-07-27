@@ -110,6 +110,8 @@ yay -S --noconfirm "${packages[@]}"
 yay -S --noconfirm spotify || echo -e "❌ Failed to install Spotify. Continuing without!"
 echo -e "✅ Software packages installed"
 
+# Refresh application desktop files
+"${HOME}/.local/share/anarchy/bin/refresh-application"
 update-desktop-database ~/.local/share/applications
 echo -e "🗃️ Updated desktop database"
 
@@ -183,9 +185,6 @@ set_default_application http_mimes "firefox.desktop"
 
 # Set default browser
 xdg-settings set default-web-browser firefox.desktop
-
-# Refresh application desktop files
-"${HOME}/.local/share/anarchy/bin/refresh-application"
 
 echo -e "✅ Default applications configured"
 
