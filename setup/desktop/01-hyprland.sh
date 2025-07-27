@@ -59,7 +59,7 @@ if ! grep -i -E "\s*source\s*=.*/${USER}/custom.conf" "${HYPR_DEFAULT_CONFIG_FIL
 fi
 
 # Use iGPU as rendered
-"${HOME}/.local/share/anarchy/use-integrated-gpu"
+"${HOME}/.local/share/anarchy/bin/use-integrated-gpu"
 
 # Enable hyprland utilities as services
 services=(
