@@ -112,8 +112,6 @@ echo -e "✅ Software packages installed"
 
 # Refresh application desktop files
 "${HOME}/.local/share/anarchy/bin/refresh-application"
-update-desktop-database ~/.local/share/applications
-echo -e "🗃️ Updated desktop database"
 
 echo "📄 Configuring default applications for file types..."
 

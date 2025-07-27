@@ -6,26 +6,38 @@ set -euo pipefail
 # Based on Omarchy script: omarchy-refresh-application
 # ======================================================================================
 
-# Copy and sync icon files
-SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps/"
-if [ ! -d "${SHARED_ICON_DIR}" ]; then
-  mkdir -p "${SHARED_ICON_DIR}"
-  echo "🗃️ Created missing ${SHARED_ICON_DIR} "
-fi
-ANARCHY_APPLICATION_DIR="${HOME}/.local/share/anarchy/applications"
-cp "${ANARCHY_APPLICATION_DIR}/icons/*.png" "${SHARED_ICON_DIR}/"
-gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
-
-# Copy .desktop declarations
 SHARED_APPLICATION_DIR="${HOME}/.local/share/applications"
+SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps/"
+ANARCHY_APPLICATION_DIR="${HOME}/.local/share/anarchy/applications"
+
 if [ ! -d "${SHARED_APPLICATION_DIR}" ]; then
   mkdir -p "${SHARED_APPLICATION_DIR}"
   echo "🗃️ Created missing ${SHARED_APPLICATION_DIR} "
 fi
 
-echo -e "⏳ Copying desktop files into ${SHARED_APPLICATION_DIR}..."
-cp "${ANARCHY_APPLICATION_DIR}/"*.desktop "${SHARED_APPLICATION_DIR}"
-cp "${ANARCHY_APPLICATION_DIR}/hidden/"*.desktop "${SHARED_APPLICATION_DIR}"
-cp "${ANARCHY_APPLICATION_DIR}/xtras/"*.desktop "${SHARED_APPLICATION_DIR}"
+if [ ! -d "${SHARED_ICON_DIR}" ]; then
+  mkdir -p "${SHARED_ICON_DIR}"
+  echo "🗃️ Created missing ${SHARED_ICON_DIR} "
+fi
+
+# Copy and sync icon files
+ANARCHY_APPLICATION_ICON_DIR="${ANARCHY_APPLICATION_DIR}/icons"
+if [ -d "${ANARCHY_APPLICATION_ICON_DIR}" ]; then
+  # cp "${ANARCHY_APPLICATION_ICON_DIR}/*.png" "${SHARED_ICON_DIR}/"
+  find "${ANARCHY_APPLICATION_ICON_DIR}" -type f -name "*.png" -exec cp {} "${SHARED_ICON_DIR}/" \;
+  gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
+fi
+
+# Copy .desktop declarations
+echo "⏳ Copying desktop files into ${SHARED_APPLICATION_DIR}..."
+if [ -d "${ANARCHY_APPLICATION_DIR}" ]; then
+  # Use find to copy all .desktop files from the source directory and its immediate subdirectories.
+  # This replaces the three separate 'cp' commands.
+  find "${ANARCHY_APPLICATION_DIR}" -maxdepth 2 -type f -name "*.desktop" -exec cp -t "${SHARED_APPLICATION_DIR}" {} +
+fi
+
+# Update Desktop Database ---
 update-desktop-database ~/.local/share/applications
+echo -e "🗃️ Updated desktop database"
+
 echo -e "✅ Desktop files copied successfully"
