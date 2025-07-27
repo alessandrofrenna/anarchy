@@ -16,9 +16,6 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
   gsettings set org.gnome.desktop.interface cursor-theme 'default'
-  # Set icons
-  gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-slate'
-  gsettings set org.gnome.desktop.interface accent-color 'slate'
 
   # Enable symbolic folder icons (commented for now)
   # gsettings set org.gnome.desktop.interface icon-theme-use-symbolic true 2>/dev/null || true
@@ -62,6 +59,11 @@ if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
   ln -snf "${ANARCHY_THEME_DIR}/mako.ini" "${HOME}/.config/mako/config"
   # Btop
   ln -snf "${ANARCHY_THEME_DIR}/btop.theme" "${BTOP_THEMES_DIR}/current.theme"
+
+  # Set icons
+  gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-slate'
+  gsettings set org.gnome.desktop.interface accent-color 'slate'
+
   echo -e "✅ Default theme setup completed\n"
 else
   echo -e "\n"
