@@ -54,7 +54,7 @@ sudo updatedb
 ORPHANS=$(pacman -Qtdq || true)
 if [ -n "${ORPHANS}" ]; then
   echo -e "⏳Removing orphans..."
-  sudo pacman -Rns --noconfirm "${ORPHANS}"
+  pacman -Qtdq | sudo pacman -Rns --noconfirm -
 else
   echo -e "✅ No orphan package to remove"
 fi
