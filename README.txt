@@ -1,0 +1,1 @@
+wget -qO- https://raw.githubusercontent.com/alessandrofrenna/anarchy/refs/heads/main/boot.sh | bash
