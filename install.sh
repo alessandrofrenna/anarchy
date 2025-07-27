@@ -18,7 +18,7 @@ if ! grep -q "^\s*\[multilib\]" /etc/pacman.conf; then
 fi
 
 # Update Arch linux before installing Anarchy
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
 sudo pacman -S --noconfirm --needed base-devel &>/dev/null
 clear
