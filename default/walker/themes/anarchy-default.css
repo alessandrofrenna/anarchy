@@ -34,7 +34,7 @@ slider,
 
 /* Main box container */
 #box {
-  background: alpha(@base, 0.95);
+  background: @base;
   padding: 1rem;
   border: 2px solid @border;
   border-radius: 0px;
@@ -108,7 +108,7 @@ child:hover {
 /* Text */
 #text {
   color: @text;
-  padding: 14px 0;
+  padding: 1rem 0;
 }
 
 #label {

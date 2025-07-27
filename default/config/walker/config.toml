@@ -171,16 +171,21 @@ hidden = true
 switcher_only = true
 
 [builtins.bookmarks]
+hidden = true
 enabled = false
 
 [builtins.ai]
+hidden = true
 enabled = false
 
 [builtins.window]
+hidden = true
 enabled = false
 
 [builtins.clipboard]
+hidden = true
 enabled = false
 
 [builtins.symbols]
+hidden = true
 enabled = false
