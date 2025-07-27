@@ -23,11 +23,12 @@ clear
 # Install yay if needed
 if ! command -v yay &>/dev/null; then
   echo -e "📦 Installing yay AUR helper..."
-  cd /tmp
-  git clone https://aur.archlinux.org/yay-bin.git
-  cd yay-bin
-  makepkg -si --noconfirm
-  cd /
+  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  # Use a subshell to run makepkg without changing the script's directory
+  (
+    cd /tmp/yay-bin
+    makepkg -si --noconfirm
+  )
   rm -rf /tmp/yay-bin
   echo -e "✅ yay AUR helper installed successfully"
 else
@@ -42,7 +43,10 @@ script_dirs=(
 )
 for directory in "${script_dirs[@]}"; do
   for script in "${directory}/"*; do
-    source "${script}"
+    # Ensure the item is a file before trying to source it
+    if [ -f "${script}" ]; then
+      source "${script}"
+    fi
   done
 done
 
@@ -54,16 +58,17 @@ sudo updatedb
 ORPHANS=$(pacman -Qtdq || true)
 if [ -n "${ORPHANS}" ]; then
   echo -e "⏳Removing orphans..."
-  pacman -Qtdq | sudo pacman -Rns --noconfirm -
+  echo "${ORPHANS}" | sudo pacman -Rns --noconfirm -
 else
   echo -e "✅ No orphan package to remove"
 fi
 
 echo -e "⏳ Cleaning cache..."
-yes | yay -Scc
+yay -Scc --noconfirm
 echo -e "✅ Cache cleared"
 sleep 3
 
 echo -e "\033c✅ Anarchy setup completed rebooting system now!"
 sleep 2
 sudo systemctl reboot
+
