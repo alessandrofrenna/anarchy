@@ -55,7 +55,7 @@ fi
 
 HYPR_DEFAULT_CONFIG_FILE="${HYPR_CONFIG_DIR}/hyprland.conf"
 if ! grep -i -E "\s*source\s*=.*/${USER}/custom.conf" "${HYPR_DEFAULT_CONFIG_FILE}"; then
-  echo "source = ~/.config/hypr/${USER}/custom.conf" | tee -a "${HYPR_DEFAULT_CONFIG_FILE}" >/dev/null
+  echo -e "\nsource = ~/.config/hypr/${USER}/custom.conf" | tee -a "${HYPR_DEFAULT_CONFIG_FILE}" >/dev/null
 fi
 
 # Use iGPU as rendered
