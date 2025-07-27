@@ -12,7 +12,7 @@ if ! command -v iwctl &> /dev/null; then
 fi
 
 echo -e "⏳ Installing required packages for networking module..."
-sudo pacman -S -noconfirm --needed "${required_packages[@]}"
+sudo pacman -S --noconfirm --needed "${required_packages[@]}"
 echo -e "✅ Networking module required packages installed"
 
 services_to_enable=(

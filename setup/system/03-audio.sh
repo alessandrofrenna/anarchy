@@ -13,7 +13,7 @@ required_packages=(
 )
 
 echo -e "⏳ Installing required packages for audio..."
-sudo pacman -S -noconfirm --needed "${required_packages[@]}"
+sudo pacman -S --noconfirm --needed "${required_packages[@]}"
 echo -e "✅ Audio module required packages installed"
 
 conflicting_services=(

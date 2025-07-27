@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo -e "⏳ Installing required packages for bluetooth module..."
-sudo pacman -S -noconfirm --needed bluez bluez-utils bluez-obex
+sudo pacman -S --noconfirm --needed bluez bluez-utils bluez-obex
 echo -e "✅ Bluetooth module required packages installed"
 
 echo -e "🔧 Enabling bluetooth and obex services..."

@@ -23,7 +23,7 @@ required_packages=(
 )
 
 echo -e "⏳ Installing required packages for filesystems module..."
-sudo pacman -S -noconfirm --needed "${required_packages[@]}"
+sudo pacman -S --noconfirm --needed "${required_packages[@]}"
 echo -e "✅ Filesystems module required packages installed"
 
 if ! systemctl is-active --quiet udisks2.service; then
