@@ -25,7 +25,7 @@ fi
 
 echo "--- Setting the new theme: ${THEME_NAME} ---"
 # Update symling for the new theme
-ln -nsf "${THEME_PATH}" "${CURRENT_THEME_DIR}"
+ln -nsf "${THEME_PATH}"/* "${CURRENT_THEME_DIR}"
 echo "${THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
 # Change Icon theme
 "${CURRENT_THEME_DIR}/change-icon-theme.sh"

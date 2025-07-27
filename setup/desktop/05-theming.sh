@@ -49,7 +49,7 @@ if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
   # Set background
   ln -snf "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}/backgrounds/${ANARCHY_DEFAULT_BG_NAME}" "${ANARCHY_CONF_DIR}/current_background"
   # Link theme files
-  ln -snf "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}" "${ANARCHY_THEME_DIR}"
+  ln -snf "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}"/* "${ANARCHY_THEME_DIR}"
   # Set current theme name file
   echo -e "${ANARCHY_DEFAULT_THEME_NAME}" > "${ANARCHY_THEME_CURRENT}"
   # Mako
