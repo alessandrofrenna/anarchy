@@ -21,9 +21,9 @@ if command -v gsettings >/dev/null 2>&1; then
   # gsettings set org.gnome.desktop.interface icon-theme-use-symbolic true 2>/dev/null || true
   
   # Set fonts
-  gsettings set org.gnome.desktop.interface font-name 'Inter Nerd Font Propo 12'
-  gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font Propo 12'
-  gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
+  gsettings set org.gnome.desktop.interface font-name 'Inter Nerd Font Propo Regular 12'
+  gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font Propo Regular 12'
+  gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font Regular 12'
 
 fi
 echo -e "✅ Adwaita theme settings changed"
