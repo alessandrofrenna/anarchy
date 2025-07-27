@@ -49,3 +49,5 @@ else
 fi
 
 echo -e "✅ Networking module setup complete!\n"
+sleep 3
+clear

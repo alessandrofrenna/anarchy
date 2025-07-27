@@ -39,3 +39,5 @@ else
 fi
 
 echo -e "✅ Swapfile module setup complete!\n"
+sleep 3
+clear

@@ -44,3 +44,5 @@ sudo chmod 644 /etc/gnupg/dirmngr.conf
 sudo gpgconf --kill dirmngr || true
 sudo gpgconf --launch dirmngr || true
 echo -e "✅ GPG keyservers imported successfully"
+sleep 3
+clear

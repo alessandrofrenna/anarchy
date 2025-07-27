@@ -36,3 +36,5 @@ else
 fi
 
 echo -e "\n✅ Completed Firewall configuration\n"
+sleep 3
+clear

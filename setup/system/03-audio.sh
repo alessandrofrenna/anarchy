@@ -48,3 +48,5 @@ for service in "${services_to_enable[@]}"; do
 done
 
 echo -e "✅ Audio module setup complete!\n"
+sleep 3
+clear

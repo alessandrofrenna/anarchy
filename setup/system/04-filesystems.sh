@@ -33,3 +33,5 @@ if ! systemctl is-active --quiet udisks2.service; then
 fi
 
 echo -e "✅ Filesystems module setup complete!\n"
+sleep 3
+clear

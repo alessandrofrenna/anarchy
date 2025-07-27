@@ -78,3 +78,5 @@ for service in "${services[@]}"; do
   fi
 done
 echo -e "✅ UWSM hyprland services enabled\n"
+sleep 3
+clear

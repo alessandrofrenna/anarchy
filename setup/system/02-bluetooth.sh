@@ -24,3 +24,5 @@ else
 fi
 
 echo -e "✅ Bluetooth module setup complete!\n"
+sleep 3
+clear

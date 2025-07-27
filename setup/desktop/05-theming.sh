@@ -60,3 +60,6 @@ if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
 else
   echo -e "\n"
 fi
+
+sleep 3
+clear

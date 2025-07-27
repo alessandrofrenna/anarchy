@@ -45,3 +45,5 @@ else
 fi
 
 echo -e "✅ Display manager configured\n"
+sleep 3
+clear

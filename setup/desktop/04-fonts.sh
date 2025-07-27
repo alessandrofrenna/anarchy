@@ -48,3 +48,6 @@ yay -S --noconfirm "${packages[@]}"
 echo -e "✅ Font packages installed\n"
 
 finalize_fonts
+
+sleep 3
+clear

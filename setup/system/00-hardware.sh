@@ -148,3 +148,5 @@ fi
 sudo mkinitcpio -P
 
 echo -e "✅ Hardware module setup complete!\n"
+sleep 3
+clear

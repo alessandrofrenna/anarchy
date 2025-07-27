@@ -192,3 +192,5 @@ echo -e "🗃️ Updating xdg user directories"
 xdg-user-dirs-update
 xdg-user-dirs-gtk-update
 echo -e "✅ xdg user directories updated\n"
+sleep 3
+clear
