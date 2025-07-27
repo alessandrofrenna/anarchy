@@ -187,4 +187,9 @@ xdg-settings set default-web-browser firefox.desktop
 # Refresh application desktop files
 "${HOME}/.local/share/anarchy/bin/refresh-application"
 
-echo -e "✅ Default applications configured\n"
+echo -e "✅ Default applications configured"
+
+echo -e "🗃️ Updating xdg user directories"
+xdg-user-dirs-update
+xdg-user-dirs-gtk-update
+echo -e "✅ xdg user directories updated\n"

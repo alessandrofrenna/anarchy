@@ -32,9 +32,4 @@ if ! systemctl is-active --quiet udisks2.service; then
   echo -e "✅ udisks2 service enabled"
 fi
 
-echo -e "🗃️ Updating xdg user directories"
-xdg-user-dirs-update
-xdg-user-dirs-gtk-update
-echo -e "✅ xdg user directories updated"
-
 echo -e "✅ Filesystems module setup complete!\n"
