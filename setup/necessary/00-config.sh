@@ -46,7 +46,7 @@ sudo gpgconf --kill dirmngr || true
 sudo gpgconf --launch dirmngr || true
 echo -e "✅ GPG keyservers imported successfully"
 
-sudo pacman -Sy archlinux-keyring
+sudo pacman -Sy archlinux-keyring --noconfirm
 
 sleep 3
 clear
