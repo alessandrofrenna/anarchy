@@ -25,7 +25,15 @@ fi
 
 echo "--- Setting the new theme: ${THEME_NAME} ---"
 # Update symling for the new theme
-ln -nsf "${THEME_PATH}"/* "${CURRENT_THEME_DIR}"
+
+for file in "${THEME_PATH}"/*; do
+  # This check prevents errors if the source directory is empty
+  [ -e "$file" ] || [ -L "$file" ] || continue
+  
+  # Create a symbolic link for each file in the destination directory
+  ln -snf "$file" "${CURRENT_THEME_DIR}"
+done
+
 echo "${THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
 # Change Icon theme
 "${CURRENT_THEME_DIR}/change-icon-theme.sh"
