@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 # Give people a chance to retry running the installation
-trap 'echo -e "\033cAnarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh\n"' ERR
+trap 'echo -e "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh\n"' ERR
 
 # Enable pacman ILoveCandy and Color
 if ! grep -q "^\s*ILoveCandy" /etc/pacman.conf; then
