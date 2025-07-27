@@ -74,7 +74,7 @@ fi
 
 # Check if an NVIDIA GPU is available (it could be either integrated or dedicated)
 additional_env=""
-if lspci | grep -e "(VGA|3D)" | grep -i "nvidia" > /dev/null; then
+if lspci | grep -iE "(VGA|3D)" | grep -i "nvidia" > /dev/null; then
   echo -e "🎥 Found NVIDIA GPU"
   required_packages+=(
     "nvidia-dkms"
