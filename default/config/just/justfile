@@ -1,4 +1,8 @@
 install-docker:
-    ~/.local/share/anarchy/default/just/02-install-docker.sh
+  ~/.local/share/anarchy/default/just/01-install-docker.sh
 enable-hibernation:
-    ~/.local/share/anarchy/default/just/03-enable-hibernation.sh
+  ~/.local/share/anarchy/default/just/02-enable-hibernation.sh
+enable-fingerprint-auth:
+  ~/.local/share/anarchy/default/just/03-fingerprint-auth.sh
+disable-fingerprint-auth:
+  ~/.local/share/anarchy/default/just/03-fingerprint-auth.sh --remove
