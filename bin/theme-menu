@@ -32,4 +32,4 @@ clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
 selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
 # Apply the selected theme
-"$HOME/.local/share/anarchy/bin/set_theme" "${THEMES_DIR}/${selected_theme}"
+"$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
