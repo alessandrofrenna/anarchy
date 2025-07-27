@@ -1,2 +1,2 @@
 #!/bin/bash
-gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-brown'
+gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-yellow'
