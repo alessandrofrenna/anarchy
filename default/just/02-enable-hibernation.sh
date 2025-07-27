@@ -95,7 +95,7 @@ enable_hibernation() {
   clear
 
   configure_power_settings
-  if lspci | grep -e "(VGA|3D)" | grep -i "nvidia" > /dev/null; then
+  if lspci | grep -iE "(VGA|3D)" | grep -i "nvidia" > /dev/null; then
     fix_nvidia_gpu_problems
   fi
 
