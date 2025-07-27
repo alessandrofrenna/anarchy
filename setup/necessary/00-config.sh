@@ -38,11 +38,15 @@ echo -e "✅ .bashrc configured\n"
 # Setup GPG configuration with multiple keyservers for better reliability
 # ======================================================================================
 echo -e "🔑 Importing GPG keyservers..."
+
 sudo mkdir -p /etc/gnupg
 sudo cp ~/.local/share/anarchy/default/gpg/dirmngr.conf /etc/gnupg/
 sudo chmod 644 /etc/gnupg/dirmngr.conf
 sudo gpgconf --kill dirmngr || true
 sudo gpgconf --launch dirmngr || true
 echo -e "✅ GPG keyservers imported successfully"
+
+sudo pacman -Sy archlinux-keyring
+
 sleep 3
 clear
