@@ -1,7 +1,52 @@
 #!/bin/bash
 set -euo pipefail
 
+create_or_update_nvidia_suspend_then_hibernate_service() {
+  local SERVICE_FILE="/usr/lib/systemd/system/nvidia-suspend-then-hibernate.service"
+  echo "🔧 Configuring ${SERVICE_FILE}..."
+
+  # Create the service file with default content if it doesn't exist.
+  if [ ! -f "${SERVICE_FILE}" ]; then
+    echo "⏳ Service file not found. Creating it..."
+    sudo tee "${SERVICE_FILE}" >/dev/null <<'EOF'
+[Unit]
+Description=NVIDIA system suspend-then-hibernate actions
+Before=systemd-suspend-then-hibernate.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/logger -t suspend -s "nvidia-suspend-then-hibernate.service"
+ExecStart=/usr/bin/nvidia-sleep.sh "suspend"
+
+[Install]
+WantedBy=systemd-suspend-then-hibernate.service
+EOF
+    echo "✅ Service file created."
+  else
+    echo "💡 Service file already exists."
+  fi
+
+  # Define the old and new lines for replacement.
+  local OLD_EXEC='ExecStart=/usr/bin/nvidia-sleep.sh "suspend"'
+  local NEW_EXEC='ExecStart=/usr/bin/nvidia-sleep.sh "hibernate"'
+
+  # Check if the file needs to be updated.
+  if grep -qF "${OLD_EXEC}" "${SERVICE_FILE}"; then
+    echo "⏳ Updating ExecStart to use 'hibernate'..."
+    # Use sed to replace the 'suspend' command with 'hibernate'.
+    sudo sed -i "s|${OLD_EXEC}|${NEW_EXEC}|" "${SERVICE_FILE}"
+    echo "✅ ExecStart successfully updated."
+  elif grep -qF "${NEW_EXEC}" "${SERVICE_FILE}"; then
+    echo "✅ ExecStart already configured for 'hibernate'. No changes needed."
+  else
+    echo "⚠️  Could not find the expected ExecStart line to update in ${SERVICE_FILE}."
+  fi
+}
+
 fix_nvidia_gpu_problems() {
+  # Create or update the service file before reloading the daemon.
+  create_or_update_nvidia_suspend_then_hibernate_service
+
   sudo systemctl daemon-reload
   sudo systemctl disable nvidia-resume.service
   sudo systemctl enable nvidia-suspend.service
