@@ -31,7 +31,7 @@ echo -e "✅ Adwaita theme settings changed"
 GTK_3_SETTINGS="${HOME}/.config/gtk-3.0/settings.ini"
 if [ -f "${GTK_3_SETTINGS}" ]; then
   # sudo rm /usr/share/gtk-3.0/settings.ini
-  ln -snf "${GTK_3_SETTINGS}" /usr/share/gtk-3.0/settings.ini
+  sudo ln -snf "${GTK_3_SETTINGS}" /usr/share/gtk-3.0/settings.ini
 fi
 
 ANARCHY_CONF_DIR="${HOME}/.config/anarchy"
