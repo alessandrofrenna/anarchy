@@ -28,6 +28,12 @@ if command -v gsettings >/dev/null 2>&1; then
 fi
 echo -e "✅ Adwaita theme settings changed"
 
+GTK_3_SETTINGS="${HOME}/.config/gtk-3.0/settings.ini"
+if [ -f "${GTK_3_SETTINGS}" ]; then
+  sudo rm /etc/gtk-3.0/settings.ini
+  ln -snf "${GTK_3_SETTINGS}" /etc/gtk-3.0/settings.ini
+fi
+
 ANARCHY_CONF_DIR="${HOME}/.config/anarchy"
 ANARCHY_THEME_DIR="${ANARCHY_CONF_DIR}/theme"
 ANARCHY_THEME_CURRENT="${ANARCHY_THEME_DIR}/.name"
