@@ -32,6 +32,7 @@ utility_packages=(
   "hyprland-qt-support"
   "wl-clipboard"
   "wl-clip-persist"
+  "seahorse"
 )
 
 echo -e "⏳ Installing hyprland utility packages..."
