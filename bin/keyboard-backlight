@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# #############################################################################
+#
+# Script to control keyboard backlight using brightnessctl.
+#
+# Usage:
+#   keyboard-backlight             - Cycles brightness (0 -> max -> 0)
+#   keyboard-backlight --idle | 0  - Sets brightness to 0.
+#   keyboard-backlight --restore   - Restores the last saved brightness.
+#
+# #############################################################################
+
+# Exit if brightnessctl is not installed.
+if ! command -v brightnessctl &> /dev/null; then
+  echo "Error: brightnessctl could not be found. Please install it."
+  exit 1
+fi
+
+readonly KEYBOARD_NAME="$(brightnessctl --list | grep -E 'kbd_backlight' | awk '{print $2}' | tr -d \')"
+if [[ -z "$KEYBOARD_NAME" ]]; then
+  echo "Error: No keyboard backlight device found by brightnessctl."
+  exit 1
+fi
+
+# Decide what to do based on the first command-line argument.
+case "$1" in
+  --idle|0)
+    # Set brightness to 0, saving the current state.
+    # The '-s' flag saves the current brightness before setting the new one.
+    brightnessctl --device="${KEYBOARD_NAME}" --save set 0
+    ;;
+  --restore)
+    # Restore the last saved brightness.
+    # The '-r' flag restores the previously saved value.
+    brightnessctl --device="${KEYBOARD_NAME}" --restore
+    ;;
+  *)
+    # If no arguments are given, cycle the brightness.
+    # Get the current and maximum brightness values directly.
+    CURRENT_BRIGHTNESS=$(brightnessctl --device="${KEYBOARD_NAME}" get)
+    MAX_BRIGHTNESS=$(brightnessctl --device="${KEYBOARD_NAME}" max)
+
+    # Calculate the next brightness level.
+    if (( CURRENT_BRIGHTNESS < MAX_BRIGHTNESS )); then
+      # If not at max, increase by one step.
+      # brightnessctl handles the step size automatically with '+1'.
+      brightnessctl --device="${KEYBOARD_NAME}" set +1
+    else
+      # If at max, cycle back to 0.
+      brightnessctl --device="${KEYBOARD_NAME}" set 0
+    fi
+    ;;
+esac
+
