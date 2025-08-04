@@ -3,8 +3,7 @@ set -euo pipefail
 
 packages=(
   "gnome-themes-extra" "qqc2-desktop-style" "kvantum-qt5"
-  "morewaita-icon-theme" "adwaita-colors-icon-theme"
-  "kvantum-theme-libadwaita-git"
+  "yaru-icon-theme" "kvantum-theme-libadwaita-git"
 )
 
 echo -e "⏳ Installing theme customization packages..."
@@ -13,18 +12,12 @@ echo -e "✅ Theme customization packages installed"
 
 echo -e "🎨 Customizing Adwaita theme settings..."
 if command -v gsettings >/dev/null 2>&1; then
-  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
   gsettings set org.gnome.desktop.interface cursor-theme 'default'
-
-  # Enable symbolic folder icons (commented for now)
-  # gsettings set org.gnome.desktop.interface icon-theme-use-symbolic true 2>/dev/null || true
   
   # Set fonts
   gsettings set org.gnome.desktop.interface font-name 'Inter Nerd Font Propo Regular 12'
   gsettings set org.gnome.desktop.interface document-font-name 'Inter Nerd Font Propo Regular 12'
   gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font Regular 12'
-
 fi
 echo -e "✅ Adwaita theme settings changed"
 
@@ -36,15 +29,24 @@ fi
 
 ANARCHY_CONF_DIR="${HOME}/.config/anarchy"
 ANARCHY_THEME_DIR="${ANARCHY_CONF_DIR}/theme"
-ANARCHY_THEME_CURRENT="${ANARCHY_THEME_DIR}/.name"
 BTOP_THEMES_DIR="${HOME}/.config/btop/themes"
 if [ ! -d "${ANARCHY_THEME_DIR}" ]; then
   mkdir -p "${ANARCHY_THEME_DIR}"
   mkdir -p "${BTOP_THEMES_DIR}"
-  touch "${ANARCHY_THEME_CURRENT}"
 fi
 
-if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
+# --- Helper function to parse TOML ---
+# A simple grep/sed parser for the key-value pairs in theme.toml
+# Usage: get_toml_value <file> <key>
+get_toml_value() {
+  local file="$1"
+  local key="$2"
+  # Grep for the key, then use sed to remove the key, equals sign, spaces, and quotes.
+  grep "^${key} *=" "${file}" | sed -e "s/${key} *= *\"//g" -e 's/"$//g'
+}
+
+CURRENT_THEME_CONFIG="${ANARCHY_THEME_DIR}/theme.toml"
+if [ ! -f "${CURRENT_THEME_CONFIG}" ]; then
   THEMES_DIR="${HOME}/.local/share/anarchy/themes"
   ANARCHY_DEFAULT_THEME_NAME="nord"
   ANARCHY_DEFAULT_BG_NAME="01-nord.png"
@@ -55,24 +57,56 @@ if [ ! -s "${ANARCHY_THEME_CURRENT}" ]; then
   for file in "${THEMES_DIR}/${ANARCHY_DEFAULT_THEME_NAME}"/*; do
     # This check prevents errors if the source directory is empty
     [ -e "$file" ] || [ -L "$file" ] || continue
-    
     # Create a symbolic link for each file in the destination directory
     ln -snf "$file" "${ANARCHY_THEME_DIR}"
   done
-  # Set current theme name file
-  echo -e "${ANARCHY_DEFAULT_THEME_NAME}" > "${ANARCHY_THEME_CURRENT}"
+
   # Mako
   ln -snf "${ANARCHY_THEME_DIR}/mako.ini" "${HOME}/.config/mako/config"
   # Btop
   ln -snf "${ANARCHY_THEME_DIR}/btop.theme" "${BTOP_THEMES_DIR}/current.theme"
 
-  # Set icons
-  gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-slate'
-  gsettings set org.gnome.desktop.interface accent-color 'slate'
-
   echo -e "✅ Default theme setup completed\n"
+fi
+
+# Run this every time ensuring gsettings are in sync with theme.toml.
+if [ -f "${CURRENT_THEME_CONFIG}" ]; then
+  echo "⚙️ Applying GTK settings from ${CURRENT_THEME_CONFIG}..."
+
+  # Read values from theme.toml using our helper function
+  THEME_NAME=$(get_toml_value "${CURRENT_THEME_CONFIG}" "name")
+  ICON_THEME=$(get_toml_value "${CURRENT_THEME_CONFIG}" "icon_theme")
+  ACCENT_COLOR=$(get_toml_value "${CURRENT_THEME_CONFIG}" "accent_color")
+  IS_DARK=$(get_toml_value "${CURRENT_THEME_CONFIG}" "dark")
+
+  # Validate that we got the values
+  if [ -z "$THEME_NAME" ] || [ -z "$ICON_THEME" ] || [ -z "$ACCENT_COLOR" ] || [ -z "$IS_DARK" ]; then
+    echo "❌ Error: Could not parse all required settings from ${CURRENT_THEME_CONFIG}."
+    echo "   Ensure 'name', 'icon_theme', 'accent_color', and 'dark' are set."
+    exit 1
+  fi
+
+  # Determine GTK theme and color scheme based on the 'dark' setting
+  if [ "${IS_DARK}" = "true" ]; then
+      GTK_THEME="Adwaita-dark"
+      COLOR_SCHEME="prefer-dark"
+  else
+      GTK_THEME="Adwaita"
+      COLOR_SCHEME="prefer-light"
+  fi
+
+  # Apply settings using gsettings
+  gsettings set org.gnome.desktop.interface gtk-theme "${GTK_THEME}"
+  gsettings set org.gnome.desktop.interface color-scheme "${COLOR_SCHEME}"
+  gsettings set org.gnome.desktop.interface icon-theme "${ICON_THEME}"
+  gsettings set org.gnome.desktop.interface accent-color "${ACCENT_COLOR}"
+  echo "✅ Settings applied for theme: ${THEME_NAME}"
 else
-  echo -e "\n"
+  echo "⚠️ Warning: Theme configuration file not found at ${CURRENT_THEME_CONFIG}. Applying default GTK settings."
+  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+  gsettings set org.gnome.desktop.interface icon-theme "Yaru-blue"
+  gsettings set org.gnome.desktop.interface accent-color "blue"
 fi
 
 sleep 3

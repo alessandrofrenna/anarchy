@@ -12,35 +12,64 @@ if [[ -z "$1" ]]; then
   exit 1
 fi
 
-THEME_PATH="$1"
-THEME_NAME="${THEME_PATH##*/}"
-CURRENT_THEME_DIR="${HOME}/.config/anarchy/theme"
-CURRENT_THEME_NAME_FILE="${CURRENT_THEME_DIR}/.name"
+# A simple grep/sed parser for the key-value pairs in theme.toml
+# Usage: get_toml_value <file> <key>
+get_toml_value() {
+  local file="$1"
+  local key="$2"
+  # Grep for the key, then use sed to remove the key, equals sign, spaces, and quotes.
+  grep -iE "^${key}.*=.*$" "${file}" | sed -e 's/.*=\s*"//g' -e 's/"$//g'
+}
 
-# Check if the theme entered exists
+THEME_PATH="$1"
 if [[ ! -d "${THEME_PATH}" ]]; then
-  echo "Theme '${THEME_NAME}' does not exist" >&2
+  notify-send -u critical "Theme '${THEME_PATH}' does not exist"
   exit 2
 fi
 
-echo "--- Setting the new theme: ${THEME_NAME} ---"
-# Update symling for the new theme
+THEME_CONFIG="${THEME_PATH}/theme.toml"
+if [[ ! -f "${THEME_CONFIG}" ]]; then
+  notify-send -u critical "Theme config file '${THEME_CONFIG}' does not exist"
+  exit 3
+fi
 
+THEME_NAME=$(get_toml_value "${THEME_CONFIG}" "name")
+ICON_THEME=$(get_toml_value "${THEME_CONFIG}" "icon_theme")
+ACCENT_COLOR=$(get_toml_value "${THEME_CONFIG}" "accent_color")
+IS_DARK=$(get_toml_value "${THEME_CONFIG}" "dark")
+# Validate that we got the values
+if [ -z "$THEME_NAME" ] || [ -z "$ICON_THEME" ] || [ -z "$ACCENT_COLOR" ] || [ -z "$IS_DARK" ]; then
+  notify-send -u critical "❌ Error: Could not parse all required settings from ${THEME_CONFIG}." "Ensure 'name', 'icon_theme', 'accent_color', and 'dark' are set."
+  exit 4
+fi
+
+echo "--- Setting the new theme: ${THEME_NAME} ---"
+# Update symlinks for the new theme
+CURRENT_THEME_DIR="${HOME}/.config/anarchy/theme"
 for file in "${THEME_PATH}"/*; do
   # This check prevents errors if the source directory is empty
   [ -e "$file" ] || [ -L "$file" ] || continue
-  
   # Create a symbolic link for each file in the destination directory
   ln -snf "$file" "${CURRENT_THEME_DIR}"
 done
 
-echo "${THEME_NAME}" > "${CURRENT_THEME_NAME_FILE}"
+# Determine GTK theme and color scheme based on the 'dark' setting
+if [ "${IS_DARK}" = "true" ]; then
+    GTK_THEME="Adwaita-dark"
+    COLOR_SCHEME="prefer-dark"
+else
+    GTK_THEME="Adwaita"
+    COLOR_SCHEME="prefer-light"
+fi
+
+# Apply settings using gsettings
+gsettings set org.gnome.desktop.interface gtk-theme "${GTK_THEME}"
+gsettings set org.gnome.desktop.interface color-scheme "${COLOR_SCHEME}"
+gsettings set org.gnome.desktop.interface icon-theme "${ICON_THEME}"
+gsettings set org.gnome.desktop.interface accent-color "${ACCENT_COLOR}"
 
 # Set new background
 "$HOME/.local/share/anarchy/bin/next-background"
-
-# Change Icon theme
-"${CURRENT_THEME_DIR}/change-icon-theme.sh"
 
 # Trigger alacritty config reload
 touch "$HOME/.config/alacritty/alacritty.toml"

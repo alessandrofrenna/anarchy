@@ -1,0 +1,5 @@
+[settings]
+name="catppuccin"
+icon_theme="Yaru-magenta"
+accent_color="pink"
+dark=true

@@ -6,19 +6,15 @@ set -euo pipefail
 # Based on Omarchy script: firewall
 # ======================================================================================
 
-echo "🔎 Verifying kernel status..."
-
 kernel_pkg_name=$(pacman -Qo "/usr/lib/modules/$(uname -r)/"  | grep -v 'headers' | awk '{print $5}')
 installed_kernel=$(pacman -Q "${kernel_pkg_name}" | awk '{print $2}')
 running_kernel=$(uname -r | sed 's/-/\./')
-
 
 if [ "${running_kernel}" != "${installed_kernel}" ]; then
   echo "============================================================"
   echo "❗️ KERNEL MISMATCH DETECTED"
   echo "   Running kernel:   ${running_kernel}"
   echo "   Installed kernel: ${installed_kernel}"
-  echo "   A reboot is required to load the new kernel."
   echo "   Skipping firewall configuration to ensure system stability."
   echo "============================================================"
 else
