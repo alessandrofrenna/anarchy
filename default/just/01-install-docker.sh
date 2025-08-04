@@ -60,6 +60,8 @@ install_docker() {
 [Unit]
 DefaultDependencies=no
 EOF
+
+    sudo systemctl daemon-reload
   fi
 
   # Add the current user to the docker group if not already a member
