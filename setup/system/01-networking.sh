@@ -15,6 +15,10 @@ echo -e "⏳ Installing required packages for networking module..."
 sudo pacman -S --noconfirm --needed "${required_packages[@]}"
 echo -e "✅ Networking module required packages installed"
 
+# Disable multicast dns in resolved
+sudo mkdir -p /etc/systemd/resolved.conf.d
+echo "[Resolve]\nMulticastDNS=no" | sudo tee /etc/systemd/resolved.conf.d/10-disable-multicast.conf
+
 services_to_enable=(
   "iwd"
   "sshd"
