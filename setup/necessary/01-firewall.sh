@@ -9,7 +9,7 @@ set -euo pipefail
 echo "🔎 Verifying kernel status..."
 
 kernel_pkg_name=$(pacman -Qo "/usr/lib/modules/$(uname -r)/" | awk '{print $5}')
-installed_kernel=$(pacman -Q "${kernel_pkg_name}" | awk '{print $2}')
+installed_kernel=$(pacman -Q "${kernel_pkg_name}" | grep -v 'headers' | awk '{print $2}')
 running_kernel=$(uname -r | sed 's/-/\./')
 
 echo -e "\e[42m${running_kernel}\e[0m"
