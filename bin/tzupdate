@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-cmd-tzupdate
+# ======================================================================================
+# Based on Omarchy script: omarchy-cmd-tzupdate
+# ======================================================================================
+
+sudo tzupdate
+new_timezone=$(timedatectl show -p Timezone --value)
+notify-send "Timezone has been set to $new_timezone"

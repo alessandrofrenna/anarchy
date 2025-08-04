@@ -40,7 +40,8 @@
   },
   "clock": {
     "format": "{:%A %H:%M}",
-    "tooltip": false
+    "tooltip": false,
+    "on-click-right": "~/.local/share/anarchy/bin/omarchy-cmd-tzupdate"
   },
   "group/tray-expander": {
     "orientation": "inherit",
