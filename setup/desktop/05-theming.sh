@@ -3,11 +3,14 @@ set -euo pipefail
 
 packages=(
   "gnome-themes-extra" "qqc2-desktop-style" "kvantum-qt5"
-  "yaru-icon-theme" "kvantum-theme-libadwaita-git"
+  "kvantum-theme-libadwaita-git"
 )
 
 echo -e "⏳ Installing theme customization packages..."
 yay -S --noconfirm "${packages[@]}"
+if ! yay -Q yaru-icon-theme &>/dev/null; then
+  yay -S --noconfirm yaru-icon-theme
+fi
 echo -e "✅ Theme customization packages installed"
 
 echo -e "🎨 Customizing Adwaita theme settings..."
