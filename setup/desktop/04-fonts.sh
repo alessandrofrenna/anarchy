@@ -44,7 +44,13 @@ packages=(
 )
 
 echo -e "⏳ Installing font packages..."
-yay -S --noconfirm "${packages[@]}"
+for font in "${packages[@]}"; do
+  if yay -Q "${font}" &>/dev/null; then
+    echo echo -e "${font} already installed, skipping..."
+    continue
+  fi
+  yay -S --noconfirm "${font}"
+done
 echo -e "✅ Font packages installed\n"
 
 finalize_fonts
