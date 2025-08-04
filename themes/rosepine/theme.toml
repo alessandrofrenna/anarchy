@@ -1,5 +1,5 @@
 [settings]
 name="rosepine"
-icon_theme="Yaru-red"
+icon_theme="Yaru-red-dark"
 accent_color="red"
-dark=true
+variant="dark"

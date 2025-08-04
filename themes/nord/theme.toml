@@ -1,5 +1,5 @@
 [settings]
 name="nord"
-icon_theme="Yaru-purple"
+icon_theme="Yaru-purple-dark"
 accent_color="slate"
-dark=true
+variant="dark"

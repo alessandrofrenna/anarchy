@@ -1,5 +1,5 @@
 [settings]
 name="gruvbox"
-icon_theme="Yaru-bark"
+icon_theme="Yaru-wartybrown-dark"
 accent_color="yellow"
-dark=true
+variant="dark"

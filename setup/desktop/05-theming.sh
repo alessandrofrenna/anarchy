@@ -77,17 +77,17 @@ if [ -f "${CURRENT_THEME_CONFIG}" ]; then
   THEME_NAME=$(get_toml_value "${CURRENT_THEME_CONFIG}" "name")
   ICON_THEME=$(get_toml_value "${CURRENT_THEME_CONFIG}" "icon_theme")
   ACCENT_COLOR=$(get_toml_value "${CURRENT_THEME_CONFIG}" "accent_color")
-  IS_DARK=$(get_toml_value "${CURRENT_THEME_CONFIG}" "dark")
+  VARIANT=$(get_toml_value "${CURRENT_THEME_CONFIG}" "variant")
 
   # Validate that we got the values
-  if [ -z "$THEME_NAME" ] || [ -z "$ICON_THEME" ] || [ -z "$ACCENT_COLOR" ] || [ -z "$IS_DARK" ]; then
+  if [ -z "$THEME_NAME" ] || [ -z "$ICON_THEME" ] || [ -z "$ACCENT_COLOR" ] || [ -z "$VARIANT" ]; then
     echo "❌ Error: Could not parse all required settings from ${CURRENT_THEME_CONFIG}."
     echo "   Ensure 'name', 'icon_theme', 'accent_color', and 'dark' are set."
     exit 1
   fi
 
   # Determine GTK theme and color scheme based on the 'dark' setting
-  if [ "${IS_DARK}" = "true" ]; then
+  if [ "${VARIANT}" == "dark" ]; then
       GTK_THEME="Adwaita-dark"
       COLOR_SCHEME="prefer-dark"
   else

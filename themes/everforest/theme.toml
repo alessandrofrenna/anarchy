@@ -1,5 +1,5 @@
 [settings]
 name="everforest"
-icon_theme="Yaru-sage"
+icon_theme="Yaru-sage-dark"
 accent_color="green"
-dark=true
+variant="dark"

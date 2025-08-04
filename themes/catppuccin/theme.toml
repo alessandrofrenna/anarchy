@@ -1,5 +1,5 @@
 [settings]
 name="catppuccin"
-icon_theme="Yaru-magenta"
+icon_theme="Yaru-magenta-dark"
 accent_color="pink"
-dark=true
+variant="dark"
