@@ -41,7 +41,7 @@
   "clock": {
     "format": "{:%A %H:%M}",
     "tooltip": false,
-    "on-click-right": "~/.local/share/anarchy/bin/omarchy-cmd-tzupdate"
+    "on-click-right": "~/.local/share/anarchy/bin/update-timezone"
   },
   "group/tray-expander": {
     "orientation": "inherit",
