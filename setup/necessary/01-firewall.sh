@@ -7,17 +7,10 @@ set -euo pipefail
 # ======================================================================================
 
 echo "🔎 Verifying kernel status..."
+
+kernel_pkg_name=$(pacman -Qo "/usr/lib/modules/$(uname -r)/" | awk '{print $5}')
+installed_kernel=$(pacman -Q "${kernel_pkg_name}" | awk '{print $2}')
 running_kernel=$(uname -r | sed 's/-/\./')
-# This finds the version of the currently installed kernel package (e.g., linux, linux-lts)
-# It looks for the package that matches the start of the running kernel's name.
-# For example, if uname -r is "6.8.9-lts-1", it will query the "linux-lts" package.
-installed_kernel_pkg_name=$(pacman -Qsq "^linux" | grep -E "^($(uname -r | cut -d'-' -f1-2))" | head -n 1)
-# Fallback to 'linux' if the smart detection fails for any reason
-if [ -z "${installed_kernel_pkg_name}" ]; then
-  echo "⚠️ Could not auto-detect kernel package, falling back to 'linux'."
-  installed_kernel_pkg_name="linux"
-fi
-installed_kernel=$(pacman -Q "${installed_kernel_pkg_name}" | awk '{print $2}')
 
 echo -e "\e[42m${running_kernel}\e[0m"
 echo -e "\e[42m${installed_kernel}\e[0m"
