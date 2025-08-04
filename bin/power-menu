@@ -7,13 +7,7 @@
 
 # Function to show power menu
 show_power_menu() {
-  local menu_options="󰍃 Logout
- Lock
-󰤄 Suspend
- Hibernate
-󰜉 Restart
-󰐥 Shutdown" # These first characters are invisible sort keys
-
+  local menu_options="󰍃 Logout\n Lock\n󰤄 Suspend\n Hibernate\n󰜉 Restart\n󰐥 Shutdown"
   local selection=$(echo -e "$menu_options" | walker --dmenu --theme dmenu_150)
 
   case "$selection" in
