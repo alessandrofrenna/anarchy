@@ -7,8 +7,7 @@ set -euo pipefail
 # ======================================================================================
 
 echo "🔎 Verifying kernel status..."
-running_kernel_raw=$(uname -r)
-running_kernel="${running_kernel_raw/-/'.'}"
+running_kernel=$(uname -r | sed 's/-/\./')
 # This finds the version of the currently installed kernel package (e.g., linux, linux-lts)
 # It looks for the package that matches the start of the running kernel's name.
 # For example, if uname -r is "6.8.9-lts-1", it will query the "linux-lts" package.
