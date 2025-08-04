@@ -59,6 +59,7 @@ tools=(
   "imagemagick"
   "tree"
   "libqalculate"
+  "less"
 )
 
 echo -e "⏳ Installing tools..."
