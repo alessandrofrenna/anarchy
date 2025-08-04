@@ -51,7 +51,6 @@ weight = 5
 name = "hyprland_keybinds"
 placeholder = "Hyprland Keybinds"
 switcher_only = true
-hidden = true
 
 [builtins.applications]
 weight = 5
