@@ -20,6 +20,9 @@ ensure_kernel_not_updated() {
   fi
   local installed_kernel=$(pacman -Q "${installed_kernel_pkg_name}" | awk '{print $2}')
 
+  echo -e "\e[42m${running_kernel}\e[0m"
+  echo -e "\e[42m${installed_kernel}\e[0m"
+
   if [ "${running_kernel}" != "${installed_kernel}" ]; then
     echo "============================================================"
     echo "❗️ KERNEL MISMATCH DETECTED"
