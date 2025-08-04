@@ -44,14 +44,6 @@ resume_last_query = false
 [activation_mode]
 labels = "jkl;asdf"
 
-[builtins.hyprland_keybinds]
-show_sub_when_single = true
-path = "~/.config/hypr/hyprland.conf"
-weight = 5
-name = "hyprland_keybinds"
-placeholder = "Hyprland Keybinds"
-switcher_only = true
-
 [builtins.applications]
 weight = 5
 name = "applications"
@@ -83,8 +75,7 @@ use_fd = true
 fd_flags = "--ignore-vcs --type file --type directory"
 cmd_alt = "xdg-open $(dirname ~/%RESULT%)"
 weight = 5
-icon = "file"
-name = "finder"
+name = "Finder"
 placeholder = "Finder"
 ignore_gitignore = true
 refresh = true
@@ -113,39 +104,11 @@ typeahead = true
 show_unqualified = false
 prefix = ":"
 
-[builtins.commands]
-weight = 5
-icon = "utilities-terminal"
-name = "commands"
-placeholder = "Commands"
-switcher_only = true
-
-[builtins.custom_commands]
-weight = 5
-icon = "utilities-terminal"
-name = "custom_commands"
-placeholder = "Custom Commands"
-switcher_only = true
-
-[builtins.runner]
-eager_loading = true
-weight = 5
-icon = "utilities-terminal"
-name = "runner"
-placeholder = "Runner"
-typeahead = true
-history = true
-generic_entry = false       # Generic command runner
-shell_config = ""           # Path to shell to parse for aliases
-refresh = true
-use_fd = false
-switcher_only = true
-
 [builtins.websearch]
 keep_selection = true
 weight = 5
 icon = "applications-internet"
-name = "websearch"
+name = "Websearch"
 placeholder = "Websearch"
 switcher_only = true
 
@@ -157,6 +120,29 @@ url = "https://www.google.com/search?q=%TERM%"
 name = "DuckDuckGo"
 url = "https://duckduckgo.com/?q=%TERM%"
 switcher_only = true
+
+[builtins.commands]
+weight = 5
+icon = "utilities-terminal"
+name = "commands"
+placeholder = "Commands"
+switcher_only = true
+
+[builtins.runner]
+eager_loading = true
+weight = 5
+icon = "utilities-terminal"
+name = "Runner"
+placeholder = "Runner"
+typeahead = true
+history = true
+generic_entry = false       # Generic command runner
+shell_config = ""           # Path to shell to parse for aliases
+refresh = true
+use_fd = false
+hidden = true
+switcher_only = true
+prefix = ">"
 
 [builtins.dmenu]
 hidden = true
@@ -187,5 +173,13 @@ hidden = true
 enabled = false
 
 [builtins.translation]
+hidden = true
+enabled = false
+
+[builtins.custom_commands]
+hidden = true
+enabled = false
+
+[builtins.hyprland_keybinds]
 hidden = true
 enabled = false
