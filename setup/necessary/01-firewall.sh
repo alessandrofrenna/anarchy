@@ -6,6 +6,34 @@ set -euo pipefail
 # Based on Omarchy script: firewall
 # ======================================================================================
 
+ensure_kernel_not_updated() {
+  echo "🔎 Verifying kernel status..."
+  local running_kernel=$(uname -r)
+  # This finds the version of the currently installed kernel package (e.g., linux, linux-lts)
+  # It looks for the package that matches the start of the running kernel's name.
+  # For example, if uname -r is "6.8.9-lts-1", it will query the "linux-lts" package.
+  local installed_kernel_pkg_name=$(pacman -Qsq "^linux" | grep -E "^($(uname -r | cut -d'-' -f1-2))" | head -n 1)
+  # Fallback to 'linux' if the smart detection fails for any reason
+  if [ -z "${installed_kernel_pkg_name}" ]; then
+    echo "⚠️ Could not auto-detect kernel package, falling back to 'linux'."
+    installed_kernel_pkg_name="linux"
+  fi
+  local installed_kernel=$(pacman -Q "${installed_kernel_pkg_name}" | awk '{print $2}')
+
+  if [ "${running_kernel}" != "${installed_kernel}" ]; then
+    echo "============================================================"
+    echo "❗️ KERNEL MISMATCH DETECTED"
+    echo "   Running kernel:   ${running_kernel}"
+    echo "   Installed kernel: ${installed_kernel}"
+    echo "   A reboot is required to load the new kernel."
+    echo "   Skipping firewall configuration to ensure system stability."
+    echo "============================================================"
+    exit 1
+  fi
+}
+
+ensure_kernel_not_updated
+
 # 1. Install UFW if it's missing
 if ! command -v ufw &>/dev/null; then
   echo -e "⏳ Installing UFW..."
