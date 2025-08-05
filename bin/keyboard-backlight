@@ -28,12 +28,12 @@ case "$1" in
   --idle|0)
     # Set brightness to 0, saving the current state.
     # The '-s' flag saves the current brightness before setting the new one.
-    brightnessctl --device="${KEYBOARD_NAME}" --save set 0
+    brightnessctl --device="${KEYBOARD_NAME}" --save set 0 &>/dev/null
     ;;
   --restore)
     # Restore the last saved brightness.
     # The '-r' flag restores the previously saved value.
-    brightnessctl --device="${KEYBOARD_NAME}" --restore
+    brightnessctl --device="${KEYBOARD_NAME}" --restore &>/dev/null
     ;;
   *)
     # If no arguments are given, cycle the brightness.
@@ -45,10 +45,10 @@ case "$1" in
     if (( CURRENT_BRIGHTNESS < MAX_BRIGHTNESS )); then
       # If not at max, increase by one step.
       # brightnessctl handles the step size automatically with '+1'.
-      brightnessctl --device="${KEYBOARD_NAME}" set +1
+      brightnessctl --device="${KEYBOARD_NAME}" set +1 &>/dev/null
     else
       # If at max, cycle back to 0.
-      brightnessctl --device="${KEYBOARD_NAME}" set 0
+      brightnessctl --device="${KEYBOARD_NAME}" set 0 &>/dev/null
     fi
     ;;
 esac
