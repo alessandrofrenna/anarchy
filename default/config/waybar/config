@@ -71,7 +71,7 @@
       "",
       " "
     ],
-    "on-click": "pavucontrol",
+    "on-click": "alacritty --class=Wiremix -e wiremix",
     "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle",
     "scroll-step": 5,
     "max-volume": 100
