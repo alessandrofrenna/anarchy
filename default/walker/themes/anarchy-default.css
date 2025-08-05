@@ -42,14 +42,12 @@ slider,
 
 /* Search container */
 #search {
-  background: @base;
-  padding: 0.75rem;
-  margin-bottom: 0;
+  margin-bottom: 2rem;
 }
 
 /* Hide prompt icon */
 #prompt {
-  opacity: 0;
+  opacity: 1;
   min-width: 0;
   margin: 0;
 }
@@ -62,9 +60,9 @@ slider,
 
 /* Input field */
 #input {
-  background: none;
+  background: shade(@base, 0.9);
   color: @text;
-  padding: 0;
+  padding: 0.75rem;
 }
 
 #input placeholder {
