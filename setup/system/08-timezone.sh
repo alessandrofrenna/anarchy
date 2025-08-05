@@ -14,6 +14,6 @@ EOF
   sudo chmod 0440 "${FILE_PATH}"
 fi
 
-echo "✅ Timezone management module setup complete!\n"
+echo -e "✅ Timezone management module setup complete!\n"
 sleep 3
 clear
