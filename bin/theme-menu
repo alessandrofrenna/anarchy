@@ -36,7 +36,7 @@ clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
 # Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
 selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
-# Apply the selected theme if exists (prevents errors hitting esc on keyboard)
-if [ -d "${THEMES_DIR}/${selected_theme}" ]; then
+# Apply the selected theme only if the variable is not empty and the directory exists (prevents errors hitting esc on keyboard) 
+if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
   "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
 fi
