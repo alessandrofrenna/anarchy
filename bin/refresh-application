@@ -23,7 +23,7 @@ fi
 # Copy and sync icon files
 ANARCHY_APPLICATION_ICON_DIR="${ANARCHY_APPLICATION_DIR}/icons"
 if [ -d "${ANARCHY_APPLICATION_ICON_DIR}" ]; then
-  echo -e "✨ Copying icons"
+  echo -e "⏳ Copying icons..."
   # cp "${ANARCHY_APPLICATION_ICON_DIR}/*.png" "${SHARED_ICON_DIR}/"
   find "${ANARCHY_APPLICATION_ICON_DIR}" -type f -name "*.png" -exec cp {} "${SHARED_ICON_DIR}" \;
   gtk-update-icon-cache ~/.local/share/icons/hicolor --ignore-theme-index &>/dev/null
