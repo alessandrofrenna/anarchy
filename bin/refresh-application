@@ -7,7 +7,7 @@ set -euo pipefail
 # ======================================================================================
 
 SHARED_APPLICATION_DIR="${HOME}/.local/share/applications"
-SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps/"
+SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps"
 ANARCHY_APPLICATION_DIR="${HOME}/.local/share/anarchy/applications"
 
 if [ ! -d "${SHARED_APPLICATION_DIR}" ]; then
@@ -24,7 +24,7 @@ fi
 ANARCHY_APPLICATION_ICON_DIR="${ANARCHY_APPLICATION_DIR}/icons"
 if [ -d "${ANARCHY_APPLICATION_ICON_DIR}" ]; then
   # cp "${ANARCHY_APPLICATION_ICON_DIR}/*.png" "${SHARED_ICON_DIR}/"
-  find "${ANARCHY_APPLICATION_ICON_DIR}" -type f -name "*.png" -exec cp {} "${SHARED_ICON_DIR}/" \;
+  find "${ANARCHY_APPLICATION_ICON_DIR}" -type f -name "*.png" -exec cp {} "${SHARED_ICON_DIR}" \;
   gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
 fi
 
