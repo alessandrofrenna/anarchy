@@ -32,11 +32,15 @@ mapfile -t themes < <(
 # Show Walker menu
 selection=$(printf '%s\n' "${themes[@]}" | walker --dmenu --theme dmenu_250 2>/dev/null)
 
+echo "SELECTED $selection"
+
 # Remove any Pango markup before converting back to filename
 clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
 
 # Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
 selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
-# Apply the selected theme
-"$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
+# Apply the selected theme if exists (prevents errors hitting esc on keyboard)
+if [ -d "${THEMES_DIR}/${selected_theme}" ]; then
+  "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
+fi
