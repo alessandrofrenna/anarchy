@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GPU Monitor
+GenericName=GPU Process Monitor
+Type=Application
+Terminal=true
+Exec=nvtop
+Icon=nvtop
+Categories=System;Monitor;
+X-AppImage-Integrate=false

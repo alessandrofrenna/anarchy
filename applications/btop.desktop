@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=System Actvity
+GenericName=System Monitor
+GenericName[it]=Monitor di sistema
+Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
+Comment[it]=Monitoraggio delle risorse: mostra utilizzo e statistiche per CPU, dischi, rete e processi
+Icon=btop
+Exec=btop
+Terminal=true
+Categories=System;Monitor;ConsoleOnly;
+Keywords=system;process;task
