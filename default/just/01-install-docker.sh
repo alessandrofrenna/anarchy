@@ -64,6 +64,8 @@ EOF
     sudo systemctl daemon-reload
   fi
 
+  add_firewall_rules
+
   # Add the current user to the docker group if not already a member
   if ! groups "${USER}" | grep -q '\bdocker\b'; then
     echo "🔧 Adding user '${USER}' to the 'docker' group..."
@@ -71,8 +73,6 @@ EOF
     # IMPORTANT: Inform the user they need to re-login
     echo -e "✅ User ${USER} is now part of 'docker' group"
     sleep 2
-
-    add_firewall_rules
 
     echo -e "\033c ⚠️ IMPORTANT: Logging out in a moment for group changes to take full effect..."
     sleep 2
