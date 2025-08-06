@@ -17,7 +17,7 @@ echo -e "✅ Networking module required packages installed"
 
 # Disable multicast dns in resolved
 sudo mkdir -p /etc/systemd/resolved.conf.d
-echo "[Resolve]\nMulticastDNS=no" | sudo tee /etc/systemd/resolved.conf.d/10-disable-multicast.conf
+echo -e "[Resolve]\nMulticastDNS=no" | sudo tee /etc/systemd/resolved.conf.d/10-disable-multicast.conf
 
 IWD_MAIN_CONFIG_FILE="/etc/iwd/main.conf"
 if [ ! -f "${IWD_MAIN_CONFIG_FILE}" ]; then
