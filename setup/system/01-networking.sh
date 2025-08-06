@@ -27,7 +27,6 @@ EnableNetworkConfiguration=false
 EOF
 fi
 
-
 services_to_enable=(
   "iwd"
   "sshd"
