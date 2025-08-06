@@ -89,6 +89,6 @@ echo "   • Optimized for interactive desktop performance"
 echo ""
 echo "✅ Memory optimization configured successfully!"
 echo "   These settings will persist across reboots and prevent"
-echo "   the system from consuming all RAM for file caches.\n"
+echo -e "   the system from consuming all RAM for file caches.\n"
 sleep 3
 clear
