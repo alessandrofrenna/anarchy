@@ -2,6 +2,6 @@
 Name=Audio Settings
 Comment=Change audio settings with Wiremix
 Exec=alacritty --class=Wiremix --title=Wiremix -e wiremix
-Icon=audio-card
+Icon=audio-speakers
 Type=Application
 Terminal=false
