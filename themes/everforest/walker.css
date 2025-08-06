@@ -1,5 +1,5 @@
 @define-color text-color #d3c6aa;
 @define-color selected-text-color #DBBC7F;
 @define-color box-bg-color #2d353b;
-@define-color input-bg-color shade(@box-bg-color, 0.9);
+@define-color input-bg-color shade(@box-bg-color, 0.85);
 @define-color border-color #d3c6aa;
