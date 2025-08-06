@@ -19,10 +19,21 @@ echo -e "✅ Networking module required packages installed"
 sudo mkdir -p /etc/systemd/resolved.conf.d
 echo "[Resolve]\nMulticastDNS=no" | sudo tee /etc/systemd/resolved.conf.d/10-disable-multicast.conf
 
+IWD_MAIN_CONFIG_FILE="/etc/iwd/main.conf"
+if [ ! -f "${IWD_MAIN_CONFIG_FILE}" ]; then
+  sudo tee "${IWD_MAIN_CONFIG_FILE}" <<'EOF'
+[General]
+EnableNetworkConfiguration=false
+EOF
+fi
+
+
 services_to_enable=(
   "iwd"
   "sshd"
   "avahi-daemon"
+  "systemd-networkd"
+  "systemd-resolved"
 )
 
 for service in "${services_to_enable[@]}"; do
