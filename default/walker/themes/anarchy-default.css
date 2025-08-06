@@ -24,19 +24,19 @@ slider,
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
   font-size: 1rem;
+  color: @text-color;
 }
 
 /* Window */
 #window {
   background: transparent;
-  color: @text;
 }
 
 /* Main box container */
 #box {
-  background: @base;
+  background: @box-bg-color;
   padding: 1rem;
-  border: 2px solid @border;
+  border: 2px solid @border-color;
   border-radius: 0px;
 }
 
@@ -60,14 +60,12 @@ slider,
 
 /* Input field */
 #input {
-  background: shade(@base, 0.9);
-  color: @text;
+  background: @input-bg-color;
   padding: 0.75rem;
 }
 
 #input placeholder {
   opacity: 0.5;
-  color: @text;
 }
 
 /* Hide typeahead */
@@ -105,7 +103,6 @@ child:hover {
 
 /* Text */
 #text {
-  color: @text;
   padding: 1rem 0;
 }
 
@@ -118,7 +115,7 @@ child:selected #text,
 child:selected #label,
 child:hover #text,
 child:hover #label {
-  color: @selected-text;
+  color: @selected-text-color;
 }
 
 /* Hide sub text */

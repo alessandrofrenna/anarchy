@@ -1,6 +1,5 @@
-@define-color selected-text #c4a7e7;
-@define-color text #e0def4;
-@define-color base #232136;
-@define-color border #e0def4;
-@define-color foreground #e0def4;
-@define-color background #232136;
+@define-color text-color #e0def4;
+@define-color selected-text-color #c4a7e7;
+@define-color box-bg-color #232136;
+@define-color input-bg-color shade(@box-bg-color, 0.9);
+@define-color border-color #e0def4;
