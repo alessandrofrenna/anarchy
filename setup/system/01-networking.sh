@@ -27,6 +27,9 @@ EnableNetworkConfiguration=false
 EOF
 fi
 
+# Set Cloudflare as primary DNS (with Google as backup)
+sudo cp ~/.local/share/anarchy/default/systemd/resolved.conf /etc/systemd/
+
 services_to_enable=(
   "iwd"
   "sshd"
