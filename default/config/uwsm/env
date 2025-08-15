@@ -1,0 +1,2 @@
+export ANARCHY_PATH=$HOME/.local/share/anarchy
+export PATH=$ANARCHY_PATH/bin/:$PATH
