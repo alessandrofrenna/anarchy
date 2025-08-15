@@ -46,24 +46,15 @@ for service in "${services_to_enable[@]}"; do
   fi
 done
 
-# Fix systemd-networkd-wait-online timeout for multiple interfaces
-# Wait for any interface to be online rather than all interfaces
-# https://wiki.archlinux.org/title/Systemd-networkd#Multiple_interfaces_that_are_not_connected_all_the_time
 NETWORK_SVC_CONF_DIR="/etc/systemd/system/systemd-networkd-wait-online.service.d"
 CONF_FILE="${NETWORK_SVC_CONF_DIR}/wait-for-any-interface.conf"
 
-echo "🔧 Configuring systemd-networkd-wait-online.service..."
-if [ ! -f "${CONF_FILE}" ]; then
-  sudo mkdir -p "${NETWORK_SVC_CONF_DIR}"
-  sudo tee "${CONF_FILE}" >/dev/null <<EOF
-[Service]
-ExecStart=
-ExecStart=/usr/lib/systemd/systemd-networkd-wait-online --any
-EOF
-  echo "✅ Created override for systemd-networkd-wait-online.service"
-else
-  echo "✅ Override for systemd-networkd-wait-online.service already exists."
+echo "🔧 Disabling systemd-networkd-wait-online.service..."
+if [ -f "${CONF_FILE}" ]; then
+  sudo rm "${CONF_FILE}"
 fi
+sudo systemctl disable systemd-networkd-wait-online.service
+sudo systemctl mask systemd-networkd-wait-online.service
 
 echo -e "✅ Networking module setup complete!\n"
 sleep 3
