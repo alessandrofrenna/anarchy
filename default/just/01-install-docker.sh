@@ -31,12 +31,26 @@ install_docker() {
   yay -S --noconfirm docker docker-compose docker-buildx lazydocker-bin
   echo -e "\033c✅ Docker packages installed"
 
-  if [[ ! -f /etc/docker/daemon.json ]]; then
+  if [[ ! -d /etc/docker ]]; then
     # Limit the log size to avoid running out of disk
     sudo mkdir -p /etc/docker
-    echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json >/dev/null
-    echo "🔧 Configured Docker daemon with log limits"
   fi
+
+  sudo tee /etc/docker/daemon.json >/dev/null <<'EOF'
+{
+  "log-driver": "json-file",
+  "log-opts": { "max-size": "10m", "max-file": "5" },
+  "dns": ["172.17.0.1"],
+  "bip": "172.17.0.1/16"
+}
+EOF
+  echo "🔧 Docker daemon configuration successfully updated"
+
+  # Expose systemd-resolved to our Docker network
+  echo "🔧 Configuring Docker to use the host's DNS resolver..."
+  echo -e '[Resolve]\nDNSStubListenerExtra=172.17.0.1' | sudo tee /etc/systemd/resolved.conf.d/20-docker-dns.conf >/dev/null
+  sudo systemctl restart systemd-resolved
+  echo -e "✅ Docker uses host's DNS resolver now"
 
   # Enable the docker service
   # Check the exit code of systemctl
@@ -45,7 +59,8 @@ install_docker() {
     sudo systemctl enable --now docker.service
     echo -e "✅ Docker service enabled"
   else
-    echo -e "✅ Docker service is already enabled"
+    sudo systemctl restart docker.service
+    echo -e "✅ Restarting Docker service"
   fi
 
   # Prevent Docker from preventing boot for network-online.target
