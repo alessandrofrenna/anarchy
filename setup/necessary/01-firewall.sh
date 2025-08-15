@@ -37,14 +37,21 @@ else
     sudo ufw allow 22/tcp
   fi
 
-  # 4. Enable the firewall if it's inactive
+  # 4. Add DNS-over-TLS rule if it doesn't exist
+  if ! sudo ufw status | grep -q "853/tcp.*ALLOW OUT"; then
+    echo "🔧 Adding firewall rule for outbound DNS over TLS..."
+    sudo ufw allow out 853/tcp comment 'Allow outbound DNS over TLS'
+  fi
+
+  # 5. Enable the firewall if it's inactive
   if ! sudo ufw status | grep -q "Status: active"; then
     echo "🧱 Enabling firewall..."
     # 'ufw enable' is interactive; use 'yes' to auto-confirm
     yes | sudo ufw enable
     echo -e "✅ Firewall enabled"
   else
-    echo "✅ Firewall is already active"
+    sudo ufw reload
+    echo "✅ Firewall realoaded"
   fi
   echo -e "\n✅ Completed Firewall configuration\n"
 fi

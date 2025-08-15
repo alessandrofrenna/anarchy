@@ -1,0 +1,19 @@
+[Match]
+Name=en* wl*
+Type=!bridge
+Type=!veth
+
+[Network]
+# Enable DHCP for both IPv4 and IPv6. This will get an IP address automatically.
+DHCP=yes
+
+[DHCP]
+# Tells the system to get an IP via DHCP, but to REJECT
+# the DNS servers and search domains offered by the router.
+UseDNS=no
+UseDomains=no
+
+[IPv6AcceptRA]
+# This does the same for IPv6 Router Advertisements, preventing DNS leaks.
+UseDNS=no
+UseDomains=no
