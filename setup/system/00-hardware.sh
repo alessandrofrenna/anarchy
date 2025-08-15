@@ -25,6 +25,7 @@ required_packages=(
   "vulkan-tools"
   "vulkan-icd-loader"
   "bolt"
+  "systemd-ukify"
 )
 
 # Find the architecture microcode to install
