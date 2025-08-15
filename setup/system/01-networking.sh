@@ -5,6 +5,7 @@ required_packages=(
   "avahi"
   "nss-mdns"
   "openssh"
+  "dnsutils"
 )
 
 if ! command -v iwctl &> /dev/null; then
