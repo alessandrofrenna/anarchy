@@ -24,6 +24,7 @@ required_packages=(
   "vdpauinfo"
   "vulkan-tools"
   "vulkan-icd-loader"
+  "bolt"
 )
 
 # Find the architecture microcode to install
@@ -133,6 +134,10 @@ fi
 echo -e "🔧 Enabling fwupd service..."
 sudo systemctl enable --now fwupd.service fwupd-refresh.timer
 echo -e "✅ Fwupd service enabled"
+
+echo -e "🔧 Enabling bolt service..."
+sudo systemctl enable --now bolt
+echo -e "✅ Bolt service enabled"
 
 echo -e "⌨️ Fixing Apple and Apple-compatible keyboards FN key"
 FILE_PATH="/etc/modprobe.d/hid_apple.conf"
