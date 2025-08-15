@@ -110,7 +110,7 @@ EOF
 
 enable_hibernation() {
   local SWAP_FILE="/swapfile"
-  local CMDLINE_DIR="/etc/kernel/cmdline.d"
+  local CMDLINE_DIR="/etc/cmdline.d"
   local HIBERNATION_CONF_FILE="${CMDLINE_DIR}/hibernate.conf"
 
   if [ ! -f "${SWAP_FILE}" ]; then

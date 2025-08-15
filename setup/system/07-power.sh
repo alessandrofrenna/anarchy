@@ -11,7 +11,7 @@ set -euo pipefail
 # ======================================================================================
 
 optimize_nvme() {
-  local CMDLINE_DIR="/etc/kernel/cmdline.d"
+  local CMDLINE_DIR="/etc/cmdline.d"
   local NVME_CONF_FILE="${CMDLINE_DIR}/nvme.conf"
   
   if [ ! -d "${CMDLINE_DIR}" ]; then
