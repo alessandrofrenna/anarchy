@@ -11,7 +11,7 @@ fi
 add_to_env() {
   # grep -q: quiet mode, -x: match whole line, -F: treat pattern as fixed string
   if ! grep -qFx "$1" "$UWSM_ENV_FILE"; then
-    echo "$1" >> "$UWSM_ENV_FILE"
+    echo -e "\n$1" >> "$UWSM_ENV_FILE"
   fi
 }
 
