@@ -10,6 +10,20 @@ set -euo pipefail
 #   2. ArchRiot script: power.sh
 # ======================================================================================
 
+optimize_nvme() {
+  local CMDLINE_DIR="/etc/kernel/cmdline.d"
+  local NVME_CONF_FILE="${CMDLINE_DIR}/nvme.conf"
+  
+  if [ ! -d "${CMDLINE_DIR}" ]; then
+    sudo mkdir -p "${CMDLINE_DIR}"
+  fi
+
+  echo "🔧 Optimizing nvme setting nvme.noacpi..."
+  echo "nvme.noacpi=1" | sudo tee "${NVME_CONF_FILE}" >/dev/null
+
+  echo "✅ set nvme.noacpi=1 successfully"
+}
+
 if ls /sys/class/power_supply/BAT* &>/dev/null; then
   # Laptop with battery - install monitoring tools
   echo -e "🔋 Laptop detected"
@@ -22,6 +36,10 @@ if ls /sys/class/power_supply/BAT* &>/dev/null; then
     echo -e "🔧 Enabling battery-monitor timer..."
     systemctl --user enable --now battery-monitor.timer
     echo -e "✅ battery-monitor timer enabled"
+  fi
+
+  if lsblk -no PKNAME $(findmnt -n -o SOURCE /) | grep -q "nvme"; then
+    optimize_nvme
   fi
 
   # Enable tlp
