@@ -53,6 +53,8 @@ for directory in "${script_dirs[@]}"; do
   done
 done
 
+sudo mkinitcpio -P
+
 # Ensure locate is up to date now that everything has been installed
 echo -e "\033c⏳ Updating database..."
 sudo updatedb

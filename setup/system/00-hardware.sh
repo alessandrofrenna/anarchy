@@ -150,8 +150,6 @@ else
   echo "✅ Apple and Apple-compatible keyboards already fixed"
 fi
 
-sudo mkinitcpio -P
-
 echo -e "✅ Hardware module setup complete!\n"
 sleep 3
 clear
