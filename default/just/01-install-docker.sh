@@ -28,7 +28,7 @@ add_firewall_rules() {
 
 install_docker() {
   echo -e "⏳ Installing Docker packages..."
-  yay -S --noconfirm --needed docker docker-compose docker-buildx lazydocker-bin
+  yay -S --noconfirm --needed docker docker-compose docker-buildx lazydocker
   echo -e "\033c✅ Docker packages installed"
 
   if [[ ! -d /etc/docker ]]; then
