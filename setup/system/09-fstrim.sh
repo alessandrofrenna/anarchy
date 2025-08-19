@@ -51,3 +51,6 @@ else
     echo "❌ TRIM/discard is not supported by ${installation_drive}."
   fi
 fi
+
+sleep 3
+clear
