@@ -18,7 +18,8 @@ fi
 if ! sudo ufw status | grep -q "Status: active"; then
   echo "🧱 Enabling firewall..."
   # 'ufw enable' is interactive; use 'yes' to auto-confirm
-  yes | sudo ufw enable
+  sudo systemctl enable --now ufw
+  sudo ufw --force enable 
   echo -e "✅ Firewall enabled"
 
   # Set default policies (these commands are idempotent)
