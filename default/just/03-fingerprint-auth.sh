@@ -61,7 +61,7 @@ install_fingerprint_required_packages() {
   fi
 
   echo -e "\033c⏳ Installing fingerprint required packages..."
-  yay -S --noconfirm fprintd
+  yay -S --noconfirm --needed fprintd
   echo -e "✅ Fingerprint required packages installed"
 }
 

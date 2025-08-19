@@ -36,7 +36,7 @@ utility_packages=(
 )
 
 echo -e "⏳ Installing hyprland utility packages..."
-yay -S --noconfirm "${utility_packages[@]}"
+yay -S --noconfirm --needed "${utility_packages[@]}"
 echo -e "✅ Hyprland utility packages installed"
 
 # Copy hyprland configuration

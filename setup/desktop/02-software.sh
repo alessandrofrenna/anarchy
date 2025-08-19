@@ -63,7 +63,7 @@ tools=(
 )
 
 echo -e "⏳ Installing tools..."
-yay -S --noconfirm "${tools[@]}"
+yay -S --noconfirm --needed "${tools[@]}"
 echo -e "✅ Tools installed"
 
 packages=(
@@ -107,8 +107,8 @@ packages=(
 )
 
 echo -e "⏳ Installing software packages..."
-yay -S --noconfirm "${packages[@]}"
-yay -S --noconfirm spotify || echo -e "❌ Failed to install Spotify. Continuing without!"
+yay -S --noconfirm --needed "${packages[@]}"
+yay -S --noconfirm --needed spotify || echo -e "❌ Failed to install Spotify. Continuing without!"
 echo -e "✅ Software packages installed"
 
 # Refresh application desktop files

@@ -11,7 +11,7 @@ add_firewall_rules() {
     # 1. Install the ufw-docker tool if it's not present
     if ! command -v ufw-docker &>/dev/null; then
       echo -e "⏳ Installing ufw-docker..."
-      yay -S --noconfirm ufw-docker
+      yay -S --noconfirm --needed ufw-docker
       echo -e "✅ ufw-docker installed"
     fi
     

@@ -49,7 +49,7 @@ for font in "${packages[@]}"; do
     echo echo -e "${font} already installed, skipping..."
     continue
   fi
-  yay -S --noconfirm "${font}"
+  yay -S --noconfirm --needed "${font}"
 done
 echo -e "✅ Font packages installed\n"
 

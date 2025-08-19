@@ -7,9 +7,9 @@ packages=(
 )
 
 echo -e "⏳ Installing theme customization packages..."
-yay -S --noconfirm "${packages[@]}"
+yay -S --noconfirm --needed "${packages[@]}"
 if ! yay -Q yaru-icon-theme &>/dev/null; then
-  yay -S --noconfirm yaru-icon-theme
+  yay -S --noconfirm --needed yaru-icon-theme
 fi
 echo -e "✅ Theme customization packages installed"
 
