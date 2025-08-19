@@ -26,7 +26,7 @@ read_only = " 󰌾"
 
 [git_branch]
 symbol = " "
-format = "[$branch]($style) "
+format = "[❯](bold bright-black) [$symbol$branch]($style)"
 style = "italic"
 
 [git_status]
