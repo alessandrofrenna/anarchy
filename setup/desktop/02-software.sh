@@ -60,6 +60,7 @@ tools=(
   "tree"
   "libqalculate"
   "less"
+  "starship"
 )
 
 echo -e "⏳ Installing tools..."

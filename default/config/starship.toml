@@ -1,0 +1,52 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Configure the format of the prompt.
+format = "$username[$directory$git_branch$git_status]($style)$character"
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Timeout for commands executed by starship (in milliseconds).
+command_timeout = 200
+
+# Follows symlinks to check if they're directories; used in modules such as git.
+follow_symlinks = true
+
+[character]
+error_symbol = "[✗](bold red)"
+success_symbol = "[❯](bold green)"
+
+[directory]
+truncation_length = 2
+truncation_symbol = "…/"
+repo_root_style = "bold cyan"
+repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+read_only = " 󰌾"
+
+[git_branch]
+symbol = " "
+format = "[$branch]($style) "
+style = "italic"
+
+[git_status]
+format     = '[$all_status]($style) '
+style      = ""
+ahead      = '⇡${count}'
+diverged   = '⇕⇡${ahead_count}⇣${behind_count}'
+behind     = '⇣${count}'
+conflicted = ''
+up_to_date = ''
+untracked  = ''
+modified   = ''
+stashed    = ''
+staged     = ''
+renamed    = ''
+deleted    = ''
+
+[username]
+style_root = "red bold"
+style_user = "purple bold"
+format = '[$user]($style) [❯](bold bright-black) '
+disabled = false
+show_always = true
