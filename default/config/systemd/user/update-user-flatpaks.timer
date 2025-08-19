@@ -1,0 +1,10 @@
+[Unit]
+Description=Update user Flatpaks daily at midday
+
+[Timer]
+Unit=update-user-flatpaks.service
+OnCalendar=12:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Update user Flatpaks
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/anarchy/bin/update-user-flatpaks
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical-session.target

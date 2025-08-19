@@ -1,0 +1,50 @@
+#!/bin/bash
+set -euo pipefail
+
+log_and_notify() {
+  local urgency
+  local priority
+
+  case "${1}" in
+    --error)
+      urgency="critical"
+      priority="err"
+      ;;
+    --info)
+      urgency="normal"
+      priority="info"
+      ;;
+    *)
+      echo -e "log level ${1} not supported.\nSupported levels are --info and --error"
+      exit 1
+    ;;
+  esac
+
+  # Log to journalctl
+  echo "${2}" | systemd-cat -p "${priority}"
+  # Notify user
+  notify-send -u "${urgency}" "${2}" -t 4000
+}
+
+update_flatpaks() {
+  log_and_notify --info "📦 Checking flatpak packages to update..."
+
+  # Run the update command, capturing all output (stdout & stderr) into a variable.
+  # This approach works safely with 'set -e' because the command substitution
+  # does not cause the script to exit. We capture the exit code on the next line.
+  update_output=$(flatpak update --user --assumeyes --noninteractive 2>&1)
+  local exit_code=$?
+
+  if [ $exit_code -eq 0 ]; then
+    # Check if the output indicates that nothing needed to be done.
+    if [[ "$update_output" == *"Nothing to do."* ]]; then
+      log_and_notify --info "👍 ${update_output}"
+    else
+      log_and_notify --info "✅ Installed flatpaks packages updated successfully."
+    fi
+  else
+    log_and_notify --error "❌ Error updating flatpaks packages: ${update_output}"
+  fi
+}
+
+update_flatpaks
