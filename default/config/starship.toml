@@ -26,23 +26,23 @@ read_only = " 󰌾"
 
 [git_branch]
 symbol = " "
-format = "[❯](bold bright-black) [$symbol$branch]($style)"
+format = "[❯](bold bright-black) [$symbol$branch]($style) "
 style = "italic"
 
 [git_status]
-format     = '[$all_status]($style) '
-style      = ""
-ahead      = '⇡${count}'
-diverged   = '⇕⇡${ahead_count}⇣${behind_count}'
-behind     = '⇣${count}'
-conflicted = ''
-up_to_date = ''
-untracked  = ''
-modified   = ''
-stashed    = ''
-staged     = ''
-renamed    = ''
-deleted    = ''
+format     = '[$all_status]($style)'
+style      = "blue"
+ahead      = '⇡${count} '
+diverged   = '⇕⇡${ahead_count}⇣${behind_count} '
+behind     = '⇣${count} '
+conflicted = ' '
+up_to_date = ' '
+untracked  = ' '
+modified   = ' '
+stashed    = ' '
+staged     = ' '
+renamed    = ' '
+deleted    = ' '
 
 [username]
 style_root = "red bold"
