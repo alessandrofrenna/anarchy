@@ -32,7 +32,7 @@ sudo cp ~/.local/share/anarchy/default/systemd/resolved.conf /etc/systemd/
 if [ "$(readlink /etc/resolv.conf)" != "/run/systemd/resolve/stub-resolv.conf" ]; then
   echo "🔧 Correcting /etc/resolv.conf symlink..."
   sudo mv /etc/resolv.conf /etc/resolv.conf.bak
-  sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  sudo ln -nsf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 fi
 echo "✅ systemd-resolved configured."
 
