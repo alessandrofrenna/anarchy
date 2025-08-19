@@ -3,6 +3,12 @@ set -euo pipefail
 # Give people a chance to retry running the installation
 trap 'echo -e "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh\n"' ERR
 
+# Proceed only if AUR is available
+if ! curl --connect-timeout 10 --head --silent -o /dev/null --user-agent "anarchy-installation-script" "https://aur.archlinux.org/"; then
+  echo "The AUR package repository is currently unavailable, please try again later"
+  exit 255
+fi
+
 # Enable pacman ILoveCandy and Color
 if ! grep -q "^\s*ILoveCandy" /etc/pacman.conf; then
     sudo sed -i '/^\[options\]/a ILoveCandy' /etc/pacman.conf
