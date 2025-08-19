@@ -55,11 +55,11 @@ done
 
 # Determine GTK theme and color scheme based on the 'dark' setting
 if [ "${VARIANT}" == "dark" ]; then
-    GTK_THEME="Adwaita-dark"
+    GTK_THEME="adw-gtk3-dark"
     COLOR_SCHEME="prefer-dark"
 else
-    GTK_THEME="Adwaita"
-    COLOR_SCHEME="prefer-light"
+    GTK_THEME="adw-gtk3"
+    COLOR_SCHEME="default"
 fi
 
 # Apply settings using gsettings

@@ -8,6 +8,7 @@ packages=(
 
 echo -e "⏳ Installing theme customization packages..."
 yay -S --noconfirm --needed "${packages[@]}"
+sudo pacman -S --noconfirm --needed adw-gtk-theme
 if ! yay -Q yaru-icon-theme &>/dev/null; then
   yay -S --noconfirm --needed yaru-icon-theme
 fi
@@ -91,11 +92,11 @@ if [ -f "${CURRENT_THEME_CONFIG}" ]; then
 
   # Determine GTK theme and color scheme based on the 'dark' setting
   if [ "${VARIANT}" == "dark" ]; then
-      GTK_THEME="Adwaita-dark"
+      GTK_THEME="adw-gtk3-dark"
       COLOR_SCHEME="prefer-dark"
   else
-      GTK_THEME="Adwaita"
-      COLOR_SCHEME="prefer-light"
+      GTK_THEME="adw-gtk3"
+      COLOR_SCHEME="default"
   fi
 
   # Apply settings using gsettings
@@ -103,6 +104,10 @@ if [ -f "${CURRENT_THEME_CONFIG}" ]; then
   gsettings set org.gnome.desktop.interface color-scheme "${COLOR_SCHEME}"
   gsettings set org.gnome.desktop.interface icon-theme "${ICON_THEME}"
   gsettings set org.gnome.desktop.interface accent-color "${ACCENT_COLOR}"
+
+  # Apply theme to flatpak
+  sudo flatpak override --filesystem=/usr/share/themes
+
   echo "✅ Settings applied for theme: ${THEME_NAME}"
 else
   echo "⚠️ Warning: Theme configuration file not found at ${CURRENT_THEME_CONFIG}. Applying default GTK settings."
