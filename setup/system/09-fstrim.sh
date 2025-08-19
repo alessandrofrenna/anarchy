@@ -18,7 +18,7 @@ is_trim_supported() {
   fi
 
   local disc_gran disc_max
-  echo "$lsblk_output" | read -r disc_gran disc_max
+  read -r disc_gran disc_max <<< "$lsblk_output"
 
   # Return 0 (true) only if both values are greater than zero
   if [[ "${disc_gran}" -gt 0 && "${disc_max}" -gt 0 ]]; then
