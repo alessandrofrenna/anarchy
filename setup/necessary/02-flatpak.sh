@@ -2,7 +2,7 @@
 set -euo pipefail 
  
 echo -e "⏳ Installing flatpak..."
-sudo pacman -S -noconfirm --needed flatpak
+sudo pacman -S --noconfirm --needed flatpak
 echo -e "✅ flatpak installed"
 
 # Enable timer to update installed flatpaks automatically
