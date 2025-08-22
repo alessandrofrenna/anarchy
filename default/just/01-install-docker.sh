@@ -16,7 +16,7 @@ add_firewall_rules() {
     fi
     
     # 2. Apply the firewall rules.
-    sudo ufw allow in on docker0 to any port 53
+    sudo ufw allow in proto udp from 172.16.0.0/12 to 172.17.0.1 port 53 comment allow-docker-dns
     sudo ufw-docker install
     sudo ufw reload
     echo -e "✅ Docker firewall rules applied"
