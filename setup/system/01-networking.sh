@@ -2,6 +2,7 @@
 set -euo pipefail
 
 required_packages=(
+  "wireless-regdb"
   "avahi"
   "nss-mdns"
   "openssh"
