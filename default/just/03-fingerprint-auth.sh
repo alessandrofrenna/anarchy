@@ -55,7 +55,7 @@ install_fingerprint_required_packages() {
     sudo pacman -S --noconfirm --needed usbutils
   fi
 
-  if ! lsusb | grep -Eiq 'fingerprint|synaptics|goodix'; then
+  if ! lsusb | grep -Eiq 'fingerprint|synaptics|goodix|elan|validity'; then
     echo -e "\033c🚩 No fingerprint sensor detected"
     exit 1
   fi
