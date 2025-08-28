@@ -38,7 +38,7 @@ packages=(
   "ttf-firacode-nerd"
   "ttf-cascadia-mono-nerd"
   "ttf-ia-writer"
-  "ttf-font-awesome"
+  "woff2-font-awesome"
   "nerd-fonts-inter"
   "ttf-noto-nerd"
 )
