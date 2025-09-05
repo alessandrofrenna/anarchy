@@ -6,11 +6,17 @@
 # ======================================================================================
 # Designed to be run by systemd timer every 30 seconds and alerts if battery is low
 
-BATTERY_THRESHOLD=10
+BATTERY_THRESHOLD=25
 NOTIFICATION_FLAG="/run/user/$UID/anarchy_battery_notified"
 
 get_battery_percentage() {
-  upower -i $(upower -e | grep 'BAT') | grep -E "percentage" | grep -o '[0-9]\+%' | sed 's/%//'
+  upower -i "$(upower -e | grep 'BAT')" \
+  | awk -F: '/percentage/ {
+      gsub(/[%[:space:]]/, "", $2);
+      val=$2;
+      printf("%d\n", (val+0.5))
+      exit
+    }'
 }
 
 get_battery_state() {
