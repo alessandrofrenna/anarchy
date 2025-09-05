@@ -100,11 +100,6 @@ for service in "${services_to_enable[@]}"; do
 done
 
 echo "🔧 Disabling systemd-networkd-wait-online.service..."
-NETWORK_SVC_CONF_DIR="/etc/systemd/system/systemd-networkd-wait-online.service.d"
-CONF_FILE="${NETWORK_SVC_CONF_DIR}/wait-for-any-interface.conf"
-if [ -f "${CONF_FILE}" ]; then
-  sudo rm "${CONF_FILE}"
-fi
 sudo systemctl disable systemd-networkd-wait-online.service
 sudo systemctl mask systemd-networkd-wait-online.service
 echo "✅ systemd-networkd-wait-online.service disabled."

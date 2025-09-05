@@ -65,7 +65,6 @@ fi
 # Enable hyprland utilities as services
 services=(
   "hypridle.service"
-  "waybar.service"
   "mako.service"
 )
 
