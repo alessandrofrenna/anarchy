@@ -40,7 +40,6 @@ packages=(
   "ttf-ia-writer"
   "woff2-font-awesome"
   "nerd-fonts-inter"
-  "ttf-noto-nerd"
 )
 
 echo -e "⏳ Installing font packages..."
