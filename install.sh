@@ -4,7 +4,7 @@ set -euo pipefail
 trap 'echo -e "Anarchy installation failed! You can retry by running: source ~/.local/share/anarchy/install.sh\n"' ERR
 
 # Proceed only if AUR is available
-if ! curl --connect-timeout 10 --head --silent -o /dev/null --user-agent "anarchy-installation-script" "https://aur.archlinux.org/"; then
+if ! curl --connect-timeout 30 --head --silent -o /dev/null --user-agent "anarchy-installation-script" "https://aur.archlinux.org/"; then
   echo "The AUR package repository is currently unavailable, please try again later"
   exit 255
 fi
