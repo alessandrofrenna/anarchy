@@ -30,10 +30,10 @@ change_pstate_mode() {
   cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
   if [ "$cpu_vendor" = "GenuineIntel" ]; then
     echo -e "💻 Found GenuineIntel CPU, setting intel_pstate=passive"
-    pstate_driver_mode = "intel_pstate=passive"
+    pstate_driver_mode="intel_pstate=passive"
   elif [ "$cpu_vendor" = "AuthenticAMD" ]; then
     echo -e "💻 Found AuthenticAMD CPU, setting amd-pstate=guided"
-    pstate_driver_mode = "amd-pstate=guided"
+    pstate_driver_mode="amd-pstate=guided"
   fi
 
   local CMDLINE_DIR="/etc/cmdline.d"
