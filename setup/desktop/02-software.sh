@@ -33,6 +33,7 @@ tools=(
   "fcitx5"
   "fcitx5-gtk"
   "fcitx5-qt"
+  "fcitx5-configtool"
   # Wayland related
   "qt5-wayland"
   "qt6-wayland"
