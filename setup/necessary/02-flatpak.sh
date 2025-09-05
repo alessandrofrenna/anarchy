@@ -11,3 +11,8 @@ if ! systemctl is-enabled --user --quiet update-user-flatpaks.timer ; then
   systemctl --user enable --now update-user-flatpaks.timer
   echo -e "✅ update-user-flatpaks timer enabled"
 fi
+
+echo -e "✅ Completed flatpaks configuration\n"
+
+sleep 3
+clear
