@@ -76,9 +76,8 @@ touch "$HOME/.config/alacritty/alacritty.toml"
 
 # Restart components to apply new theme
 pkill -SIGUSR2 btop
-pkill -SIGUSR2 waybar
-pkill swayosd-server
-setsid uwsm app -- swayosd-server &>/dev/null &
+restart-app waybar
+restart-app swayosd-server
 makoctl reload
 hyprctl reload
 

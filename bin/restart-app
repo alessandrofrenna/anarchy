@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/bin/omarchy-restart-app
+# ======================================================================================
+# Based on Omarchy script: omarchy-restart-app
+# ======================================================================================
+
+pkill -x $1
+setsid uwsm app -- $1 >/dev/null 2>&1 &

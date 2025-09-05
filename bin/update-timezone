@@ -5,6 +5,8 @@
 # Based on Omarchy script: omarchy-cmd-tzupdate
 # ======================================================================================
 
+sudo systemctl restart systemd-timesyncd
 sudo tzupdate
 new_timezone=$(timedatectl show -p Timezone --value)
-notify-send "Timezone has been set to $new_timezone"
+restart-app waybar
+notify-send "Time synced and timezone set to $new_timezone"
