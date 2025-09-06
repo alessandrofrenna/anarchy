@@ -4,7 +4,7 @@ set -euo pipefail
 install_direnv() {
   echo "⏳ Installing direnv..."
   sudo pacman -S --noconfirm --needed direnv
-  echo "✅ direnv installed.\n "
+  echo -e "✅ direnv installed.\n "
 }
 
 install_nix() {
@@ -12,12 +12,12 @@ install_nix() {
   echo "⏳ Installing Nix..."
   # Check if Nix is already installed by looking for the nix command
   if command -v nix &> /dev/null; then
-    echo "✅ Nix is already installed. Skipping."
+    echo -e  "✅ Nix is already installed. Skipping."
   else
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
     # Source the new profile to make 'nix' available to this script session
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    echo "✅ Nix installed."
+    echo -e "✅ Nix installed."
   fi
 }
 
@@ -26,9 +26,9 @@ install_vscode()
   if command -v yay &> /dev/null; then
     echo "⏳ Installing vscode..."
     sudo yay -S --noconfirm --needed visual-studio-code-bin
-    echo "✅ vscode installed.\n"
+    echo -e "✅ vscode installed.\n"
   else
-    echo "❌ yay AUR helper is missing. Skipping vscode installation"
+    echo -e "❌ yay AUR helper is missing. Skipping vscode installation"
   fi
 }
 
@@ -64,7 +64,7 @@ EOF
 source "$HOME/.nix-profile/share/nix-direnv/direnvrc"
 EOF
 
-  echo "✅ direnv configured for Nix.\n"
+  echo -e "✅ direnv configured for Nix.\n"
 }
 
 echo -e "\033c🚀 Starting Dev Env Setup...\n"
