@@ -6,3 +6,5 @@ enable-fingerprint-auth:
   ~/.local/share/anarchy/default/just/03-fingerprint-auth.sh
 disable-fingerprint-auth:
   ~/.local/share/anarchy/default/just/03-fingerprint-auth.sh --remove
+setup-dev-env:
+  ~/.local/share/anarchy/default/just/04-setup-dev-env.sh
