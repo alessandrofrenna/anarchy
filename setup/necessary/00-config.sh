@@ -26,10 +26,15 @@ for item in "${HOME}/.local/share/anarchy/default/config/"*; do
 done
 echo -e "✅ Configurations copied"
 
-# Use default bashrc from Anarchy
-echo -e "⏳ Configuring .bashrc file..."
-cp ~/.local/share/anarchy/default/bashrc ~/.bashrc
-echo -e "✅ .bashrc configured\n"
+# Copy .bashrc from Anarchy if it doesn't exists
+if [ ! -f "${HOME}/.bashrc" ]: then;
+  echo -e "⏳ Configuring .bashrc file..."
+  cp ~/.local/share/anarchy/default/bashrc ~/.bashrc
+  echo -e "✅ .bashrc configured"
+else
+  echo -e "✅ .bashrc already there. Skipping"
+fi
+
 
 # Original reference https://github.com/basecamp/omarchy/blob/a4e7f41798148765055b2dcb5e70a680825688aa/install/4-config.sh#L12
 # ======================================================================================
@@ -37,16 +42,24 @@ echo -e "✅ .bashrc configured\n"
 # ======================================================================================
 # Setup GPG configuration with multiple keyservers for better reliability
 # ======================================================================================
-echo -e "🔑 Importing GPG keyservers..."
 
-sudo mkdir -p /etc/gnupg
-sudo cp ~/.local/share/anarchy/default/gpg/dirmngr.conf /etc/gnupg/
-sudo chmod 644 /etc/gnupg/dirmngr.conf
-sudo gpgconf --kill dirmngr || true
-sudo gpgconf --launch dirmngr || true
-echo -e "✅ GPG keyservers imported successfully"
+if [ ! -d "/etc/gnupg" ]: then
+  echo -e "🔑 Importing GPG keyservers..."
+  sudo mkdir -p /etc/gnupg
+  sudo cp ~/.local/share/anarchy/default/gpg/dirmngr.conf /etc/gnupg/
+  sudo chmod 644 /etc/gnupg/dirmngr.conf
+  sudo gpgconf --kill dirmngr || true
+  sudo gpgconf --launch dirmngr || true
+  echo -e "✅ GPG keyservers imported successfully"
+else
+  echo -e "✅ GPG keyservers already imported. Skipping"
+fi
 
+echo -e "⏳ Updating Arch Linux keyring..."
 sudo pacman -Sy archlinux-keyring --noconfirm
+echo -e "✅ Arch Linux keyring updated successfully"
 
+
+echo -e "\033c✅ Configuration setup completed!\n"
 sleep 3
 clear
