@@ -14,7 +14,7 @@ install_nix() {
   if command -v nix &> /dev/null; then
     echo -e  "✅ Nix is already installed. Skipping."
   else
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
     # Source the new profile to make 'nix' available to this script session
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     echo -e "✅ Nix installed."
