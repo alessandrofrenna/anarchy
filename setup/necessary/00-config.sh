@@ -27,7 +27,7 @@ done
 echo -e "✅ Configurations copied"
 
 # Copy .bashrc from Anarchy if it doesn't exists
-if [ ! -f "${HOME}/.bashrc" ]: then;
+if [ ! -f "${HOME}/.bashrc" ]; then
   echo -e "⏳ Configuring .bashrc file..."
   cp ~/.local/share/anarchy/default/bashrc ~/.bashrc
   echo -e "✅ .bashrc configured"
@@ -43,7 +43,7 @@ fi
 # Setup GPG configuration with multiple keyservers for better reliability
 # ======================================================================================
 
-if [ ! -d "/etc/gnupg" ]: then
+if [ ! -d "/etc/gnupg" ]; then
   echo -e "🔑 Importing GPG keyservers..."
   sudo mkdir -p /etc/gnupg
   sudo cp ~/.local/share/anarchy/default/gpg/dirmngr.conf /etc/gnupg/
