@@ -25,7 +25,7 @@ install_vscode()
 {
   if command -v yay &> /dev/null; then
     echo "⏳ Installing vscode..."
-    sudo yay -S --noconfirm --needed visual-studio-code-bin
+    yay -S --noconfirm --needed visual-studio-code-bin
     echo -e "✅ vscode installed.\n"
   else
     echo -e "❌ yay AUR helper is missing. Skipping vscode installation"
