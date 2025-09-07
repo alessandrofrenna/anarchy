@@ -37,8 +37,7 @@ install_nix() {
   echo -e "\n"
 }
 
-install_vscode()
-{
+install_vscode() {
   if command -v yay &> /dev/null; then
     echo "⏳ Installing vscode..."
     yay -S --noconfirm --needed visual-studio-code-bin
@@ -66,21 +65,19 @@ install_vscode()
 
 configure_nix_direnv() {
   echo "⏳ Configuring direnv to use Nix..."
-  
+
   # 1. Hook direnv into the user's bash shell if missing
   # This makes direnv active in the terminal
-
   local RC_FILE="${HOME}/.bashrc"
-
   if ! grep -q "direnv hook bash" "${RC_FILE}"; then
     tee -a "${RC_FILE}" >/dev/null <<'EOF'
+
 
 # Hook for direnv
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook bash)"
 fi
 EOF
-
   fi
 
   # 2. Create the direnv config file and tell it to use the nix-direnv script
@@ -91,15 +88,81 @@ EOF
 # Use the nix-direnv integration installed via our Nix profile
 source "$HOME/.nix-profile/share/nix-direnv/direnvrc"
 EOF
-
   echo -e "✅ direnv configured for Nix.\n"
 }
 
+configure_vscode_settings() {
+  # This function configures VSCode's settings.json for the Nix IDE extension.
+  # It should run after both Nix and VS Code are installed.
+  
+  # First, check if the necessary commands are available.
+  if ! command -v code &> /dev/null; then
+    echo "🟡 VS Code command 'code' not found. Skipping settings configuration."
+    return
+  fi
+  if ! command -v nixd &> /dev/null; then
+    echo "🟡 'nixd' not found in PATH. Skipping settings configuration."
+    return
+  fi
+  if ! command -v jq &> /dev/null; then
+    echo "❌ 'jq' is not installed. Skipping settings configuration."
+    return
+  fi
+
+  echo "⏳ Configuring VS Code settings for Nix..."
+
+  local VSCODE_SETTINGS_DIR="${HOME}/.config/Code/User"
+  local VSCODE_SETTINGS_FILE="${VSCODE_SETTINGS_DIR}/settings.json"
+
+  # 1. Create the settings directory and file if they don't exist.
+  mkdir -p "${VSCODE_SETTINGS_DIR}"
+  if [ ! -f "${VSCODE_SETTINGS_FILE}" ]; then
+    echo "{}" > "${VSCODE_SETTINGS_FILE}" # Start with an empty JSON object
+  fi
+
+  # 2. Get the absolute path to the nixd executable.
+  local nixd_path=$(which nixd)
+
+  # 3. Define the JSON settings to be merged.
+  local settings_to_merge=$(cat <<'EOF'
+{
+  "window.zoomLevel": 1,
+  "nix.enableLanguageServer": true,
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": ["nixfmt"]
+      }
+    }
+  }
+}
+EOF
+)
+
+  # Use jq to create the updated JSON content in a temporary file.
+  # This is the safest way to modify a JSON file.
+  local temp_file
+  temp_file=$(mktemp)
+
+  jq \
+    --arg nixd_path "$nixd_path" \
+    --argjson merge_settings "$settings_to_merge" \
+    ' .["nix.serverPath"] = $nixd_path | . * $merge_settings ' \
+    "${VSCODE_SETTINGS_FILE}" > "${temp_file}"
+
+  # Atomically replace the old settings file with the new one.
+  mv "${temp_file}" "${VSCODE_SETTINGS_FILE}"
+
+  echo -e "✅ VS Code settings configured for nixd.\n"
+}
+
 echo -e "\033c🚀 Starting Dev Env Setup...\n"
+
 install_direnv
 install_nix
 install_vscode
 configure_nix_direnv
+configure_vscode_settings
 
 echo -e "\033c✅ Nix setup completed. Restart the terminal session to apply change!\n"
 sleep 2
