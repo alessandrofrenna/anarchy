@@ -49,7 +49,7 @@ install_vscode() {
   local AVAILABLE_EXTENSIONS=$(code --list-extensions)
 
   echo "⏳ Checking essential VSCode extensions (direnv, nix-ide)..."
-  local required_extensions=("mkhl.direnv" "jnoortheen.nix-ide" "arrterian.nix-env-selector")
+  local required_extensions=("mkhl.direnv" "jnoortheen.nix-ide")
   for ext in "${required_extensions[@]}"; do
     if ! grep -qi "${ext}" <<< "${AVAILABLE_EXTENSIONS}"; then
       echo "'${ext}' not found. Installing it now..."
@@ -136,8 +136,7 @@ configure_vscode_settings() {
         "command": ["nixfmt"]
       }
     }
-  },
-  "nixEnvSelector.useFlakes": true
+  }
 }
 EOF
 )
