@@ -52,7 +52,7 @@ install_vscode()
   echo "⏳ Checking essential VSCode extensions (direnv, nix-ide)..."
   local required_extensions=("mkhl.direnv" "jnoortheen.nix-ide")
   for ext in "${required_extensions[@]}"; do
-    if ! grep -q "${ext}" <<< "${AVAILABLE_EXTENSIONS}"; then
+    if ! grep -qi "${ext}" <<< "${AVAILABLE_EXTENSIONS}"; then
       echo "'${ext}' not found. Installing it now..."
       code --install-extension "${ext}" --force
       echo "✅ ${ext} installed."
