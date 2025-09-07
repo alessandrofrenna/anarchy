@@ -12,12 +12,12 @@ install_nix() {
   echo "⏳ Installing Nix..."
   # Check if Nix is already installed by looking for the nix command
   if command -v nix &> /dev/null; then
-    echo -e  "✅ Nix is already installed. Skipping."
+    echo -e  "✅ Nix is already installed. Skipping.\n"
   else
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
     # Source the new profile to make 'nix' available to this script session
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    echo -e "✅ Nix installed."
+    echo -e "✅ Nix installed.\n"
   fi
 }
 
@@ -28,7 +28,7 @@ install_vscode()
     yay -S --noconfirm --needed visual-studio-code-bin
     echo -e "✅ vscode installed.\n"
   else
-    echo -e "❌ yay AUR helper is missing. Skipping vscode installation"
+    echo -e "❌ yay AUR helper is missing. Skipping vscode installation.\n"
   fi
 }
 
@@ -53,7 +53,7 @@ EOF
 
   # 2. Install nix-direnv using the Nix profile
   # This is the modern, recommended way.
-  nix profile install nixpkgs#nix-direnv
+  nix profile add nixpkgs#nix-direnv
 
   # 3. Create the direnv config file and tell it to use the nix-direnv script
   # that was just installed via the nix profile.
