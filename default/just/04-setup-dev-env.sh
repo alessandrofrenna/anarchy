@@ -19,6 +19,22 @@ install_nix() {
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     echo -e "✅ Nix installed.\n"
   fi
+
+  local AVAILABLE_NIX_PROFILES=$(nix profile list | awk '/^Name:/ {print $2}')
+
+  echo "⏳ Checking essential Nix profile packages (nix-direnv, nixd, nixfmt)..."
+  local required_packages=("nix-direnv" "nixd" "nixfmt")
+  for pkg in "${required_packages[@]}"; do
+    if ! grep -q "${pkg}" <<< "${AVAILABLE_NIX_PROFILES}"; then
+      echo "'${pkg}' not found. Installing it now..."
+      nix profile install "nixpkgs#${pkg}"
+      echo "✅ ${pkg} installed."
+    else
+      echo "✅ ${pkg} is already installed."
+    fi
+  done
+
+  echo -e "\n"
 }
 
 install_vscode()
@@ -30,6 +46,22 @@ install_vscode()
   else
     echo -e "❌ yay AUR helper is missing. Skipping vscode installation.\n"
   fi
+
+  local AVAILABLE_EXTENSIONS=$(code --list-extensions)
+
+  echo "⏳ Checking essential VSCode extensions (direnv, nix-ide)..."
+  local required_extensions=("mkhl.direnv" "jnoortheen.nix-ide")
+  for ext in "${required_extensions[@]}"; do
+    if ! grep -q "${ext}" <<< "${AVAILABLE_EXTENSIONS}"; then
+      echo "'${ext}' not found. Installing it now..."
+      code --install-extension "${ext}" --force
+      echo "✅ ${ext} installed."
+    else
+      echo "✅ ${ext} is already installed."
+    fi
+  done
+
+  echo -e "\n"
 }
 
 configure_nix_direnv() {
@@ -51,12 +83,8 @@ EOF
 
   fi
 
-  # 2. Install nix-direnv using the Nix profile
-  # This is the modern, recommended way.
-  nix profile add nixpkgs#nix-direnv
-
-  # 3. Create the direnv config file and tell it to use the nix-direnv script
-  # that was just installed via the nix profile.
+  # 2. Create the direnv config file and tell it to use the nix-direnv script
+  # that was installed previously via the nix profile.
   local DIR_ENV_CFG="${HOME}/.config/direnv"
   mkdir -p "${DIR_ENV_CFG}"
   tee "${DIR_ENV_CFG}/direnvrc" >/dev/null <<'EOF'
