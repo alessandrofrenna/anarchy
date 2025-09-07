@@ -127,6 +127,8 @@ configure_vscode_settings() {
   local settings_to_merge=$(cat <<'EOF'
 {
   "window.zoomLevel": 1,
+  "explorer.confirmDelete": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden", 
   "nix.enableLanguageServer": true,
   "nix.serverSettings": {
     "nixd": {
@@ -134,7 +136,8 @@ configure_vscode_settings() {
         "command": ["nixfmt"]
       }
     }
-  }
+  },
+  "nixEnvSelector.useFlakes": true
 }
 EOF
 )
