@@ -104,6 +104,9 @@ sudo systemctl disable systemd-networkd-wait-online.service
 sudo systemctl mask systemd-networkd-wait-online.service
 echo "✅ systemd-networkd-wait-online.service disabled."
 
+# Enable mDNS resolution for .local domains
+sudo sed -i 's/^hosts:.*/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns/' /etc/nsswitch.conf
+
 echo -e "✅ Networking module setup complete!\n"
 sleep 3
 clear
