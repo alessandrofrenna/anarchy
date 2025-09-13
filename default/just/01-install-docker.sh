@@ -41,7 +41,25 @@ install_docker() {
   "log-driver": "json-file",
   "log-opts": { "max-size": "10m", "max-file": "5" },
   "dns": ["172.17.0.1"],
-  "bip": "172.17.0.1/16"
+  "bip": "172.17.0.1/16",
+  "mtu": 1280,
+  "default-network-opts": {
+    "bridge": {
+      "com.docker.network.driver.mtu": "1280"
+    }
+  },
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 65536,
+      "Soft": 65536
+    },
+    "nproc": {
+      "Name": "nproc",
+      "Hard": 65536,
+      "Soft": 65536
+    }
+  }
 }
 EOF
   echo "🔧 Docker daemon configuration successfully updated"
