@@ -10,3 +10,5 @@ sudo tzupdate
 new_timezone=$(timedatectl show -p Timezone --value)
 restart-app waybar
 notify-send "Time synced and timezone set to $new_timezone"
+
+update-wireless-regdom

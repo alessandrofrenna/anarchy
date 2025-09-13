@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Original reference https://github.com/basecamp/omarchy/blob/dev/install/config/hardware/set-wireless-regdom.sh
+# ======================================================================================
+# Based on Omarchy script: set-wireless-regdom
+# ======================================================================================
+
+# Logs messages to the systemd journal.
+log() {
+  local priority
+  
+  case "${1}" in
+    --error)
+      priority="err"
+      ;;
+    --info)
+      priority="info"
+      ;;
+    *)
+      # This is a safeguard; it shouldn't be triggered in normal use.
+      echo "Log level ${1} not supported. Use --info or --error" >&2
+      exit 1
+    ;;
+  esac
+
+  # Log to journald using systemd-cat with a specific tag for easy filtering.
+  echo "${2}" | systemd-cat -p "${priority}" -t "wireless-regdom"
+}
+
+# Source the configuration file if it exists.
+if [ -f "/etc/conf.d/wireless-regdom" ]; then
+  unset WIRELESS_REGDOM
+  . /etc/conf.d/wireless-regdom
+fi
+
+# If the region is already set, log it and exit.
+if [ -n "${WIRELESS_REGDOM}" ]; then
+  log --info "Regulatory domain already set to '${WIRELESS_REGDOM}'. No action needed."
+  exit 0
+fi
+
+log --info "Regulatory domain not set. Attempting to determine from timezone."
+
+# Check for the timezone file.
+if [ ! -e "/etc/localtime" ]; then
+  log --error "Timezone file /etc/localtime not found. Cannot determine country."
+  exit 1
+fi
+
+TIMEZONE=$(readlink -f /etc/localtime)
+TIMEZONE=${TIMEZONE#/usr/share/zoneinfo/}
+
+# Attempt to get the country code directly from the timezone name.
+COUNTRY="${TIMEZONE%%/*}"
+
+# If that fails, look it up in the zone.tab file.
+if [[ ! "${COUNTRY}" =~ ^[A-Z]{2}$ ]] && [ -f "/usr/share/zoneinfo/zone.tab" ]; then
+  COUNTRY=$(awk -v tz="${TIMEZONE}" '$3 == tz {print $1; exit}' /usr/share/zoneinfo/zone.tab)
+fi
+
+# If a valid country code was found, apply and save it.
+if [[ "$COUNTRY" =~ ^[A-Z]{2}$ ]]; then
+  log --info "Determined country is '${COUNTRY}' from timezone '${TIMEZONE}'. Applying setting."
+  
+  # Append to the config file for persistence.
+  echo "WIRELESS_REGDOM=\"${COUNTRY}\"" | sudo tee -a /etc/conf.d/wireless-regdom > /dev/null
+  
+  # Set it for the current session if 'iw' is available.
+  if command -v iw &> /dev/null; then
+    sudo iw reg set "${COUNTRY}"
+    log --info "Successfully set domain to '${COUNTRY}' for the current session."
+  else
+    log --info "Configuration for '${COUNTRY}' saved for next boot. 'iw' command not found to apply now."
+  fi
+else
+  log --error "Could not determine a valid country code from timezone '${TIMEZONE}'."
+  exit 1
+fi
