@@ -82,6 +82,9 @@ fi
 # Enable mDNS resolution for .local domains
 sudo sed -i 's/^hosts:.*/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns/' /etc/nsswitch.conf
 
+# Solve common flakiness with SSH
+echo "net.ipv4.tcp_mtu_probing=1" | sudo tee -a /etc/sysctl.d/99-sysctl.conf
+
 services_to_enable=(
   "iwd"
   "sshd"
