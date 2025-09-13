@@ -42,7 +42,7 @@ fi
 libva_env_var=""
 vdpau_env_var=""
 vulkan_env_var=""
-if lspci | grep "VGA" | grep "Intel" > /dev/null; then
+if lspci | grep -iE 'vga|3d|display' | grep -i 'intel' > /dev/null; then
   echo -e "🎥 Found Intel integrated GPU"
   required_packages+=(
     "mesa"
@@ -60,7 +60,7 @@ if lspci | grep "VGA" | grep "Intel" > /dev/null; then
   libva_env_var="LIBVA_DRIVER_NAME=iHD"
   vdpau_env_var="VDPAU_DRIVER=va_gl"
   vulkan_env_var="ANV_DEBUG=video-decode,video-encode"
-elif lspci | grep "VGA" | grep "AMD" > /dev/null; then
+elif lspci | grep -iE 'vga|3d|display' | grep -i 'amd' > /dev/null; then
   echo -e "🎥 Found AMD integrated GPU"
   required_packages+=(
     "mesa"
@@ -76,7 +76,7 @@ fi
 
 # Check if an NVIDIA GPU is available (it could be either integrated or dedicated)
 additional_env=""
-if lspci | grep -iE "(VGA|3D)" | grep -i "nvidia" > /dev/null; then
+if lspci | grep -iE "vga|3d|display" | grep -i "nvidia" > /dev/null; then
   echo -e "🎥 Found NVIDIA GPU"
   required_packages+=(
     "nvidia-dkms"
