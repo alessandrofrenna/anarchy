@@ -5,5 +5,5 @@ Comment=Goole Meet
 Exec=uwsm app -- chromium --new-window --ozone-platform=x11 --app="https://meet.google.com" --name="Google Meet" --class="Google Meet"
 Terminal=false
 Type=Application
-Icon=GooleMeet
+Icon=GoogleMeet
 StartupNotify=true
