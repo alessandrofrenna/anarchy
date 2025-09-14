@@ -2,7 +2,7 @@ configuration {
 	cycle: true;
   steal-focus: true;
   show-icons: true;
-	modi: "drun,run,dmenu,filebrowser,window,combi";
+	modi: "drun,run,filebrowser,window,combi";
   combi-modi: "drun,run,filebrowser,window";
   hide-scrollbar: true;
 
