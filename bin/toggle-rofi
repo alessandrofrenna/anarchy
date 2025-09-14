@@ -3,5 +3,5 @@
 if pgrep -x rofi >/dev/null; then
   pkill -x rofi
 else
-  launch-rofi "$@"
+  uwsm app -- rofi "$@" >/dev/null 2>&1 &
 fi
