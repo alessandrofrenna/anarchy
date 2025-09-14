@@ -24,7 +24,7 @@ icons[shutdown]="󰐥"
 
 declare -A actions
 actions[lockscreen]="hyprlock"
-actions[logout]="loginctl terminate-session ${XDG_SESSION_ID-}"
+actions[logout]="uwsm stop"
 actions[suspend]="systemctl suspend-then-hibernate &>/dev/null || hyprlock && systemctl suspend"
 actions[hibernate]="systemctl hibernate &>/dev/null || hyprlock && systemctl suspend"
 actions[reboot]="systemctl reboot"
@@ -49,8 +49,6 @@ done
 if [ $# -gt 0 ]; then
   # If arguments given, use those as the selection
   selection="${@}"
-else
-  exit 0
 fi
 
 # Don't allow custom entries
