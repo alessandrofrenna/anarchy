@@ -19,7 +19,7 @@ echo -e "✅ Hyprland required packages installed"
 
 utility_packages=(
   "waybar"
-  "walker-bin"
+  "walker"
   "mako"
   "swaybg"
   "hyprlock"
