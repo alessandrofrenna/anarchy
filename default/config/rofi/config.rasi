@@ -1,9 +1,13 @@
 configuration {
   font: "sans-serif 12";
-  show-icons: tue;
-  display-drun: "Applications";
+  show-icons: true;
+  display-drun: "Launch:";
   modi: "window,drun,combi";
   combi-modi: "window,drun";
+
+  drun {
+    parse-hidden-entries: false;
+  }
 }
 
 window {
