@@ -6,6 +6,18 @@ set -euo pipefail
 # Based on Omarchy script: omarchy-refresh-application
 # ======================================================================================
 
+hide_desktop_entry() {
+  local file_name=$1
+  local target_path="/usr/share/applications/${file_name}"
+
+  if [ -f "${target_path}" ]; then
+      # Chain the commands to ensure the link is only made if 'rm' succeeds
+    sudo rm "${target_path}" && sudo ln -s /dev/null "${target_path}"
+  else
+    echo "Target file '${target_path}' does not exist."
+  fi
+}
+
 SHARED_APPLICATION_DIR="${HOME}/.local/share/applications"
 SHARED_ICON_DIR="${HOME}/.local/share/icons/hicolor/48x48/apps"
 ANARCHY_APPLICATION_DIR="${HOME}/.local/share/anarchy/applications"
@@ -35,6 +47,14 @@ if [ -d "${ANARCHY_APPLICATION_DIR}" ]; then
   # Use find to copy all .desktop files from the source directory and its immediate subdirectories.
   # This replaces the three separate 'cp' commands.
   find "${ANARCHY_APPLICATION_DIR}" -maxdepth 2 -type f -name "*.desktop" -exec cp -t "${SHARED_APPLICATION_DIR}" {} +
+
+  # Create a symlink to /dev/null under /usr/shared/applications for hidden applications
+  # Prevent rofi to show hidden files
+  HIDDEN_DIR="${ANARCHY_APPLICATION_DIR}/hidden"
+  find "${HIDDEN_DIR}" -type f -name "*.desktop" -exec basename {} \; | while read -r filename; do
+    # Call the function for each filename found
+    hide_desktop_entry "${filename}"
+  done
 fi
 
 # Update Desktop Database ---
