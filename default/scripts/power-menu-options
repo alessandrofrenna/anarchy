@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo -e "󰍃  Logout\n  Lock\n󰤄  Suspend\n  Hibernate\n󰜉  Restart\n󰐥  Shutdown"
