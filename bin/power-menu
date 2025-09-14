@@ -23,10 +23,10 @@ icons[reboot]="󰜉"
 icons[shutdown]="󰐥"
 
 declare -A actions
-actions[lockscreen]="hyprlock"
+actions[lockscreen]="hyprlock &"
 actions[logout]="uwsm stop"
-actions[suspend]="systemctl suspend-then-hibernate &>/dev/null || hyprlock && systemctl suspend"
-actions[hibernate]="systemctl hibernate &>/dev/null || hyprlock && systemctl suspend"
+actions[suspend]="(systemctl suspend-then-hibernate &>/dev/null || (hyprlock && systemctl suspend)) &"
+actions[hibernate]="(systemctl hibernate &>/dev/null || (hyprlock && systemctl suspend)) &"
 actions[reboot]="systemctl reboot"
 actions[shutdown]="systemctl poweroff"
 
@@ -34,10 +34,6 @@ function write_message {
   local icon="<span font_size=\"medium\">$1</span>"
   local text="<span font_size=\"medium\">$2</span>"
   echo -n "\u200e$icon  \u2068$text\u2069"
-}
-
-function print_selection {
-  echo -e "$1" | $(read -r -d '' entry; echo "echo $entry")
 }
 
 declare -A messages
@@ -62,7 +58,7 @@ if [ -z "${selection+x}" ]; then
   done
 else
   for entry in "${show[@]}"; do
-    if [ "$selection" = "$(print_selection "${messages[$entry]}")" ]; then
+    if [ "$selection" = "${messages[$entry]}" ]; then
       # Perform the action
       ${actions[$entry]}
       exit 0
