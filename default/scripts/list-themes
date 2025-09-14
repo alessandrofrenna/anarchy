@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Tell Rofi to enable Pango markup for the output of this script.
-# printf "\0use-markup\x1ftrue\n"
 printf "\x00markup-rows\x1ftrue\n"
 
 # This script ONLY generates the list of themes and prints it to standard output.
