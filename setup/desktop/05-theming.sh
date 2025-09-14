@@ -3,7 +3,7 @@ set -euo pipefail
 
 packages=(
   "gnome-themes-extra" "qqc2-desktop-style" "kvantum-qt5"
-  "kvantum-theme-libadwaita-git"
+  "kvantum-theme-libadwaita-git" "qt5ct" "qt6ct"
 )
 
 echo -e "⏳ Installing theme customization packages..."
@@ -69,6 +69,8 @@ if [ ! -f "${CURRENT_THEME_CONFIG}" ]; then
   ln -snf "${ANARCHY_THEME_DIR}/mako.ini" "${HOME}/.config/mako/config"
   # Btop
   ln -snf "${ANARCHY_THEME_DIR}/btop.theme" "${BTOP_THEMES_DIR}/current.theme"
+  # Kvantum
+  ln -snf "${ANARCHY_THEME_DIR}/kvantum.kvconfig" "${HOME}/.config/Kvantum"
 
   echo -e "✅ Default theme setup completed\n"
 fi
