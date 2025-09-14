@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Audio Settings
 Comment=Change audio settings with Wiremix
-Exec="${TERMINAL}" --class=Wiremix --title=Wiremix -e wiremix
+Exec=$TERMINAL --class=Wiremix --title=Wiremix -e wiremix
 Icon=audio-speakers
 Type=Application
 Terminal=false
