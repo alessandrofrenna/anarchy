@@ -8,7 +8,7 @@
 # Function to show power menu
 show_power_menu() {
   local menu_options="󰍃 Logout\n Lock\n󰤄 Suspend\n Hibernate\n󰜉 Restart\n󰐥 Shutdown"
-  local selection=$(echo -e "$menu_options" | walker --dmenu --theme dmenu_150)
+  local selection=$(echo -e "$menu_options" | rofi -show dmenu)
 
   case "$selection" in
   *Logout*) uwsm stop ;;
