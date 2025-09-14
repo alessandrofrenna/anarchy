@@ -9,9 +9,7 @@
   spacing: 0px;
 }
 
-window {
-  width: 500;
-  
+window {  
   anchor: north;
   location: center;
 
