@@ -49,4 +49,4 @@ configuration {
   }
 }
 
-@import "current_theme"
+@theme "./current_theme"

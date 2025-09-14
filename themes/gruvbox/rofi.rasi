@@ -2,7 +2,7 @@
   bg0: #282828;
   bg1: #535353;
   fg0: #ebdbb2;
-  fg1: #f5edd8;
+  fg1: #757575;
 }
 
 @import "~/.local/share/anarchy/default/rofi/default.rasi"
