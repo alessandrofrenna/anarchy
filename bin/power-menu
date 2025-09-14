@@ -11,7 +11,7 @@ if pgrep -x rofi >/dev/null; then
     exit 0
 fi
 
-selection=$(launch-rofi -show power-menu -modi "power-menu:${HOME}/.local/share/anarchy/default/scripts/power-menu-options" \
+selection=$(uwsm app -- rofi -show power-menu -modi "power-menu:${HOME}/.local/share/anarchy/default/scripts/power-menu-options" \
              -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
 
 case "$selection" in
