@@ -13,9 +13,8 @@ fi
 
 # Show Rofi menu
 selection=$(uwsm app -- rofi -show themes -modi "themes:${HOME}/.local/share/anarchy/default/scripts/list-themes" \
-             -markup-rows \
              -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 280; }')
-             
+
 # Remove Pango markup, then cut out the icon and leading space
 clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g' | cut -d' ' -f2-)
 
@@ -23,6 +22,7 @@ clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g' | cut -d' ' -f2-)
 selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
 # Apply the selected theme only if the variable is not empty and the directory exists (prevents errors hitting esc on keyboard) 
+THEMES_DIR="$HOME/.local/share/anarchy/themes"
 if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
   "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
 fi
