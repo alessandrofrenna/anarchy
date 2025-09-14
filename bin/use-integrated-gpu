@@ -16,7 +16,7 @@ append_to_env_if_missing() {
 
   if ! grep -qiE "^\s*export\s*AQ_DRM_DEVICES\s*=.*" "${hypr_env_file}"; then
     echo -e "⏳ Setting iGPU as primary renderer..."
-    echo -e "export AQ_DRM_DEVICES=\"${drm_devices}\"" | tee -a "${hypr_env_file}"  >/dev/null
+    echo -e "\nexport AQ_DRM_DEVICES=\"${drm_devices}\"" | tee -a "${hypr_env_file}"  >/dev/null
     echo -e "✅ iGPU set as primary renderer successfully"
   else
     echo -e "✅ The iGPU is already set as primary renderer"
