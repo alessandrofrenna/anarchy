@@ -22,7 +22,7 @@ mapfile -t themes < <(
     if [[ "$filename" == "$CURRENT_THEME_NAME" ]]; then
       echo -e " <i><b>$display_name</b></i>"
     else
-      echo "$display_name"
+      echo " $display_name"
     fi
   done
 )
