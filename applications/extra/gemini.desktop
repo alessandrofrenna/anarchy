@@ -5,5 +5,5 @@ Comment=Gemini
 Exec=uwsm app -- chromium --new-window --app="https://gemini.google.com" --name="Gemini" --class="Gemini"
 Terminal=false
 Type=Application
-Icon=Goole-Gemini
+Icon=GooleGemini
 StartupNotify=true
