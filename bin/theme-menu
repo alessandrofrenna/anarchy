@@ -12,7 +12,7 @@ if pgrep -x rofi >/dev/null; then
 fi
 
 # Show Rofi menu
-selection=$(uwsm app -- rofi -show themes -modi "themes:${HOME}/.local/share/anarchy/default/scripts/list-themes" \
+selection=$(launch-rofi -show themes -modi "themes:${HOME}/.local/share/anarchy/default/scripts/list-themes" \
              -markup-rows \
              -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 280; }')
 

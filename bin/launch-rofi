@@ -1,3 +1,3 @@
 #!/bin/bash
 
-uwsm app -- rofi "$@" >/dev/null 2>&1 & sleep 0.2; hyprctl dispatch focuswindow "^(Rofi)"
+uwsm app -- rofi "$@" >/dev/null 2>&1 & while [ "$(hyprctl clients | grep "class: Rofi")x" == "x" ]; do continue; done; hyprctl dispatch focuswindow "^(Rofi)"
