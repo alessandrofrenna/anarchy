@@ -11,21 +11,14 @@ if pgrep -x rofi >/dev/null; then
     exit 0
 fi
 
-# Function to show power menu
-show_power_menu() {
-  local menu_options="󰍃  Logout\n  Lock\n󰤄  Suspend\n  Hibernate\n󰜉  Restart\n󰐥  Shutdown"
-  local selection=$(echo -e "$menu_options" | uwsm app -- rofi -dmenu \
-    -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
+selection=$(uwsm app -- rofi -show power-menu -modi "power-menu:${HOME}/.local/share/anarchy/default/scripts/power-menu-options" \
+             -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
 
-  case "$selection" in
-  *Logout*) uwsm stop ;;
-  *Lock*) hyprlock ;;
-  *Suspend*) systemctl suspend-then-hibernate &>/dev/null || systemctl suspend ;;
-  *Hibernate*) systemctl hibernate &>/dev/null || systemctl suspend ;;
-  *Restart*) systemctl reboot ;;
-  *Shutdown*) systemctl poweroff ;;
-  esac
-}
-
-# Main execution
-show_power_menu
+case "$selection" in
+*Logout*) uwsm stop ;;
+*Lock*) hyprlock ;;
+*Suspend*) systemctl suspend-then-hibernate &>/dev/null || systemctl suspend ;;
+*Hibernate*) systemctl hibernate &>/dev/null || systemctl suspend ;;
+*Restart*) systemctl reboot ;;
+*Shutdown*) systemctl poweroff ;;
+esac
