@@ -1,10 +1,22 @@
 configuration {
 	cycle: true;
-  steal-focus: true;
+	filter: "";
+	scroll-method: 0;
+	normalize-match: true;
   show-icons: true;
 	modi: "drun,run,filebrowser,window,combi";
   combi-modi: "drun,run,filebrowser,window";
   hide-scrollbar: true;
+	no-fading-open-close: true;
+	steal-focus: false;
+
+	/*---------- History and Sorting ----------*/
+	disable-history: false;
+	sorting-method: "normal";
+
+	/*---------- Matching setting ----------*/
+	matching: "normal";
+	tokenize: true;
 
   /*---------- Drun settings ----------*/
 	drun-display-format: "{name}";
