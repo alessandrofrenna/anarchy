@@ -1,0 +1,12 @@
+configuration {
+  font: "sans-serif 12";
+  show-icons: tue;
+  display-drun: "Applications";
+  modi: "window,drun,combi";
+  combi-modi: "window,drun";
+}
+
+window {
+  anchor: north;
+  location: center;
+}

@@ -11,6 +11,7 @@ hyprland_required_packages=(
   "libsecret"
   "libgnome-keyring"
   "gnome-keyring"
+  "rofi"
 )
 
 echo -e "⏳ Installing hyprland required packages..."
@@ -19,12 +20,11 @@ echo -e "✅ Hyprland required packages installed"
 
 utility_packages=(
   "waybar"
-  "elephant"
-  "walker"
   "mako"
   "swaybg"
   "hyprlock"
   "hypridle"
+  "hyprsunset"
   "hyprcursor"
   "swayosd"
   "brightnessctl"

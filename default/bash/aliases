@@ -8,5 +8,5 @@ alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 # Find packages without leaving the terminal
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
 
-# Walker alias
-alias walker="uwsm app -- walker"
+# Rofi alias
+alias rodi="uwsm app -- rofi"
