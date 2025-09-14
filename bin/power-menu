@@ -5,10 +5,17 @@
 # Based on Omarchy script: omarchy-menu-power
 # ======================================================================================
 
+# First, check if Rofi is running. If it is, kill it and exit.
+if pgrep -x rofi >/dev/null; then
+    pkill -x rofi
+    exit 0
+fi
+
 # Function to show power menu
 show_power_menu() {
   local menu_options="󰍃  Logout\n  Lock\n󰤄  Suspend\n  Hibernate\n󰜉  Restart\n󰐥  Shutdown"
-  local selection=$(echo -e "$menu_options" | rofi -dmenu -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
+  local selection=$(echo -e "$menu_options" | uwsm app -- rofi -dmenu \
+    -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
 
   case "$selection" in
   *Logout*) uwsm stop ;;

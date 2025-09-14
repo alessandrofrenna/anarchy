@@ -5,6 +5,12 @@
 # Based on Omarchy script: omarchy-theme-menu
 # ======================================================================================
 
+# First, check if Rofi is running. If it is, kill it and exit.
+if pgrep -x rofi >/dev/null; then
+    pkill -x rofi
+    exit 0
+fi
+
 get_theme_name() {
   local config_file=$1
   grep -iE "^name.*=.*$" "${config_file}" | sed -e 's/.*=\s*"//g' -e 's/"$//g'
@@ -28,7 +34,8 @@ mapfile -t themes < <(
 )
 
 # Show Rofi menu
-selection=$(printf '%s\n' "${themes[@]}" | rofi -dmenu -markup-rows -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
+selection=$(printf '%s\n' "${themes[@]}" | uwsm app -- rofi -dmenu \
+  -markup-rows -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
 
 # Remove any Pango markup before converting back to filename
 clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
