@@ -32,9 +32,7 @@ inputbar {
 }
 
 entry {
-  placeholder: "Launch application...";
   placeholder-color: @fg1;
-  
   hide-cursor-on-empty: true;
 }
 
