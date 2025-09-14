@@ -1,33 +1,13 @@
 configuration {
-  /*---------- General setting ----------*/
-	case-sensitive: false;
 	cycle: true;
-	filter: "";
-  scroll-method: 0;
-	normalize-match: true;
   steal-focus: false;
   show-icons: true;
 	modi: "drun,run,filebrowser,window,combi";
   combi-modi: "drun,run,filebrowser,window";
 
-  /*---------- Matching setting ----------*/
-	matching: "normal";
-	tokenize: true;
-
   /*---------- Drun settings ----------*/
-	drun-categories: "";
-	drun-match-fields: "name,generic,exec,categories,keywords";
 	drun-display-format: "{name}";
 	drun-show-actions: false;
-	drun-url-launcher: "xdg-open";
-	drun-use-desktop-cache: false;
-	drun-reload-desktop-cache: false;
-	drun {
-		/** Parse user desktop files. */
-		parse-user:   true;
-		/** Parse system desktop files. */
-		parse-system: true;
-  }
 
 	/*---------- Run settings ----------*/
 	run-command: "{cmd}";

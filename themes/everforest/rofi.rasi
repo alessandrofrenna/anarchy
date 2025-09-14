@@ -2,7 +2,7 @@
   bg0: #2d353b;
   bg1: #262d32;
   fg0: #d3c6aa;
-  fg1: rgba(38, 45, 50, 0.5);
+  fg1: #e9e2d4;
 }
 
 @import "~/.local/share/anarchy/default/rofi/default.rasi"
