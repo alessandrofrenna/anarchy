@@ -1,9 +1,10 @@
 configuration {
 	cycle: true;
-  steal-focus: false;
+  steal-focus: true;
   show-icons: true;
 	modi: "drun,run,filebrowser,window,combi";
   combi-modi: "drun,run,filebrowser,window";
+  hide-scrollbar: true;
 
   /*---------- Drun settings ----------*/
 	drun-display-format: "{name}";
