@@ -20,7 +20,7 @@ mapfile -t themes < <(
     filename=$(get_theme_name "${path}/theme.toml")
     display_name=$(echo "$filename" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g')
     if [[ "$filename" == "$CURRENT_THEME_NAME" ]]; then
-      echo "<i>$display_name</i>"
+      echo -e "\e[3m\e[1m$display_name\e[0m"
     else
       echo "$display_name"
     fi
