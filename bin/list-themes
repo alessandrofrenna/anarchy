@@ -1,0 +1,23 @@
+#!/bin/bash
+
+get_theme_name() {
+  local config_file=$1
+  grep -iE "^name.*=.*$" "${config_file}" | sed -e 's/.*=\s*"//g' -e 's/"$//g'
+}
+
+THEMES_DIR="$HOME/.local/share/anarchy/themes"
+CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
+CURRENT_THEME_NAME=$(get_theme_name "${CURRENT_THEME_DIR}/theme.toml")
+
+# Build themes list with pretty display names
+mapfile -t themes < <(
+  find "$THEMES_DIR" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | sort | while read -r path; do
+    filename=$(get_theme_name "${path}/theme.toml")
+    display_name=$(echo "$filename" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g')
+    if [[ "$filename" == "$CURRENT_THEME_NAME" ]]; then
+      echo -e " <i><b>$display_name</b></i>"
+    else
+      echo " $display_name"
+    fi
+  done
+)
