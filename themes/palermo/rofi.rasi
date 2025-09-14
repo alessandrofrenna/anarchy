@@ -1,0 +1,8 @@
+* {
+  bg0: #191919;
+  bg1: #292929;
+  fg0: #FFADB6;
+  fg1: #545454;
+}
+
+@import "~/.local/share/anarchy/default/rofi/default.rasi"

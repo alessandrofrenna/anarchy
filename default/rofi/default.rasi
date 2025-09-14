@@ -1,0 +1,84 @@
+* {
+  font: "JetBrainsMono Nerd Font 16";
+
+  background-color: transparent;
+  text-color: @fg0;
+
+  margin: 0px;
+  padding: 0px;
+  spacing: 0px;
+}
+
+window {
+  anchor: north;
+  location: center;
+  width: 480;
+}
+
+mainbox {
+  padding: 1rem;
+
+  background-color: @bg0;
+
+  border: 2px;
+  border-color: @fg0;
+}
+
+inputbar {
+  background-color: @bg1;
+  padding: 0.75rem;
+  children: [ entry ];
+}
+
+prompt {
+  text-color: @fg0;
+}
+
+entry {
+  placeholder: "Launch application...";
+  placeholder-color: @fg1;
+}
+
+listview {
+  background-color: transparent;
+
+  margin: 1rem 0 0;
+  lines: 8;
+  columns: 1;
+  fixed-height: false;
+}
+
+element {
+  padding: 0.5rem 1rem;
+  spacing: 0.5rem;
+}
+
+element normal active {
+  text-color: @bg1;
+}
+
+element selected, element alternate active {
+  text-color: @bg1;
+}
+
+element selected normal, element selected active {
+  background-color: @fg0;
+}
+
+element-icon {
+  size:           1em;
+  vertical-align: 0.5;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+message {
+  margin: 1rem 0 0;
+  background-color: @bg1;
+}
+
+textbox {
+  padding: 8px 24px;
+}

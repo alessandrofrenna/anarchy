@@ -1,12 +1,72 @@
 configuration {
-  font: "sans-serif 12";
-  show-icons: tue;
-  display-drun: "Applications";
-  modi: "window,drun,combi";
-  combi-modi: "window,drun";
+  /*---------- General setting ----------*/
+	case-sensitive: false;
+	cycle: true;
+	filter: "";
+  scroll-method: 0;
+	normalize-match: true;
+  steal-focus: false;
+  show-icons: true;
+	modi: "drun,run,filebrowser,window,combi";
+  combi-modi: "drun,run,filebrowser,window";
+
+  /*---------- Matching setting ----------*/
+	matching: "normal";
+	tokenize: true;
+
+  /*---------- Drun settings ----------*/
+	drun-categories: "";
+	drun-match-fields: "name,generic,exec,categories,keywords";
+	drun-display-format: "{name}";
+	drun-show-actions: false;
+	drun-url-launcher: "xdg-open";
+	drun-use-desktop-cache: false;
+	drun-reload-desktop-cache: false;
+	drun {
+		/** Parse user desktop files. */
+		parse-user:   true;
+		/** Parse system desktop files. */
+		parse-system: true;
+  }
+
+	/*---------- Run settings ----------*/
+	run-command: "{cmd}";
+	run-list-command: "";
+	run-shell-command: "{terminal} -e {cmd}";
+
+	/*---------- Fallback Icon ----------*/
+	run,drun {
+		fallback-icon: "application-x-addon";
+	}
+
+	/*---------- Display setting ----------*/
+	display-window: "Windows";
+	display-windowcd: "Window CD";
+	display-run: "Run";
+	display-ssh: "SSH";
+	display-drun: "Apps";
+	display-combi: "Combi";
+	display-keys: "Keys";
+	display-filebrowser: "Files";
+
+  /*---------- Misc setting ----------*/
+	terminal: "${TERMINAL}";
+	sort: true;
+	threads: 0;
+	click-to-exit: true;
+
+  /*---------- File browser settings ----------*/
+  filebrowser {
+    directory: "${HOME}";
+    directories-first: true;
+    sorting-method: "name";
+  }
+
+  /*---------- Other settings ----------*/
+  timeout {
+    action: "kb-cancel";
+    delay:  30;
+  }
 }
 
-window {
-  anchor: north;
-  location: center;
-}
+@import "current_theme"

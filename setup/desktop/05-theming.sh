@@ -71,6 +71,8 @@ if [ ! -f "${CURRENT_THEME_CONFIG}" ]; then
   ln -snf "${ANARCHY_THEME_DIR}/btop.theme" "${BTOP_THEMES_DIR}/current.theme"
   # Kvantum
   ln -snf "${ANARCHY_THEME_DIR}/kvantum.kvconfig" "${HOME}/.config/Kvantum"
+  # Rofi
+  ln -snf "${ANARCHY_THEME_DIR}/rofi.rasi" "${HOME}/.config/rofi/current_theme.rasi"
 
   echo -e "✅ Default theme setup completed\n"
 fi

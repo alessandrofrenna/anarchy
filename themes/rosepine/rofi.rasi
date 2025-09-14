@@ -1,0 +1,8 @@
+* {
+  bg0: #232136;
+  bg1: #1e1c2e;
+  fg0: #e0def4;
+  fg1: rgba(30, 28, 46, 0.5);
+}
+
+@import "~/.local/share/anarchy/default/rofi/default.rasi"
