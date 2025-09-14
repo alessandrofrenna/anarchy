@@ -19,6 +19,7 @@ echo -e "✅ Hyprland required packages installed"
 
 utility_packages=(
   "waybar"
+  "elephant"
   "walker"
   "mako"
   "swaybg"
