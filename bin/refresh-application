@@ -10,12 +10,10 @@ hide_desktop_entry() {
   local file_name=$1
   local target_path="/usr/share/applications/${file_name}"
 
-  if [ -f "${target_path}" ]; then
-      # Chain the commands to ensure the link is only made if 'rm' succeeds
-    sudo rm "${target_path}" && sudo ln -s /dev/null "${target_path}"
-  else
-    echo "Target file '${target_path}' does not exist."
-  fi
+  echo "Forcing symlink for '${target_path}' to /dev/null..."
+  # -s: symbolic link
+  # -f: force (remove existing destination files)
+  sudo ln -sf /dev/null "${target_path}"
 }
 
 SHARED_APPLICATION_DIR="${HOME}/.local/share/applications"
