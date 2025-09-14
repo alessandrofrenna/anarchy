@@ -27,8 +27,8 @@ mapfile -t themes < <(
   done
 )
 
-# Show Walker menu
-selection=$(printf '%s\n' "${themes[@]}" | walker --dmenu --theme dmenu_250 2>/dev/null)
+# Show Rofi menu
+selection=$(printf '%s\n' "${themes[@]}" | rofi -dmenu -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 250; }')
 
 # Remove any Pango markup before converting back to filename
 clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g')
