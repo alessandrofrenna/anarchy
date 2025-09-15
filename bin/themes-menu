@@ -12,6 +12,11 @@ get_theme_name() {
   grep -iE "^name.*=.*$" "${config_file}" | sed -e 's/.*=\s*"//g' -e 's/"$//g'
 }
 
+change_theme() {
+  local theme_name=$1
+  set-theme "${theme_name}"
+}
+
 THEMES_DIR="$HOME/.local/share/anarchy/themes"
 CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
 CURRENT_THEME_NAME=$(get_theme_name "${CURRENT_THEME_DIR}/theme.toml")
@@ -30,8 +35,6 @@ for theme_path in "${theme_paths[@]}"; do
   if [[ "${theme_name}" == "${CURRENT_THEME_NAME}" ]]; then
     icon=""
     text="<i><b>$display_name</b></i>"
-    echo -e "\0active\x1f${theme_name}"
-    echo -e "\0data\x1f${theme_name}"
   fi
   messages[$theme_name]="$(write_message ${icon} ${text})"
 done
@@ -52,20 +55,14 @@ if [ -z "${selection+x}" ]; then
   done
 else
   # Remove Pango markup, then cut out the icon and leading space
-  clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g' | cut -d' ' -f2-)
+  clean_selection=$(echo "$selection" | sed 's/<[^>]*>//g' | cut -d' ' -f2- | xargs)
   # Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
   selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-  echo "$selected_theme"
-  exit 0
-  # for theme_name in "${theme_names[@]}"; do
-  # done
-  # The selection didn't match anything, so raise an error
-  # echo "Invalid selection: $selection" >&2
-  # exit 1
+  if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
+    run_bg change_theme "${THEMES_DIR}/${selected_theme}"
+    exit 0
+  fi
+  # # The selection didn't match anything, so raise an error
+  echo "Invalid selection: $selection" >&2
+  exit 1
 fi
-
-# Apply the selected theme only if the variable is not empty and the directory exists (prevents errors hitting esc on keyboard) 
-# THEMES_DIR="$HOME/.local/share/anarchy/themes"
-# if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
-#   "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
-# fi
