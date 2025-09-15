@@ -1,64 +1,73 @@
 configuration {
-	cycle: true;
-	filter: "";
-	scroll-method: 0;
-	normalize-match: true;
+  cycle: true;
+  filter: "";
+  scroll-method: 0;
+  normalize-match: true;
   show-icons: true;
-	modi: "drun,run,filebrowser,window,combi";
+  modi: "drun,run,filebrowser,window,combi";
   combi-modi: "drun,run,filebrowser,window";
   hide-scrollbar: true;
-	no-fading-open-close: true;
-	steal-focus: false;
+  no-fading-open-close: true;
+  steal-focus: false;  
 
-	/*---------- History and Sorting ----------*/
-	disable-history: true;
-	sorting-method: "normal";
-
+  /*---------- History and Sorting ----------*/
+  disable-history: true;
+  sorting-method: "fzf";  
+  
 	/*---------- Matching setting ----------*/
-	matching: "normal";
-	tokenize: true;
-
-  /*---------- Drun settings ----------*/
-	drun-display-format: "{name}";
-	drun-show-actions: false;
-
+  matching: "normal";
+  tokenize: true;  
+  
+	/*---------- Drun settings ----------*/
+  drun-display-format: "{name}";
+  drun-show-actions: false;  
+  
 	/*---------- Run settings ----------*/
-	run-command: "{cmd}";
-	run-list-command: "";
-	run-shell-command: "{terminal} -e {cmd}";
-
+  run-command: "{cmd}";
+  run-list-command: "";
+  run-shell-command: "{terminal} -e {cmd}";  
+  
 	/*---------- Fallback Icon ----------*/
-	run,drun {
-		fallback-icon: "application-x-addon";
-	}
-
+  run,drun {
+  	fallback-icon: "application-x-addon";
+  }  
+  
 	/*---------- Display setting ----------*/
-	display-window: "Windows";
-	display-windowcd: "Window CD";
-	display-run: "Run";
-	display-ssh: "SSH";
-	display-drun: "Apps";
-	display-combi: "Combi";
-	display-keys: "Keys";
-	display-filebrowser: "Files";
-
-  /*---------- Misc setting ----------*/
-	terminal: "${TERMINAL}";
-	sort: true;
-	threads: 0;
-	click-to-exit: true;
-
-  /*---------- File browser settings ----------*/
+  display-window: "Windows";
+  display-windowcd: "Window CD";
+  display-run: "Run";
+  display-ssh: "SSH";
+  display-drun: "Apps";
+  display-combi: "Combi";
+  display-keys: "Keys";
+  display-filebrowser: "Files";  
+  
+	/*---------- Misc setting ----------*/
+  terminal: "${TERMINAL}";
+  sort: true;
+  threads: 0;
+  click-to-exit: true;  
+  
+	/*---------- File browser settings ----------*/
   filebrowser {
     directory: "${HOME}";
     directories-first: true;
     sorting-method: "name";
-  }
-
-  /*---------- Other settings ----------*/
+  }  
+  
+	/*---------- Other settings ----------*/
   timeout {
     action: "kb-cancel";
     delay:  30;
+  }  
+  
+
+
+  /*---------- Window settings ----------*/
+  window {
+    hide-active-window: false;
+    prefer-icon-theme: true;
+    configuration: "no-input";
   }
 }
 
