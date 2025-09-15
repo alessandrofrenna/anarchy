@@ -5,24 +5,69 @@
 # Based on Omarchy script: omarchy-theme-menu
 # ======================================================================================
 
-# First, check if Rofi is running. If it is, kill it and exit.
-if pgrep -x rofi >/dev/null; then
-    pkill -x rofi
-    exit 0
+source "$HOME/.local/share/anarchy/default/rofi/scripts/commons.sh"
+
+get_theme_name() {
+  local config_file=$1
+  grep -iE "^name.*=.*$" "${config_file}" | sed -e 's/.*=\s*"//g' -e 's/"$//g'
+}
+
+THEMES_DIR="$HOME/.local/share/anarchy/themes"
+CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
+CURRENT_THEME_NAME=$(get_theme_name "${CURRENT_THEME_DIR}/theme.toml")
+
+declare -A theme_paths
+declare -A theme_names
+declare -A messages
+
+find "${THEMES_DIR}" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | sort | mapfile -t theme_paths
+
+for theme_path in "${theme_paths[@]}"; do
+  theme_name=$(get_theme_name "${path}/theme.toml")
+  display_name=$(echo "$theme_name" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g')
+  theme_names+=("${theme_name}")
+  
+  icon=""
+  text="${display_name}"
+  extra=""
+  if [[ "${theme_name}" == "${CURRENT_THEME_NAME}" ]]; then
+    icon=""
+    text="<i><b>$display_name</b></i>"
+    extra="\0active\x1f${theme_name}\0data\x1f${theme_name}"
+  fi
+  messages[$theme_name]="$(write_message "${icon}" "${text}")${extra}"
+done
+
+if [ $# -gt 0 ]; then
+  # If arguments given, use those as the selection
+  selection="${@}"
 fi
 
-# Show Rofi menu
-selection=$(uwsm app -- rofi -show themes -modi "themes:${HOME}/.local/share/anarchy/default/scripts/list-themes" \
-             -theme-str 'element { children: [element-text]; } inputbar {  enabled: false; } window { width: 280; }')
+# Don't allow custom entries
+echo -e "\0no-custom\x1ftrue"
+# Use markup
+echo -e "\0markup-rows\x1ftrue"
 
-# Remove Pango markup, then cut out the icon and leading space
-clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g' | cut -d' ' -f2-)
-
-# Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
-selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+if [ -z "${selection+x}" ]; then
+  for theme_name in "${theme_names[@]}"; do
+    echo -e "${messages[$theme_name]}"
+  done
+else
+  # Remove Pango markup, then cut out the icon and leading space
+  clean_selection=$(echo "$selection" | sed -E 's/<[^>]+>//g' | cut -d' ' -f2-)
+  # Convert to lowercase and dash-separated: "Tokyo Night" -> "tokyo-night"
+  selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+  echo "$selected_theme"
+  exit 0
+  for theme_name in "${theme_names[@]}"; do
+  done
+  # The selection didn't match anything, so raise an error
+  # echo "Invalid selection: $selection" >&2
+  # exit 1
+fi
 
 # Apply the selected theme only if the variable is not empty and the directory exists (prevents errors hitting esc on keyboard) 
-THEMES_DIR="$HOME/.local/share/anarchy/themes"
-if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
-  "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
-fi
+# THEMES_DIR="$HOME/.local/share/anarchy/themes"
+# if [ -n "${selected_theme}" ] && [ -d "${THEMES_DIR}/${selected_theme}" ]; then
+#   "$HOME/.local/share/anarchy/bin/set-theme" "${THEMES_DIR}/${selected_theme}"
+# fi
