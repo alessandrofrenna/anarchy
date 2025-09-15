@@ -3,5 +3,40 @@
 if pgrep -x rofi >/dev/null; then
   pkill -x rofi
 else
-  uwsm app -- rofi "$@" >/dev/null 2>&1 &
+  settings=()
+
+  case "${1}" in
+    powermenu)
+      settings=(
+        "-show"
+        "powermenu"
+        "-modi"
+        "powermenu:power-menu"
+        "-theme-str"
+        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
+      )
+      shift 1
+      ;;
+    themes)
+      settings=(
+        "-show"
+        "themes"
+        "-modi"
+        "themes:themes-menu"
+        "-theme-str"
+        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
+      )
+      shift 1
+      ;;
+    *)
+      settings=(
+        "-show"
+        "drun"
+        "-theme-str"
+        'entry { placeholder: "Launch application"; } window { width: 600; }'
+      )
+      ;;
+  esac
+
+  uwsm app -- rofi "${settings[@]}" "$@" >/dev/null 2>&1 &
 fi
