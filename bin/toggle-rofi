@@ -24,7 +24,7 @@ else
         "-modi"
         "themes:themes-menu"
         "-theme-str"
-        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
+        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 280; }'
       )
       shift 1
       ;;

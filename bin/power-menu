@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$HOME/.local/lib/shared-functions.sh"
+source "$HOME/.local/share/anarchy/default/rofi/scripts/common.sh"
 
 # All supported choices
 all=(lockscreen logout suspend hibernate reboot shutdown)
