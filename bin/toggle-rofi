@@ -1,42 +1,65 @@
 #!/bin/bash
 
-if pgrep -x rofi >/dev/null; then
+TOGGLE_STATE_FILE="/run/user/$UID/rofi_toggled_menu.state"
+
+REQUESTED="${1:-drun}"
+RUNNING_PID=$(pgrep -x rofi)
+LAST_TOGGLED=$(cat "$TOGGLE_STATE_FILE" 2>/dev/null)
+
+# If a rofi window is open AND the user is requesting the SAME menu,
+# then it's a toggle-off command. We kill rofi and exit.
+if [[ -n "$RUNNING_PID" && "$REQUESTED" == "$LAST_TOGGLED" ]]; then
   pkill -x rofi
-else
-  settings=()
-
-  case "${1}" in
-    powermenu)
-      settings=(
-        "-show"
-        "powermenu"
-        "-modi"
-        "powermenu:power-menu"
-        "-theme-str"
-        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
-      )
-      shift 1
-      ;;
-    themes)
-      settings=(
-        "-show"
-        "themes"
-        "-modi"
-        "themes:themes-menu"
-        "-theme-str"
-        'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 280; }'
-      )
-      shift 1
-      ;;
-    *)
-      settings=(
-        "-show"
-        "drun"
-        "-theme-str"
-        'entry { placeholder: "Launch application"; } window { width: 600; }'
-      )
-      ;;
-  esac
-
-  uwsm app -- rofi "${settings[@]}" "$@" >/dev/null 2>&1 &
+  rm -f "$TOGGLE_STATE_FILE"
+  exit 0
 fi
+
+# If we are here, it means we need to launch a rofi menu.
+# This happens if:
+#   1. No rofi instance is running.
+#   2. A rofi instance IS running, but the user requested a DIFFERENT menu.
+if [[ -n "$RUNNING_PID" ]]; then
+  pkill -x rofi
+  # Give it a moment to die to avoid race conditions
+  sleep 0.1
+fi
+
+
+settings=()
+case "${1}" in
+  powermenu)
+    settings=(
+      "-show"
+      "powermenu"
+      "-modi"
+      "powermenu:power-menu"
+      "-theme-str"
+      'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
+    )
+    shift 1
+    ;;
+  themes)
+    settings=(
+      "-show"
+      "themes"
+      "-modi"
+      "themes:themes-menu"
+      "-theme-str"
+      'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 280; }'
+    )
+    shift 1
+    ;;
+  *)
+    settings=(
+      "-show"
+      "drun"
+      "-theme-str"
+      'entry { placeholder: "Launch application"; } window { width: 600; }'
+    )
+    ;;
+esac
+
+uwsm app -- rofi "${settings[@]}" "$@" >/dev/null 2>&1 &
+
+# IMPORTANT: Save the currently toggled menu.
+echo "$REQUESTED" > "$TOGGLE_STATE_FILE"
