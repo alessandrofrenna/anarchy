@@ -34,7 +34,8 @@ case "${1}" in
       "-modi"
       "powermenu:power-menu"
       "-theme-str"
-      'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 250; }'
+      'window { width: 50%; } mainbox { children: [listview]; } listview { margin: 0; }'
+      'window { width: 250; } mainbox { children: [listview]; } listview { margin: 0; } element { children: [element-text]; }'
     )
     shift 1
     ;;
@@ -45,16 +46,26 @@ case "${1}" in
       "-modi"
       "themes:themes-menu"
       "-theme-str"
-      'element { children: [element-text]; } inputbar {  enabled: false; } listview { margin: 0; } window { width: 280; }'
+      'window { width: 280; } mainbox { children: [listview]; } listview { margin: 0; } element { children: [element-text]; }'
     )
     shift 1
+    ;;
+  windows)
+    settings=(
+      "-show"
+      "window"
+      "-window-format"
+      "{c} - {t}"
+      "-theme-str"
+      'window { width: 50%; } mainbox { children: [listview]; } listview { margin: 0; }'
+    )
     ;;
   *)
     settings=(
       "-show"
       "drun"
       "-theme-str"
-      'entry { placeholder: "Launch application"; } window { width: 600; }'
+      'window { width: 600; } entry { placeholder: "Launch application"; }'
     )
     ;;
 esac
