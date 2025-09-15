@@ -16,26 +16,24 @@ THEMES_DIR="$HOME/.local/share/anarchy/themes"
 CURRENT_THEME_DIR="$HOME/.config/anarchy/theme"
 CURRENT_THEME_NAME=$(get_theme_name "${CURRENT_THEME_DIR}/theme.toml")
 
-declare -A theme_paths
-declare -A theme_names
+mapfile -t theme_paths < <(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | sort)
+
 declare -A messages
-
-find "${THEMES_DIR}" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | sort | mapfile -t theme_paths
-
+declare -a theme_names
 for theme_path in "${theme_paths[@]}"; do
-  theme_name=$(get_theme_name "${path}/theme.toml")
+  theme_name=$(get_theme_name "${theme_path}/theme.toml")
   display_name=$(echo "$theme_name" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g')
   theme_names+=("${theme_name}")
   
   icon=""
   text="${display_name}"
-  extra=""
   if [[ "${theme_name}" == "${CURRENT_THEME_NAME}" ]]; then
     icon=""
     text="<i><b>$display_name</b></i>"
-    extra="\0active\x1f${theme_name}\0data\x1f${theme_name}"
+    echo -e "\0active\x1f${theme_name}"
+    echo -e "\0data\x1f${theme_name}"
   fi
-  messages[$theme_name]="$(write_message "${icon}" "${text}")${extra}"
+  messages[$theme_name]="$(write_message ${icon} ${text})"
 done
 
 if [ $# -gt 0 ]; then
@@ -59,8 +57,8 @@ else
   selected_theme=$(echo "$clean_selection" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
   echo "$selected_theme"
   exit 0
-  for theme_name in "${theme_names[@]}"; do
-  done
+  # for theme_name in "${theme_names[@]}"; do
+  # done
   # The selection didn't match anything, so raise an error
   # echo "Invalid selection: $selection" >&2
   # exit 1
