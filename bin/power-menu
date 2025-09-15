@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$HOME/.local/lib/shared-functions.sh"
+
 # All supported choices
 all=(lockscreen logout suspend hibernate reboot shutdown)
 
@@ -23,21 +25,14 @@ icons[reboot]="󰜉"
 icons[shutdown]="󰐥"
 
 declare -A actions
-actions[lockscreen]="hyprlock &"
-actions[logout]="uwsm stop"
-actions[suspend]="(systemctl suspend-then-hibernate &>/dev/null || (hyprlock && systemctl suspend)) &"
-actions[hibernate]="(systemctl hibernate &>/dev/null || (hyprlock && systemctl suspend)) &"
-actions[reboot]="systemctl reboot"
-actions[shutdown]="systemctl poweroff"
-
-function write_message {
-  local icon="<span font_size=\"medium\">$1</span>"
-  local text="<span font_size=\"medium\">$2</span>"
-  echo -n "\u200e$icon  \u2068$text\u2069"
-}
+actions[lockscreen]="run_bg hyprlock"
+actions[logout]="run_bg uwsm stop"
+actions[suspend]="run_bg systemctl suspend"
+actions[hibernate]="run_bg systemctl hibernate"
+actions[reboot]="run_bg systemctl reboot"
+actions[shutdown]="run_bg systemctl poweroff"
 
 declare -A messages
-
 for entry in "${all[@]}"; do
   messages[$entry]=$(write_message "${icons[$entry]}" "${texts[$entry]^}")
 done
@@ -59,7 +54,7 @@ if [ -z "${selection+x}" ]; then
 else
   for entry in "${show[@]}"; do
     if [ "$selection" = "${messages[$entry]}" ]; then
-      # Perform the action
+      # Perform the actions
       ${actions[$entry]}
       exit 0
     fi
