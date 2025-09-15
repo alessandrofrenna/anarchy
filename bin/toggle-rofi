@@ -34,7 +34,6 @@ case "${1}" in
       "-modi"
       "powermenu:power-menu"
       "-theme-str"
-      'window { width: 50%; } mainbox { children: [listview]; } listview { margin: 0; }'
       'window { width: 250; } mainbox { children: [listview]; } listview { margin: 0; } element { children: [element-text]; }'
     )
     shift 1
