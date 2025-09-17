@@ -20,6 +20,15 @@ install_nix() {
     echo -e "✅ Nix installed.\n"
   fi
 
+  local nix_env_file="${HOME}/.config/uwsm/env-nix"
+  if  [[ ! -f "${nix_env_file}" ]]; then
+    touch "${nix_env_file}"
+  fi
+
+  if ! grep -qiE "^\s*export\s*NIXPKGS_ALLOW_UNFREE\s*=.*" "${nix_env_file}"; then
+    echo -e "\nexport NIXPKGS_ALLOW_UNFREE=1" | tee -a "${nix_env_file}"  >/dev/null
+  fi
+
   local AVAILABLE_NIX_PROFILES=$(nix profile list | awk '/^Name:/ {print $2}')
 
   echo "⏳ Checking essential Nix profile packages (nix-direnv, nixd, nixfmt)..."
@@ -49,7 +58,14 @@ install_vscode() {
   local AVAILABLE_EXTENSIONS=$(code --list-extensions)
 
   echo "⏳ Checking essential VSCode extensions (direnv, nix-ide)..."
-  local required_extensions=("mkhl.direnv" "jnoortheen.nix-ide")
+  local required_extensions=(
+    "mkhl.direnv" 
+    "jnoortheen.nix-ide"
+    "arrterian.nix-env-selector"
+    "EditorConfig.EditorConfig"
+    "ms-azuretools.vscode-containers"
+    "aaron-bond.better-comments"
+  )
   for ext in "${required_extensions[@]}"; do
     if ! grep -qi "${ext}" <<< "${AVAILABLE_EXTENSIONS}"; then
       echo "'${ext}' not found. Installing it now..."
@@ -126,9 +142,17 @@ configure_vscode_settings() {
   # 3. Define the JSON settings to be merged.
   local settings_to_merge=$(cat <<'EOF'
 {
+  "telemetry.telemetryLevel": "off",
   "window.zoomLevel": 1,
   "explorer.confirmDelete": false,
-  "workbench.secondarySideBar.defaultVisibility": "hidden", 
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "/usr/bin/bash",
+      "icon": "terminal-bash"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
   "nix.enableLanguageServer": true,
   "nix.serverSettings": {
     "nixd": {
