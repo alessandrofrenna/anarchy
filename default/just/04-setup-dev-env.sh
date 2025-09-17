@@ -20,13 +20,13 @@ install_nix() {
     echo -e "✅ Nix installed.\n"
   fi
 
-  local nix_env_file="${HOME}/.config/uwsm/env-nix"
-  if  [[ ! -f "${nix_env_file}" ]]; then
-    touch "${nix_env_file}"
+  local bash_profile="${HOME}/.bash_profile"
+  if  [[ ! -f "${bash_profile}" ]]; then
+    touch "${bash_profile}"
   fi
 
-  if ! grep -qiE "^\s*export\s*NIXPKGS_ALLOW_UNFREE\s*=.*" "${nix_env_file}"; then
-    echo -e "\nexport NIXPKGS_ALLOW_UNFREE=1" | tee -a "${nix_env_file}"  >/dev/null
+  if ! grep -qiE "^\s*export\s*NIXPKGS_ALLOW_UNFREE\s*=.*" "${bash_profile}"; then
+    echo -e "\nexport NIXPKGS_ALLOW_UNFREE=1" | tee -a "${bash_profile}"  >/dev/null
   fi
 
   local AVAILABLE_NIX_PROFILES=$(nix profile list | awk '/^Name:/ {print $2}')
