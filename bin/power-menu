@@ -27,10 +27,10 @@ icons[shutdown]="󰐥"
 declare -A actions
 actions[lockscreen]="run_bg hyprlock"
 actions[logout]="run_bg uwsm stop"
-actions[suspend]="run_bg systemctl suspend"
-actions[hibernate]="run_bg systemctl hibernate"
-actions[reboot]="run_bg systemctl reboot"
-actions[shutdown]="run_bg systemctl poweroff"
+actions[suspend]="systemctl suspend"
+actions[hibernate]="systemctl hibernate"
+actions[reboot]="systemctl reboot"
+actions[shutdown]="systemctl poweroff"
 
 declare -A messages
 for entry in "${all[@]}"; do
