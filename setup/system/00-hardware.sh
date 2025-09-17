@@ -7,7 +7,7 @@ if [ ! -f "$UWSM_ENV_FILE" ]; then
   touch "$UWSM_ENV_FILE"
 fi
 
-# Function to add a line to .profile if it doesn't already exist
+# Function to add a line to .config/uwsm/env file if it doesn't already exist
 add_to_env() {
   # grep -q: quiet mode, -x: match whole line, -F: treat pattern as fixed string
   if ! grep -qFx "$1" "$UWSM_ENV_FILE"; then
@@ -103,8 +103,8 @@ echo -e "⏳ Installing required packages for hardware module..."
 sudo pacman -S --noconfirm --needed "${required_packages[@]}"
 echo -e "✅ Hardware module required packages installed"
 
-# Add environment variables to .profile file
-echo "🔧 Configuring environment variables in $HOME/.profile..."
+# Add environment variables to .config/uwsm/env file
+echo "🔧 Configuring environment variables in $HOME/.config/uwsm/env..."
 if [ -n "$libva_env_var" ]; then add_to_env "export $libva_env_var"; fi
 if [ -n "$vdpau_env_var" ]; then add_to_env "export $vdpau_env_var"; fi
 if [ -n "$vulkan_env_var" ]; then add_to_env "export $vulkan_env_var"; fi
