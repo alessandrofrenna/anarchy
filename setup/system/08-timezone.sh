@@ -14,7 +14,7 @@ EOF
   sudo chmod 0440 "${FILE_PATH}"
 fi
 
-update-wireless-regdom
+"${HOME}/.local/share/anarchy/bin/update-wireless-regdom"
 
 echo -e "✅ Timezone management module setup complete!\n"
 sleep 3
