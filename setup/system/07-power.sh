@@ -77,6 +77,6 @@ else
   echo "✅ Power monitoring tools installed"
 fi
 
-echo "✅ Power management module setup complete!\n"
+echo -e "✅ Power management module setup complete!\n"
 sleep 3
 clear
