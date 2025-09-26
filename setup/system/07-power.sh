@@ -29,17 +29,17 @@ change_pstate_mode() {
   # Find the architecture microcode to install
   cpu_vendor=$(awk -F ': ' '/vendor_id/ {print $2}' /proc/cpuinfo | uniq)
   if [ "$cpu_vendor" = "GenuineIntel" ]; then
-    echo -e "💻 Found GenuineIntel CPU, setting intel_pstate=passive"
-    pstate_driver_mode="intel_pstate=passive"
+    echo -e "💻 Found GenuineIntel CPU, setting intel_pstate=active"
+    pstate_driver_mode="intel_pstate=active"
   elif [ "$cpu_vendor" = "AuthenticAMD" ]; then
-    echo -e "💻 Found AuthenticAMD CPU, setting amd-pstate=guided"
-    pstate_driver_mode="amd-pstate=guided"
+    echo -e "💻 Found AuthenticAMD CPU, setting amd-pstate=active"
+    pstate_driver_mode="amd-pstate=active"
   fi
 
   local CMDLINE_DIR="/etc/cmdline.d"
-  local PASSIVE_PSTATE_CONF_FILE="${CMDLINE_DIR}/passive_pstate.conf"
+  local ACTIVE_PSTATE_CONF_FILE="${CMDLINE_DIR}/active_pstate.conf"
 
-  echo "${pstate_driver_mode}" | sudo tee "${PASSIVE_PSTATE_CONF_FILE}" >/dev/null
+  echo "${pstate_driver_mode}" | sudo tee "${ACTIVE_PSTATE_CONF_FILE}" >/dev/null
 }
 
 if ls /sys/class/power_supply/BAT* &>/dev/null; then
