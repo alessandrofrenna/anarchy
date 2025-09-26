@@ -43,7 +43,6 @@ configuration {
   display-filebrowser: "Files";  
   
 	/*---------- Misc setting ----------*/
-  terminal: "${TERMINAL}";
   sort: true;
   threads: 0;
   click-to-exit: true;  
