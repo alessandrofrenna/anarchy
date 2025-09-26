@@ -79,9 +79,9 @@ touch "$HOME/.config/alacritty/alacritty.toml"
 # Restart components to apply new theme
 run_bg hyprctl reload
 pkill -SIGUSR2 btop
-run_bg restart-swayosd-server 
 run_bg restart-app waybar
 run_bg makoctl reload
+run_bg restart-swayosd-server 
 
 # Notify of the new theme
 notify-send "✅ Theme changed to $THEME_NAME" -t 2000
