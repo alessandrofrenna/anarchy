@@ -5,10 +5,11 @@
 # Based on Omarchy script: omarchy-cmd-tzupdate
 # ======================================================================================
 
+notify-send "⏳ Updating system timezone..." -t 2000
 sudo systemctl restart systemd-timesyncd
 sudo tzupdate
 new_timezone=$(timedatectl show -p Timezone --value)
 restart-app waybar
-notify-send "Time synced and timezone set to $new_timezone"
+notify-send "✅ Time synced and timezone set to $new_timezone" -t 2000
 
 update-wireless-regdom
