@@ -63,6 +63,14 @@ fi
 # Use iGPU as rendered
 "${HOME}/.local/share/anarchy/bin/use-integrated-gpu"
 
+echo -e "🔧 Enabling swayosd-libinput-backend as service..."
+if ! systemctl is-enabled --quiet "swayosd-libinput-backend.service"; then
+  echo -e "🔧 Enabling swayosd-libinput-backend..."
+  systemctl enable --now swayosd-libinput-backend.service
+  echo -e "✅ swayosd-libinput-backend enabled"
+fi
+echo -e "✅ swayosd-libinput-backend enabled\n"
+
 # Enable hyprland utilities as services
 services=(
   "hypridle.service"
