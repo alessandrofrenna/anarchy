@@ -1,5 +1,10 @@
 #!/bin/bash
 
 killall swayosd-server
-sleep 0.5
+sleep 1
 setsid uwsm app -- swayosd-server >/dev/null 2>&1 &
+
+sleep 3
+if pgrep swayosd-server > /dev/null; then
+    notify-send "✅ Swayosd server restarted!" -t 2000
+fi
