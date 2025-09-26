@@ -1,0 +1,5 @@
+#!/bin/bash
+
+killall swayosd-server
+sleep 0.5
+setsid uwsm app -- swayosd-server >/dev/null 2>&1 &
